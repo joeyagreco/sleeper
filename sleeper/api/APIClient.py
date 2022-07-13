@@ -16,6 +16,7 @@ class APIClient(ABC):
         routes = "/".join(args)
         return f"{self.__BASE_URL}/{self.__VERSION}{routes}"
 
-    def _get(self, url: str) -> dict:
+    @staticmethod
+    def _get(url: str) -> dict:
         # TODO: error handling
         return requests.get(url).json()

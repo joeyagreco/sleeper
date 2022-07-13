@@ -13,7 +13,8 @@ class UserAPIClient(APIClient):
 
         self.__USER_ROUTE = ConfigReader.get("api", "user_route")
 
-    def __build_user_object(self, user_dict: dict) -> User:
+    @staticmethod
+    def __build_user_object(user_dict: dict) -> User:
         return User(username=user_dict["username"],
                     user_id=user_dict["user_id"],
                     display_name=user_dict["display_name"],
