@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="img/sleeper_logo_alt.png" alt="wordfreak logo" width="250"/>
+<img src="img/sleeper_logo_alt.png" alt="sleeper logo" width="250"/>
 
 A Python wrapper for the Sleeper API.
 
