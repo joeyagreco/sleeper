@@ -10,14 +10,10 @@ from sleeper.util.ConfigReader import ConfigReader
 
 
 class LeagueAPIClient(APIClient):
-
-    def __init__(self, *, user_id: str, year: str):
-        self.__user_id = user_id
-        self.__year = year
-
-        self.__LEAGUES_ROUTE = ConfigReader.get("api", "leagues_route")
-        self.__USER_ROUTE = ConfigReader.get("api", "user_route")
-        self.__SPORT = Sport.NFL  # For now, only NFL is supported in the API, when other sports are added, this can be passed in
+    __LEAGUE_ROUTE = ConfigReader.get("api", "league_route")
+    __LEAGUES_ROUTE = ConfigReader.get("api", "leagues_route")
+    __USER_ROUTE = ConfigReader.get("api", "user_route")
+    __SPORT = Sport.NFL  # For now, only NFL is supported in the API, when other sports are added, this can be passed in
 
     @staticmethod
     def __build_settings_object(settings_dict: dict) -> Settings:
@@ -160,7 +156,7 @@ class LeagueAPIClient(APIClient):
                       draft_id=league_dict["draft_id"],
                       avatar=league_dict["avatar"])
 
-    def get_league(self) -> League:
-        url = self._build_route(self.__USER_ROUTE, self.__user_id, self.__LEAGUES_ROUTE, self.__SPORT.value.lower(),
-                                self.__year)
-        return self.__build_league_object(self._get(url)[0])
+    @classmethod
+    def get_league(cls, *, league_id: str) -> League:
+        url = cls._build_route(cls.__LEAGUE_ROUTE, league_id)
+        return cls.__build_league_object(cls._get(url))
