@@ -1,4 +1,5 @@
 from sleeper.api.APIClient import APIClient
+from sleeper.enum.SeasonType import SeasonType
 from sleeper.enum.Sport import Sport
 from sleeper.enum.Status import Status
 from sleeper.model.League import League
@@ -45,7 +46,7 @@ class LeagueAPIClient(APIClient):
                       status=Status.from_str(league_dict["status"]),
                       sport=Sport.from_str(league_dict["sport"]),
                       settings=cls.__build_settings_object(league_dict["settings"]),
-                      season_type=None,
+                      season_type=SeasonType.from_str(league_dict["season_type"]),
                       season=league_dict["season"],
                       scoring_settings=None,
                       roster_positions=list(),
