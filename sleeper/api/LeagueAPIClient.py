@@ -157,6 +157,18 @@ class LeagueAPIClient(APIClient):
                       avatar=league_dict["avatar"])
 
     @classmethod
+    def __build_leagues_list(cls, league_dict_list: dict) -> list[League]:
+        leagues = list()
+        for league_dict in league_dict_list:
+            leagues.append(cls.__build_league_object(league_dict))
+        return leagues
+
+    @classmethod
     def get_league(cls, *, league_id: str) -> League:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id)
         return cls.__build_league_object(cls._get(url))
+
+    @classmethod
+    def get_user_leagues_for_year(cls, *, user_id: str, year: str) -> list[League]:
+        url = cls._build_route(cls.__USER_ROUTE, user_id, cls.__LEAGUES_ROUTE, cls.__SPORT.value.lower(), year)
+        return cls.__build_leagues_list(cls._get(url))
