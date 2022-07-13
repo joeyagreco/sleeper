@@ -1,8 +1,6 @@
 <div align="center">
 
-<h1>sleeper</h1>
-
-<img src="img/sleeper_logo.png" alt="wordfreak logo" width="250"/>
+<img src="img/sleeper_full_logo.png" alt="wordfreak logo" width="350"/>
 
 A Python wrapper for the Sleeper API.
 
@@ -11,7 +9,7 @@ A Python wrapper for the Sleeper API.
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install..
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install.
 
 ```bash
 pip install sleeper
