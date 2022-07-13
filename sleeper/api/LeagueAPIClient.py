@@ -5,6 +5,7 @@ from sleeper.enum.Sport import Sport
 from sleeper.enum.Status import Status
 from sleeper.model.League import League
 from sleeper.model.LeagueSettings import LeagueSettings
+from sleeper.model.Matchup import Matchup
 from sleeper.model.Roster import Roster
 from sleeper.model.RosterSettings import RosterSettings
 from sleeper.model.ScoringSettings import ScoringSettings
@@ -16,6 +17,7 @@ class LeagueAPIClient(APIClient):
     __LEAGUES_ROUTE = ConfigReader.get("api", "leagues_route")
     __USER_ROUTE = ConfigReader.get("api", "user_route")
     __ROSTERS_ROUTE = ConfigReader.get("api", "rosters_route")
+    __MATCHUPS_ROUTE = ConfigReader.get("api", "matchups_route")
     __SPORT = Sport.NFL  # For now, only NFL is supported in the API, when other sports are added, this can be passed in
 
     @staticmethod
@@ -197,6 +199,22 @@ class LeagueAPIClient(APIClient):
         return rosters
 
     @classmethod
+    def __build_matchup_object(cls, matchup_object_list: dict) -> Matchup:
+        return Matchup(starters=matchup_object_list["starters"],
+                       roster_id=matchup_object_list["roster_id"],
+                       players=matchup_object_list["players"],
+                       matchup_id=matchup_object_list["matchup_id"],
+                       points=matchup_object_list["points"],
+                       custom_points=matchup_object_list["custom_points"])
+
+    @classmethod
+    def __build_matchups_list(cls, matchup_dict_list: dict) -> list[Matchup]:
+        matchups = list()
+        for matchup_dict in matchup_dict_list:
+            matchups.append(cls.__build_matchup_object(matchup_dict))
+        return matchups
+
+    @classmethod
     def get_league(cls, *, league_id: str) -> League:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id)
         return cls.__build_league_object(cls._get(url))
@@ -210,3 +228,8 @@ class LeagueAPIClient(APIClient):
     def get_rosters(cls, *, league_id: str) -> list[Roster]:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__ROSTERS_ROUTE)
         return cls.__build_rosters_list(cls._get(url))
+
+    @classmethod
+    def get_matchups_for_week(cls, *, league_id: str, week: int) -> list[Matchup]:
+        url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__MATCHUPS_ROUTE, week)
+        return cls.__build_matchups_list(cls._get(url))

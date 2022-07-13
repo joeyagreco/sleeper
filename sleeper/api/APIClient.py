@@ -14,7 +14,7 @@ class APIClient(ABC):
 
     @classmethod
     def _build_route(cls, *args) -> str:
-        args = (arg.replace("/", "") for arg in args)
+        args = (str(arg).replace("/", "") for arg in args)
         routes = "/".join(args)
         return f"{cls.__BASE_URL}/{cls.__VERSION}/{routes}"
 
