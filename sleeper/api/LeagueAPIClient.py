@@ -1,11 +1,15 @@
+from typing import Optional
+
 from sleeper.api.APIClient import APIClient
 from sleeper.enum.RosterPosition import RosterPosition
 from sleeper.enum.SeasonType import SeasonType
 from sleeper.enum.Sport import Sport
 from sleeper.enum.Status import Status
+from sleeper.model.FromPlayoffMatchup import FromPlayoffMatchup
 from sleeper.model.League import League
 from sleeper.model.LeagueSettings import LeagueSettings
 from sleeper.model.Matchup import Matchup
+from sleeper.model.PlayoffMatchup import PlayoffMatchup
 from sleeper.model.Roster import Roster
 from sleeper.model.RosterSettings import RosterSettings
 from sleeper.model.ScoringSettings import ScoringSettings
@@ -18,6 +22,8 @@ class LeagueAPIClient(APIClient):
     __USER_ROUTE = ConfigReader.get("api", "user_route")
     __ROSTERS_ROUTE = ConfigReader.get("api", "rosters_route")
     __MATCHUPS_ROUTE = ConfigReader.get("api", "matchups_route")
+    __WINNERS_BRACKET_ROUTE = ConfigReader.get("api", "winners_bracket_route")
+    __LOSERS_BRACKET_ROUTE = ConfigReader.get("api", "losers_bracket_route")
     __SPORT = Sport.NFL  # For now, only NFL is supported in the API, when other sports are added, this can be passed in
 
     @staticmethod
@@ -199,13 +205,13 @@ class LeagueAPIClient(APIClient):
         return rosters
 
     @classmethod
-    def __build_matchup_object(cls, matchup_object_list: dict) -> Matchup:
-        return Matchup(starters=matchup_object_list["starters"],
-                       roster_id=matchup_object_list["roster_id"],
-                       players=matchup_object_list["players"],
-                       matchup_id=matchup_object_list["matchup_id"],
-                       points=matchup_object_list["points"],
-                       custom_points=matchup_object_list["custom_points"])
+    def __build_matchup_object(cls, matchup_object_dict: dict) -> Matchup:
+        return Matchup(starters=matchup_object_dict["starters"],
+                       roster_id=matchup_object_dict["roster_id"],
+                       players=matchup_object_dict["players"],
+                       matchup_id=matchup_object_dict["matchup_id"],
+                       points=matchup_object_dict["points"],
+                       custom_points=matchup_object_dict["custom_points"])
 
     @classmethod
     def __build_matchups_list(cls, matchup_dict_list: dict) -> list[Matchup]:
@@ -213,6 +219,34 @@ class LeagueAPIClient(APIClient):
         for matchup_dict in matchup_dict_list:
             matchups.append(cls.__build_matchup_object(matchup_dict))
         return matchups
+
+    @classmethod
+    def __build_from_playoff_matchup_object(cls, from_playoff_matchup_object: Optional[dict]) -> Optional[
+        FromPlayoffMatchup]:
+        if from_playoff_matchup_object is None:
+            return None
+        return FromPlayoffMatchup(won_matchup_id=from_playoff_matchup_object.get("w", None),
+                                  lost_matchup_id=from_playoff_matchup_object.get("l", None))
+
+    @classmethod
+    def __build_playoff_matchup_object(cls, playoff_matchup_object: dict) -> PlayoffMatchup:
+        return PlayoffMatchup(round=playoff_matchup_object["r"],
+                              matchup_id=playoff_matchup_object["m"],
+                              team_1_roster_id=playoff_matchup_object["t1"],
+                              team_2_roster_id=playoff_matchup_object["t2"],
+                              winning_roster_id=playoff_matchup_object["w"],
+                              losing_roster_id=playoff_matchup_object["l"],
+                              team_1_from=cls.__build_from_playoff_matchup_object(
+                                  playoff_matchup_object.get("t1_from", None)),
+                              team_2_from=cls.__build_from_playoff_matchup_object(
+                                  playoff_matchup_object.get("t2_from", None)))
+
+    @classmethod
+    def __build_playoff_matchups_list(cls, playoff_matchup_dict_list: dict) -> list[PlayoffMatchup]:
+        playoff_matchups = list()
+        for playoff_matchup_dict in playoff_matchup_dict_list:
+            playoff_matchups.append(cls.__build_playoff_matchup_object(playoff_matchup_dict))
+        return playoff_matchups
 
     @classmethod
     def get_league(cls, *, league_id: str) -> League:
@@ -233,3 +267,8 @@ class LeagueAPIClient(APIClient):
     def get_matchups_for_week(cls, *, league_id: str, week: int) -> list[Matchup]:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__MATCHUPS_ROUTE, week)
         return cls.__build_matchups_list(cls._get(url))
+
+    @classmethod
+    def get_winners_bracket(cls, *, league_id: str) -> list[PlayoffMatchup]:
+        url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__WINNERS_BRACKET_ROUTE)
+        return cls.__build_playoff_matchups_list(cls._get(url))
