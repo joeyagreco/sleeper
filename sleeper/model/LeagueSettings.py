@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 
 @dataclass(kw_only=True)
-class Settings:
+class LeagueSettings:
     waiver_type: int
     waiver_day_of_week: int
     waiver_clear_days: int
