@@ -5,6 +5,8 @@ from sleeper.enum.Sport import Sport
 from sleeper.enum.Status import Status
 from sleeper.model.League import League
 from sleeper.model.LeagueSettings import LeagueSettings
+from sleeper.model.Roster import Roster
+from sleeper.model.RosterSettings import RosterSettings
 from sleeper.model.ScoringSettings import ScoringSettings
 from sleeper.util.ConfigReader import ConfigReader
 
@@ -13,6 +15,7 @@ class LeagueAPIClient(APIClient):
     __LEAGUE_ROUTE = ConfigReader.get("api", "league_route")
     __LEAGUES_ROUTE = ConfigReader.get("api", "leagues_route")
     __USER_ROUTE = ConfigReader.get("api", "user_route")
+    __ROSTERS_ROUTE = ConfigReader.get("api", "rosters_route")
     __SPORT = Sport.NFL  # For now, only NFL is supported in the API, when other sports are added, this can be passed in
 
     @staticmethod
@@ -164,6 +167,36 @@ class LeagueAPIClient(APIClient):
         return leagues
 
     @classmethod
+    def __build_roster_settings_object(cls, roster_settings_dict: dict) -> RosterSettings:
+        return RosterSettings(wins=roster_settings_dict["wins"],
+                              waiver_position=roster_settings_dict["waiver_position"],
+                              waiver_budget_used=roster_settings_dict["waiver_budget_used"],
+                              total_moves=roster_settings_dict["total_moves"],
+                              ties=roster_settings_dict["ties"],
+                              losses=roster_settings_dict["losses"],
+                              fpts_decimal=roster_settings_dict["fpts_decimal"],
+                              fpts_against_decimal=roster_settings_dict["fpts_against_decimal"],
+                              fpts_against=roster_settings_dict["fpts_against"],
+                              fpts=roster_settings_dict["fpts"])
+
+    @classmethod
+    def __build_roster_object(cls, roster_dict: dict) -> Roster:
+        return Roster(starters=roster_dict["starters"],
+                      settings=cls.__build_roster_settings_object(roster_dict["settings"]),
+                      roster_id=roster_dict["roster_id"],
+                      reserve=roster_dict["reserve"],
+                      players=roster_dict["players"],
+                      owner_id=roster_dict["owner_id"],
+                      league_id=roster_dict["league_id"])
+
+    @classmethod
+    def __build_rosters_list(cls, roster_dict_list: dict) -> list[Roster]:
+        rosters = list()
+        for roster_dict in roster_dict_list:
+            rosters.append(cls.__build_roster_object(roster_dict))
+        return rosters
+
+    @classmethod
     def get_league(cls, *, league_id: str) -> League:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id)
         return cls.__build_league_object(cls._get(url))
@@ -172,3 +205,8 @@ class LeagueAPIClient(APIClient):
     def get_user_leagues_for_year(cls, *, user_id: str, year: str) -> list[League]:
         url = cls._build_route(cls.__USER_ROUTE, user_id, cls.__LEAGUES_ROUTE, cls.__SPORT.value.lower(), year)
         return cls.__build_leagues_list(cls._get(url))
+
+    @classmethod
+    def get_rosters(cls, *, league_id: str) -> list[Roster]:
+        url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__ROSTERS_ROUTE)
+        return cls.__build_rosters_list(cls._get(url))
