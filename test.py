@@ -6,4 +6,5 @@ if __name__ == "__main__":
 
     client = UserAPIClient(username=username)
 
-    client.get_user()
+    user = client.get_user()
+    print()

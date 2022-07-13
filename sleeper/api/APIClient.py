@@ -1,5 +1,7 @@
 from abc import ABC
 
+import requests
+
 from sleeper.util.ConfigReader import ConfigReader
 
 
@@ -13,3 +15,7 @@ class APIClient(ABC):
     def _build_route(self, *args) -> str:
         routes = "/".join(args)
         return f"{self.__BASE_URL}/{self.__VERSION}{routes}"
+
+    def _get(self, url: str) -> dict:
+        # TODO: error handling
+        return requests.get(url).json()

@@ -1,5 +1,3 @@
-import requests
-
 from sleeper.api.APIClient import APIClient
 from sleeper.model.User import User
 from sleeper.util.ConfigReader import ConfigReader
@@ -15,12 +13,13 @@ class UserAPIClient(APIClient):
 
         self.__USER_ROUTE = ConfigReader.get("api", "user_route")
 
-    def __build_user_object(self, userDict: dict) -> User:
-        ...
+    def __build_user_object(self, user_dict: dict) -> User:
+        return User(username=user_dict["username"],
+                    user_id=user_dict["user_id"],
+                    display_name=user_dict["display_name"],
+                    avatar=user_dict["avatar"])
 
     def get_user(self) -> User:
         user_arg = self.__username if self.__username is not None else self.__user_id
         url = self._build_route(self.__USER_ROUTE, f"{user_arg}")
-
-        response = requests.get(url)
-        print()
+        return self.__build_user_object(self._get(url))
