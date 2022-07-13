@@ -60,21 +60,21 @@ class ScoringSettings:
     idp_tkl_ast: float
     idp_tkl_solo: float
     rush_att: float
-    pts_allow_7_13: float
-    pts_allow_1_6: float
-    pts_allow_28_34: float
     pts_allow_0: float
-    pts_allow_21_27: float
-    pts_allow_35p: float
+    pts_allow_1_6: float
+    pts_allow_7_13: float
     pts_allow_14_20: float
+    pts_allow_21_27: float
+    pts_allow_28_34: float
+    pts_allow_35p: float
     rush_40p: float
     rush_2pt: float
     rush_yd: float
     rush_td: float
-    bonus_rec_yd_100: float
     bonus_rush_yd_100: float
-    bonus_rec_yd_200: float
     bonus_rush_yd_200: float
+    bonus_rec_yd_100: float
+    bonus_rec_yd_200: float
     bonus_pass_yd_300: float
     bonus_pass_yd_400: float
     rec_yd: float
@@ -94,9 +94,9 @@ class ScoringSettings:
     sack: float
     kr_yd: float
     kr_td: float
+    blk_kick: float
     blk_kick_ret_yd: float
     xpmiss: float
-    blk_kick: float
     ff: float
     qb_hit: float
     xpm: float
