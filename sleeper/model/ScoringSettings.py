@@ -3,55 +3,61 @@ from dataclasses import dataclass
 
 @dataclass(kw_only=True)
 class ScoringSettings:
-    yds_allow_400_449: float
-    fg_ret_yd: float
-    yds_allow_550p: float
+    yds_allow_0_100: float
     yds_allow_100_199: float
+    yds_allow_200_299: float
+    yds_allow_300_349: float
+    yds_allow_350_399: float
+    yds_allow_400_449: float
+    yds_allow_450_499: float
+    yds_allow_500_549: float
+    yds_allow_550p: float
+    fgm: float
+    fgm_0_19: float
+    fgm_20_29: float
+    fgm_30_39: float
+    fgm_40_49: float
+    fgm_50p: float
+    fgmiss: float
+    fgmiss_0_19: float
+    fgmiss_20_29: float
+    fgmiss_30_39: float
+    fgmiss_40_49: float
+    fgmiss_50p: float
+    fg_ret_yd: float
     tkl: float
     pass_2pt: float
     kr_yd: float
     tkl_loss: float
     pass_int: float
-    fgmiss: float
-    fgmiss_50p: float
     rec_yd: float
     idp_safe: float
     blk_kick_ret_yd: float
     xpmiss: float
-    fgm_30_39: float
     sack_yd: float
-    yds_allow_450_499: float
     blk_kick: float
     pts_allow_7_13: float
     idp_ff: float
     bonus_rush_yd_100: float
     ff: float
-    fgm_20_29: float
-    fgm_40_49: float
     pts_allow_1_6: float
-    yds_allow_300_349: float
     int_ret_yd: float
     st_fum_rec: float
     def_pass_def: float
     pass_sack: float
-    yds_allow_500_549: float
     def_st_ff: float
     st_ff: float
     rush_40p: float
     idp_def_td: float
-    yds_allow_0_100: float
-    yds_allow_350_399: float
     pts_allow_28_34: float
     pass_cmp: float
     idp_blk_kick: float
     idp_int: float
-    fgm_50p: float
     fum_rec: float
     idp_tkl: float
     bonus_rec_yd_200: float
     qb_hit: float
     def_td: float
-    fgm_0_19: float
     bonus_pass_yd_300: float
     idp_pass_def: float
     st_tkl_solo: float
@@ -67,7 +73,6 @@ class ScoringSettings:
     rec_2pt: float
     rec: float
     pass_cmp_40p: float
-    fgmiss_30_39: float
     xpm: float
     tkl_ast: float
     idp_sack: float
@@ -79,9 +84,7 @@ class ScoringSettings:
     idp_tkl_ast: float
     rush_att: float
     idp_tkl_solo: float
-    fgm: float
     rush_2pt: float
-    fgmiss_40_49: float
     rec_td: float
     pts_allow_35p: float
     pts_allow_14_20: float
@@ -93,11 +96,8 @@ class ScoringSettings:
     pass_yd: float
     pass_td: float
     rush_td: float
-    fgmiss_0_19: float
     bonus_rec_yd_100: float
     def_2pt: float
     fum_lost: float
-    yds_allow_200_299: float
-    fgmiss_20_29: float
     fum: float
     safe: float

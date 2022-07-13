@@ -3,6 +3,7 @@ from sleeper.enum.SeasonType import SeasonType
 from sleeper.enum.Sport import Sport
 from sleeper.enum.Status import Status
 from sleeper.model.League import League
+from sleeper.model.ScoringSettings import ScoringSettings
 from sleeper.model.Settings import Settings
 from sleeper.util.ConfigReader import ConfigReader
 
@@ -39,6 +40,10 @@ class LeagueAPIClient(APIClient):
                         last_scored_leg=settings_dict["last_scored_leg"],
                         last_report=settings_dict["last_report"],
                         draft_rounds=settings_dict["draft_rounds"])
+
+    @staticmethod
+    def __build_scoring_settings_object(scoring_settings_dict: dict) -> ScoringSettings:
+        return ScoringSettings()
 
     @classmethod
     def __build_league_object(cls, league_dict: dict) -> League:
