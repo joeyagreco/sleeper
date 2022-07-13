@@ -272,3 +272,8 @@ class LeagueAPIClient(APIClient):
     def get_winners_bracket(cls, *, league_id: str) -> list[PlayoffMatchup]:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__WINNERS_BRACKET_ROUTE)
         return cls.__build_playoff_matchups_list(cls._get(url))
+
+    @classmethod
+    def get_losers_bracket(cls, *, league_id: str) -> list[PlayoffMatchup]:
+        url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__LOSERS_BRACKET_ROUTE)
+        return cls.__build_playoff_matchups_list(cls._get(url))
