@@ -25,79 +25,79 @@ class ScoringSettings:
     fgmiss_40_49: float
     fgmiss_50p: float
     fg_ret_yd: float
-    tkl: float
     pass_2pt: float
-    kr_yd: float
-    tkl_loss: float
     pass_int: float
-    rec_yd: float
-    idp_safe: float
-    blk_kick_ret_yd: float
-    xpmiss: float
-    sack_yd: float
-    blk_kick: float
-    pts_allow_7_13: float
-    idp_ff: float
-    bonus_rush_yd_100: float
-    ff: float
-    pts_allow_1_6: float
-    int_ret_yd: float
-    st_fum_rec: float
-    def_pass_def: float
     pass_sack: float
-    def_st_ff: float
-    st_ff: float
-    rush_40p: float
-    idp_def_td: float
-    pts_allow_28_34: float
     pass_cmp: float
-    idp_blk_kick: float
-    idp_int: float
-    fum_rec: float
-    idp_tkl: float
-    bonus_rec_yd_200: float
-    qb_hit: float
-    def_td: float
-    bonus_pass_yd_300: float
-    idp_pass_def: float
-    st_tkl_solo: float
-    tkl_solo: float
-    pr_td: float
-    int: float
-    pass_att: float
-    pts_allow_0: float
-    bonus_rush_yd_200: float
-    pts_allow_21_27: float
-    idp_fum_rec: float
-    pass_inc: float
-    rec_2pt: float
-    rec: float
     pass_cmp_40p: float
-    xpm: float
-    tkl_ast: float
-    idp_sack: float
-    st_td: float
-    kr_td: float
-    def_st_fum_rec: float
-    def_st_td: float
-    sack: float
-    idp_tkl_ast: float
-    rush_att: float
-    idp_tkl_solo: float
-    rush_2pt: float
-    rec_td: float
-    pts_allow_35p: float
-    pts_allow_14_20: float
-    rush_yd: float
-    pr_yd: float
-    bonus_pass_yd_400: float
-    rec_40p: float
-    fum_ret_yd: float
+    pass_inc: float
+    pass_att: float
     pass_yd: float
     pass_td: float
-    rush_td: float
-    bonus_rec_yd_100: float
+    def_pass_def: float
+    def_td: float
+    def_st_fum_rec: float
+    def_st_td: float
+    def_st_ff: float
     def_2pt: float
+    st_fum_rec: float
+    st_ff: float
+    st_tkl_solo: float
+    st_td: float
+    fum_rec: float
     fum_lost: float
     fum: float
+    fum_ret_yd: float
+    idp_safe: float
+    idp_ff: float
+    idp_blk_kick: float
+    idp_int: float
+    idp_tkl: float
+    idp_def_td: float
+    idp_pass_def: float
+    idp_fum_rec: float
+    idp_sack: float
+    idp_tkl_ast: float
+    idp_tkl_solo: float
+    rush_att: float
+    pts_allow_7_13: float
+    pts_allow_1_6: float
+    pts_allow_28_34: float
+    pts_allow_0: float
+    pts_allow_21_27: float
+    pts_allow_35p: float
+    pts_allow_14_20: float
+    rush_40p: float
+    rush_2pt: float
+    rush_yd: float
+    rush_td: float
+    bonus_rec_yd_100: float
+    bonus_rush_yd_100: float
+    bonus_rec_yd_200: float
+    bonus_rush_yd_200: float
+    bonus_pass_yd_300: float
+    bonus_pass_yd_400: float
+    rec_yd: float
+    rec_2pt: float
+    rec: float
+    rec_td: float
+    rec_40p: float
+    tkl: float
+    tkl_loss: float
+    tkl_solo: float
+    tkl_ast: float
+    int_ret_yd: float
+    int: float
+    pr_td: float
+    pr_yd: float
+    sack_yd: float
+    sack: float
+    kr_yd: float
+    kr_td: float
+    blk_kick_ret_yd: float
+    xpmiss: float
+    blk_kick: float
+    ff: float
+    qb_hit: float
+    xpm: float
     safe: float
