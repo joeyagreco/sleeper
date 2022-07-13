@@ -13,8 +13,9 @@ class APIClient(ABC):
     __VERSION = ConfigReader.get("api", "version")
 
     def _build_route(self, *args) -> str:
+        args = (arg.replace("/", "") for arg in args)
         routes = "/".join(args)
-        return f"{self.__BASE_URL}/{self.__VERSION}{routes}"
+        return f"{self.__BASE_URL}/{self.__VERSION}/{routes}"
 
     @staticmethod
     def _get(url: str) -> dict:

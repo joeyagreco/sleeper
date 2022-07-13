@@ -5,4 +5,4 @@ from enum import unique, Enum
 
 @unique
 class SeasonType(Enum):
-    REGULAR: "REGULAR"
+    REGULAR = "REGULAR"
