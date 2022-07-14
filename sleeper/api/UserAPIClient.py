@@ -14,8 +14,8 @@ class UserAPIClient(APIClient):
                     user_id=user_dict["user_id"],
                     display_name=user_dict["display_name"],
                     avatar=user_dict["avatar"],
-                    is_owner=user_dict.get("is_owner", None),
-                    is_bot=user_dict.get("is_bot", None),
+                    is_owner=user_dict.get("is_owner", False),
+                    is_bot=user_dict.get("is_bot", False),
                     league_id=user_dict.get("league_id", None))
 
     @classmethod
