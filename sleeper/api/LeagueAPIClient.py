@@ -1,9 +1,6 @@
 from typing import Optional
 
 from sleeper.api.APIClient import APIClient
-from sleeper.enum.RosterPosition import RosterPosition
-from sleeper.enum.SeasonStatus import SeasonStatus
-from sleeper.enum.SeasonType import SeasonType
 from sleeper.enum.Sport import Sport
 from sleeper.enum.TransactionStatus import TransactionStatus
 from sleeper.enum.TransactionType import TransactionType
@@ -11,12 +8,10 @@ from sleeper.model.DraftPick import DraftPick
 from sleeper.model.FAABTransaction import FAABTransaction
 from sleeper.model.FromPlayoffMatchup import FromPlayoffMatchup
 from sleeper.model.League import League
-from sleeper.model.LeagueSettings import LeagueSettings
 from sleeper.model.Matchup import Matchup
 from sleeper.model.PlayoffMatchup import PlayoffMatchup
 from sleeper.model.Roster import Roster
 from sleeper.model.RosterSettings import RosterSettings
-from sleeper.model.ScoringSettings import ScoringSettings
 from sleeper.model.TradedPick import TradedPick
 from sleeper.model.Transaction import Transaction
 from sleeper.model.TransactionSettings import TransactionSettings
@@ -36,27 +31,10 @@ class LeagueAPIClient(APIClient):
     __SPORT = Sport.NFL  # For now, only NFL is supported in the API, when other sports are added, this can be passed in
 
     @classmethod
-    def __build_league_object(cls, league_dict: dict) -> League:
-        return League(total_rosters=league_dict["total_rosters"],
-                      status=SeasonStatus.from_str(league_dict["status"]),
-                      sport=Sport.from_str(league_dict["sport"]),
-                      settings=LeagueSettings.from_dict(league_dict["settings"]),
-                      season_type=SeasonType.from_str(league_dict["season_type"]),
-                      season=league_dict["season"],
-                      scoring_settings=ScoringSettings.from_dict(league_dict["scoring_settings"]),
-                      roster_positions=[RosterPosition.from_str(roster_position) for roster_position in
-                                        league_dict["roster_positions"]],
-                      previous_league_id=league_dict["previous_league_id"],
-                      name=league_dict["name"],
-                      league_id=league_dict["league_id"],
-                      draft_id=league_dict["draft_id"],
-                      avatar=league_dict["avatar"])
-
-    @classmethod
     def __build_leagues_list(cls, league_dict_list: dict) -> list[League]:
         leagues = list()
         for league_dict in league_dict_list:
-            leagues.append(cls.__build_league_object(league_dict))
+            leagues.append(League.from_dict(league_dict))
         return leagues
 
     @classmethod
@@ -211,7 +189,7 @@ class LeagueAPIClient(APIClient):
     @classmethod
     def get_league(cls, *, league_id: str) -> League:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id)
-        return cls.__build_league_object(cls._get(url))
+        return League.from_dict(cls._get(url))
 
     @classmethod
     def get_user_leagues_for_year(cls, *, user_id: str, year: str) -> list[League]:
