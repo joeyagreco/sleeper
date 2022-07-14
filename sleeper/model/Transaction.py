@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 from typing import Optional
 
@@ -24,3 +26,20 @@ class Transaction:
     created: int
     consenter_ids: list[int]
     waiver_budget: list[FAABTransaction]
+
+    @staticmethod
+    def from_dict(transaction_dict: dict) -> Transaction:
+        return Transaction(type=TransactionType.from_str(transaction_dict["type"]),
+                           transaction_id=transaction_dict["transaction_id"],
+                           status_updated=transaction_dict["status_updated"],
+                           status=TransactionStatus.from_str(transaction_dict["status"]),
+                           settings=TransactionSettings.from_dict(transaction_dict["settings"]),
+                           roster_ids=transaction_dict["roster_ids"],
+                           week=transaction_dict["leg"],
+                           adds=transaction_dict["adds"],
+                           drops=transaction_dict["drops"],
+                           draft_picks=DraftPick.from_dict_list(transaction_dict["draft_picks"]),
+                           creator=transaction_dict["creator"],
+                           created=transaction_dict["created"],
+                           consenter_ids=transaction_dict["consenter_ids"],
+                           waiver_budget=FAABTransaction.from_dict_list(transaction_dict["waiver_budget"]))

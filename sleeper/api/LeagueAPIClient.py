@@ -1,16 +1,11 @@
 from sleeper.api.APIClient import APIClient
 from sleeper.enum.Sport import Sport
-from sleeper.enum.TransactionStatus import TransactionStatus
-from sleeper.enum.TransactionType import TransactionType
-from sleeper.model.DraftPick import DraftPick
-from sleeper.model.FAABTransaction import FAABTransaction
 from sleeper.model.League import League
 from sleeper.model.Matchup import Matchup
 from sleeper.model.PlayoffMatchup import PlayoffMatchup
 from sleeper.model.Roster import Roster
 from sleeper.model.TradedPick import TradedPick
 from sleeper.model.Transaction import Transaction
-from sleeper.model.TransactionSettings import TransactionSettings
 from sleeper.util.ConfigReader import ConfigReader
 
 
@@ -55,41 +50,10 @@ class LeagueAPIClient(APIClient):
         return playoff_matchups
 
     @classmethod
-    def __build_draft_pick_list(cls, draft_pick_dict_list: dict) -> list[DraftPick]:
-        draft_picks = list()
-        for draft_pick_dict in draft_pick_dict_list:
-            draft_picks.append(DraftPick.from_dict(draft_pick_dict))
-        return draft_picks
-
-    @classmethod
-    def __build_faab_transaction_list(cls, faab_transaction_dict_list: dict) -> list[FAABTransaction]:
-        faab_transactions = list()
-        for faab_transaction_dict in faab_transaction_dict_list:
-            faab_transactions.append(FAABTransaction.from_dict(faab_transaction_dict))
-        return faab_transactions
-
-    @classmethod
-    def __build_transaction_object(cls, transaction_dict: dict) -> Transaction:
-        return Transaction(type=TransactionType.from_str(transaction_dict["type"]),
-                           transaction_id=transaction_dict["transaction_id"],
-                           status_updated=transaction_dict["status_updated"],
-                           status=TransactionStatus.from_str(transaction_dict["status"]),
-                           settings=TransactionSettings.from_dict(transaction_dict["settings"]),
-                           roster_ids=transaction_dict["roster_ids"],
-                           week=transaction_dict["leg"],
-                           adds=transaction_dict["adds"],
-                           drops=transaction_dict["drops"],
-                           draft_picks=cls.__build_draft_pick_list(transaction_dict["draft_picks"]),
-                           creator=transaction_dict["creator"],
-                           created=transaction_dict["created"],
-                           consenter_ids=transaction_dict["consenter_ids"],
-                           waiver_budget=cls.__build_faab_transaction_list(transaction_dict["waiver_budget"]))
-
-    @classmethod
     def __build_transaction_list(cls, transaction_dict_list: dict) -> list[Transaction]:
         transactions = list()
         for transaction_dict in transaction_dict_list:
-            transactions.append(cls.__build_transaction_object(transaction_dict))
+            transactions.append(Transaction.from_dict(transaction_dict))
         return transactions
 
     @classmethod
