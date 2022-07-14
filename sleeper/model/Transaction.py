@@ -43,3 +43,10 @@ class Transaction:
                            created=transaction_dict["created"],
                            consenter_ids=transaction_dict["consenter_ids"],
                            waiver_budget=FAABTransaction.from_dict_list(transaction_dict["waiver_budget"]))
+
+    @staticmethod
+    def from_dict_list(transaction_dict_list: dict) -> list[Transaction]:
+        transactions = list()
+        for transaction_dict in transaction_dict_list:
+            transactions.append(Transaction.from_dict(transaction_dict))
+        return transactions

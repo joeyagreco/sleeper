@@ -22,13 +22,6 @@ class LeagueAPIClient(APIClient):
     __SPORT = Sport.NFL  # For now, only NFL is supported in the API, when other sports are added, this can be passed in
 
     @classmethod
-    def __build_transaction_list(cls, transaction_dict_list: dict) -> list[Transaction]:
-        transactions = list()
-        for transaction_dict in transaction_dict_list:
-            transactions.append(Transaction.from_dict(transaction_dict))
-        return transactions
-
-    @classmethod
     def __build_traded_pick_object(cls, traded_pick_dict: dict) -> TradedPick:
         return TradedPick(season=traded_pick_dict.get("season", None),
                           round=traded_pick_dict.get("round", None),
@@ -76,7 +69,7 @@ class LeagueAPIClient(APIClient):
     @classmethod
     def get_transactions(cls, *, league_id: str, week: int) -> list[Transaction]:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__TRANSACTIONS_ROUTE, week)
-        return cls.__build_transaction_list(cls._get(url))
+        return Transaction.from_dict_list(cls._get(url))
 
     @classmethod
     def get_traded_picks(cls, *, league_id: str) -> list[TradedPick]:
