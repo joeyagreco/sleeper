@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Optional
 
 
 @dataclass(kw_only=True)
@@ -10,6 +11,6 @@ class RosterSettings:
     ties: int
     losses: int
     fpts: int
-    fpts_decimal: int
-    fpts_against: int
-    fpts_against_decimal: int
+    fpts_decimal: Optional[int]
+    fpts_against: Optional[int]
+    fpts_against_decimal: Optional[int]

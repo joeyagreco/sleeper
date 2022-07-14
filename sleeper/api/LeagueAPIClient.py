@@ -189,9 +189,9 @@ class LeagueAPIClient(APIClient):
                               total_moves=roster_settings_dict["total_moves"],
                               ties=roster_settings_dict["ties"],
                               losses=roster_settings_dict["losses"],
-                              fpts_decimal=roster_settings_dict["fpts_decimal"],
-                              fpts_against_decimal=roster_settings_dict["fpts_against_decimal"],
-                              fpts_against=roster_settings_dict["fpts_against"],
+                              fpts_decimal=roster_settings_dict.get("fpts_decimal", None),
+                              fpts_against_decimal=roster_settings_dict.get("fpts_against_decimal", None),
+                              fpts_against=roster_settings_dict.get("fpts_against", None),
                               fpts=roster_settings_dict["fpts"])
 
     @classmethod
