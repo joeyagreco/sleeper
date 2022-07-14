@@ -11,6 +11,7 @@ class RosterPosition(Enum):
     K = "K"
     QB = "QB"
     RB = "RB"
+    SUPERFLEX = "SUPERFLEX"
     TE = "TE"
     WR = "WR"
 
@@ -28,6 +29,8 @@ class RosterPosition(Enum):
             return RosterPosition.QB
         elif s.upper() == "RB":
             return RosterPosition.RB
+        elif s.upper() == "SUPERFLEX":
+            return RosterPosition.SUPERFLEX
         elif s.upper() == "TE":
             return RosterPosition.TE
         elif s.upper() == "WR":
