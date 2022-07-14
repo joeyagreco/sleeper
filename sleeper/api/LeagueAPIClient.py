@@ -260,7 +260,8 @@ class LeagueAPIClient(APIClient):
         TransactionSettings]:
         if transaction_settings_dict is None:
             return None
-        return TransactionSettings(waiver_bid=transaction_settings_dict["waiver_bid"])
+        return TransactionSettings(waiver_bid=transaction_settings_dict.get("waiver_bid", None),
+                                   seq=transaction_settings_dict.get("seq", None))
 
     @classmethod
     def __build_draft_pick_object(cls, draft_pick_dict: dict) -> DraftPick:
