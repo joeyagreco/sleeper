@@ -24,3 +24,9 @@ class User:
                     is_bot=user_dict.get("is_bot", False),
                     league_id=user_dict.get("league_id", None))
 
+    @staticmethod
+    def from_dict_list(user_dict_list: dict) -> list[User]:
+        users = list()
+        for user_dict in user_dict_list:
+            users.append(User.from_dict(user_dict))
+        return users

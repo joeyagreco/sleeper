@@ -9,13 +9,6 @@ class UserAPIClient(APIClient):
     __LEAGUE_ROUTE = ConfigReader.get("api", "league_route")
 
     @classmethod
-    def __build_users_list(cls, user_dict_list: dict) -> list[User]:
-        users = list()
-        for user_dict in user_dict_list:
-            users.append(User.from_dict(user_dict))
-        return users
-
-    @classmethod
     def get_user(cls, *, username: str = None, user_id: str = None) -> User:
         if username is None and user_id is None:
             raise ValueError("Must pass 'username' or 'user_id'.")
@@ -26,4 +19,4 @@ class UserAPIClient(APIClient):
     @classmethod
     def get_users_in_league(cls, *, league_id: str) -> list[User]:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__USERS_ROUTE)
-        return cls.__build_users_list(cls._get(url))
+        return User.from_dict_list(cls._get(url))
