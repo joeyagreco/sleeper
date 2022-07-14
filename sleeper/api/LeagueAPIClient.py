@@ -6,6 +6,7 @@ from sleeper.model.PlayoffMatchup import PlayoffMatchup
 from sleeper.model.Roster import Roster
 from sleeper.model.TradedPick import TradedPick
 from sleeper.model.Transaction import Transaction
+from sleeper.model.User import User
 from sleeper.util.ConfigReader import ConfigReader
 
 
@@ -13,6 +14,7 @@ class LeagueAPIClient(APIClient):
     __LEAGUE_ROUTE = ConfigReader.get("api", "league_route")
     __LEAGUES_ROUTE = ConfigReader.get("api", "leagues_route")
     __USER_ROUTE = ConfigReader.get("api", "user_route")
+    __USERS_ROUTE = ConfigReader.get("api", "users_route")
     __ROSTERS_ROUTE = ConfigReader.get("api", "rosters_route")
     __MATCHUPS_ROUTE = ConfigReader.get("api", "matchups_route")
     __WINNERS_BRACKET_ROUTE = ConfigReader.get("api", "winners_bracket_route")
@@ -35,6 +37,11 @@ class LeagueAPIClient(APIClient):
     def get_rosters(cls, *, league_id: str) -> list[Roster]:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__ROSTERS_ROUTE)
         return Roster.from_dict_list(cls._get(url))
+
+    @classmethod
+    def get_users_in_league(cls, *, league_id: str) -> list[User]:
+        url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__USERS_ROUTE)
+        return User.from_dict_list(cls._get(url))
 
     @classmethod
     def get_matchups_for_week(cls, *, league_id: str, week: int) -> list[Matchup]:
