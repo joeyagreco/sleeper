@@ -22,13 +22,6 @@ class LeagueAPIClient(APIClient):
     __SPORT = Sport.NFL  # For now, only NFL is supported in the API, when other sports are added, this can be passed in
 
     @classmethod
-    def __build_leagues_list(cls, league_dict_list: dict) -> list[League]:
-        leagues = list()
-        for league_dict in league_dict_list:
-            leagues.append(League.from_dict(league_dict))
-        return leagues
-
-    @classmethod
     def __build_rosters_list(cls, roster_dict_list: dict) -> list[Roster]:
         rosters = list()
         for roster_dict in roster_dict_list:
@@ -79,7 +72,7 @@ class LeagueAPIClient(APIClient):
     @classmethod
     def get_user_leagues_for_year(cls, *, user_id: str, year: str) -> list[League]:
         url = cls._build_route(cls.__USER_ROUTE, user_id, cls.__LEAGUES_ROUTE, cls.__SPORT.value.lower(), year)
-        return cls.__build_leagues_list(cls._get(url))
+        return League.from_dict_list(cls._get(url))
 
     @classmethod
     def get_rosters(cls, *, league_id: str) -> list[Roster]:

@@ -26,8 +26,8 @@ class League:
     draft_id: str
     avatar: str
 
-    @classmethod
-    def from_dict(cls, league_dict: dict) -> League:
+    @staticmethod
+    def from_dict(league_dict: dict) -> League:
         return League(total_rosters=league_dict["total_rosters"],
                       status=SeasonStatus.from_str(league_dict["status"]),
                       sport=Sport.from_str(league_dict["sport"]),
@@ -42,3 +42,10 @@ class League:
                       league_id=league_dict["league_id"],
                       draft_id=league_dict["draft_id"],
                       avatar=league_dict["avatar"])
+
+    @staticmethod
+    def from_dict_list(league_dict_list: dict) -> list[League]:
+        leagues = list()
+        for league_dict in league_dict_list:
+            leagues.append(League.from_dict(league_dict))
+        return leagues
