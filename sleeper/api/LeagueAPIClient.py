@@ -22,21 +22,6 @@ class LeagueAPIClient(APIClient):
     __SPORT = Sport.NFL  # For now, only NFL is supported in the API, when other sports are added, this can be passed in
 
     @classmethod
-    def __build_traded_pick_object(cls, traded_pick_dict: dict) -> TradedPick:
-        return TradedPick(season=traded_pick_dict.get("season", None),
-                          round=traded_pick_dict.get("round", None),
-                          roster_id=traded_pick_dict.get("roster_id", None),
-                          previous_owner_id=traded_pick_dict.get("previous_owner_id", None),
-                          owner_id=traded_pick_dict.get("owner_id", None))
-
-    @classmethod
-    def __build_traded_pick_list(cls, traded_pick_dict_list: dict) -> list[TradedPick]:
-        traded_picks = list()
-        for traded_pick_dict in traded_pick_dict_list:
-            traded_picks.append(cls.__build_traded_pick_object(traded_pick_dict))
-        return traded_picks
-
-    @classmethod
     def get_league(cls, *, league_id: str) -> League:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id)
         return League.from_dict(cls._get(url))
@@ -74,4 +59,4 @@ class LeagueAPIClient(APIClient):
     @classmethod
     def get_traded_picks(cls, *, league_id: str) -> list[TradedPick]:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__TRADED_PICKS_ROUTE)
-        return cls.__build_traded_pick_list(cls._get(url))
+        return TradedPick.from_dict_list(cls._get(url))
