@@ -1,65 +1,66 @@
 from dataclasses import dataclass
+from typing import Optional
 
 
 @dataclass(kw_only=True)
 class ScoringSettings:
-    yds_allow_0_100: float
-    yds_allow_100_199: float
-    yds_allow_200_299: float
-    yds_allow_300_349: float
-    yds_allow_350_399: float
-    yds_allow_400_449: float
-    yds_allow_450_499: float
-    yds_allow_500_549: float
-    yds_allow_550p: float
-    fgm: float
+    yds_allow_0_100: Optional[float]
+    yds_allow_100_199: Optional[float]
+    yds_allow_200_299: Optional[float]
+    yds_allow_300_349: Optional[float]
+    yds_allow_350_399: Optional[float]
+    yds_allow_400_449: Optional[float]
+    yds_allow_450_499: Optional[float]
+    yds_allow_500_549: Optional[float]
+    yds_allow_550p: Optional[float]
+    fgm: Optional[float]
     fgm_0_19: float
     fgm_20_29: float
     fgm_30_39: float
     fgm_40_49: float
     fgm_50p: float
     fgmiss: float
-    fgmiss_0_19: float
-    fgmiss_20_29: float
-    fgmiss_30_39: float
-    fgmiss_40_49: float
-    fgmiss_50p: float
-    fg_ret_yd: float
+    fgmiss_0_19: Optional[float]
+    fgmiss_20_29: Optional[float]
+    fgmiss_30_39: Optional[float]
+    fgmiss_40_49: Optional[float]
+    fgmiss_50p: Optional[float]
+    fg_ret_yd: Optional[float]
     pass_2pt: float
     pass_int: float
-    pass_sack: float
-    pass_cmp: float
-    pass_cmp_40p: float
-    pass_inc: float
-    pass_att: float
+    pass_sack: Optional[float]
+    pass_cmp: Optional[float]
+    pass_cmp_40p: Optional[float]
+    pass_inc: Optional[float]
+    pass_att: Optional[float]
     pass_yd: float
     pass_td: float
-    def_pass_def: float
+    def_pass_def: Optional[float]
     def_td: float
-    def_st_fum_rec: float
-    def_st_td: float
-    def_st_ff: float
-    def_2pt: float
+    def_st_fum_rec: Optional[float]
+    def_st_td: Optional[float]
+    def_st_ff: Optional[float]
+    def_2pt: Optional[float]
     st_fum_rec: float
     st_ff: float
-    st_tkl_solo: float
+    st_tkl_solo: Optional[float]
     st_td: float
     fum_rec: float
     fum_lost: float
     fum: float
-    fum_ret_yd: float
-    idp_safe: float
-    idp_ff: float
-    idp_blk_kick: float
-    idp_int: float
-    idp_tkl: float
-    idp_def_td: float
-    idp_pass_def: float
-    idp_fum_rec: float
-    idp_sack: float
-    idp_tkl_ast: float
-    idp_tkl_solo: float
-    rush_att: float
+    fum_ret_yd: Optional[float]
+    idp_safe: Optional[float]
+    idp_ff: Optional[float]
+    idp_blk_kick: Optional[float]
+    idp_int: Optional[float]
+    idp_tkl: Optional[float]
+    idp_def_td: Optional[float]
+    idp_pass_def: Optional[float]
+    idp_fum_rec: Optional[float]
+    idp_sack: Optional[float]
+    idp_tkl_ast: Optional[float]
+    idp_tkl_solo: Optional[float]
+    rush_att: Optional[float]
     pts_allow_0: float
     pts_allow_1_6: float
     pts_allow_7_13: float
@@ -67,37 +68,37 @@ class ScoringSettings:
     pts_allow_21_27: float
     pts_allow_28_34: float
     pts_allow_35p: float
-    rush_40p: float
+    rush_40p: Optional[float]
     rush_2pt: float
     rush_yd: float
     rush_td: float
-    bonus_rush_yd_100: float
-    bonus_rush_yd_200: float
-    bonus_rec_yd_100: float
-    bonus_rec_yd_200: float
-    bonus_pass_yd_300: float
-    bonus_pass_yd_400: float
+    bonus_rush_yd_100: Optional[float]
+    bonus_rush_yd_200: Optional[float]
+    bonus_rec_yd_100: Optional[float]
+    bonus_rec_yd_200: Optional[float]
+    bonus_pass_yd_300: Optional[float]
+    bonus_pass_yd_400: Optional[float]
     rec_yd: float
     rec_2pt: float
     rec: float
     rec_td: float
-    rec_40p: float
-    tkl: float
-    tkl_loss: float
-    tkl_solo: float
-    tkl_ast: float
-    int_ret_yd: float
+    rec_40p: Optional[float]
+    tkl: Optional[float]
+    tkl_loss: Optional[float]
+    tkl_solo: Optional[float]
+    tkl_ast: Optional[float]
+    int_ret_yd: Optional[float]
     int: float
-    pr_td: float
-    pr_yd: float
-    sack_yd: float
+    pr_td: Optional[float]
+    pr_yd: Optional[float]
+    sack_yd: Optional[float]
     sack: float
-    kr_yd: float
-    kr_td: float
+    kr_yd: Optional[float]
+    kr_td: Optional[float]
     blk_kick: float
-    blk_kick_ret_yd: float
-    xpmiss: float
+    blk_kick_ret_yd: Optional[float]
+    xpmiss: Optional[float]
     ff: float
-    qb_hit: float
+    qb_hit: Optional[float]
     xpm: float
     safe: float

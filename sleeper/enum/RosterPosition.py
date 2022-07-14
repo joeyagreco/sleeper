@@ -11,7 +11,7 @@ class RosterPosition(Enum):
     K = "K"
     QB = "QB"
     RB = "RB"
-    SUPERFLEX = "SUPERFLEX"
+    SUPER_FLEX = "SUPERFLEX"
     TE = "TE"
     WR = "WR"
 
@@ -29,11 +29,11 @@ class RosterPosition(Enum):
             return RosterPosition.QB
         elif s.upper() == "RB":
             return RosterPosition.RB
-        elif s.upper() == "SUPERFLEX":
-            return RosterPosition.SUPERFLEX
+        elif s.upper() == "SUPER_FLEX":
+            return RosterPosition.SUPER_FLEX
         elif s.upper() == "TE":
             return RosterPosition.TE
         elif s.upper() == "WR":
             return RosterPosition.WR
         else:
-            raise ValueError(f"Invalid value for SeasonType: '{s}'.")
+            raise ValueError(f"Invalid value for RosterPosition: '{s}'.")
