@@ -4,6 +4,7 @@ from sleeper.model.League import League
 from sleeper.model.Matchup import Matchup
 from sleeper.model.PlayoffMatchup import PlayoffMatchup
 from sleeper.model.Roster import Roster
+from sleeper.model.SportState import SportState
 from sleeper.model.TradedPick import TradedPick
 from sleeper.model.Transaction import Transaction
 from sleeper.model.User import User
@@ -21,6 +22,7 @@ class LeagueAPIClient(APIClient):
     __LOSERS_BRACKET_ROUTE = ConfigReader.get("api", "losers_bracket_route")
     __TRANSACTIONS_ROUTE = ConfigReader.get("api", "transactions_route")
     __TRADED_PICKS_ROUTE = ConfigReader.get("api", "traded_picks_route")
+    __STATE_ROUTE = ConfigReader.get("api", "state_route")
     __SPORT = Sport.NFL  # For now, only NFL is supported in the API, when other sports are added, this can be passed in
 
     @classmethod
@@ -67,3 +69,8 @@ class LeagueAPIClient(APIClient):
     def get_traded_picks(cls, *, league_id: str) -> list[TradedPick]:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__TRADED_PICKS_ROUTE)
         return TradedPick.from_dict_list(cls._get(url))
+
+    @classmethod
+    def get_sport_state(cls, *, sport: Sport) -> SportState:
+        url = cls._build_route(cls.__STATE_ROUTE, sport.value.lower())
+        return SportState.from_dict(cls._get(url))
