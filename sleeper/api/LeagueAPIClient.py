@@ -55,18 +55,10 @@ class LeagueAPIClient(APIClient):
         return playoff_matchups
 
     @classmethod
-    def __build_draft_pick_object(cls, draft_pick_dict: dict) -> DraftPick:
-        return DraftPick(season=draft_pick_dict["season"],
-                         round=draft_pick_dict["round"],
-                         roster_id=draft_pick_dict["roster_id"],
-                         previous_owner_id=draft_pick_dict["previous_owner_id"],
-                         owner_id=draft_pick_dict["owner_id"])
-
-    @classmethod
     def __build_draft_pick_list(cls, draft_pick_dict_list: dict) -> list[DraftPick]:
         draft_picks = list()
         for draft_pick_dict in draft_pick_dict_list:
-            draft_picks.append(cls.__build_draft_pick_object(draft_pick_dict))
+            draft_picks.append(DraftPick.from_dict(draft_pick_dict))
         return draft_picks
 
     @classmethod
