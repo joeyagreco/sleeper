@@ -2,9 +2,13 @@ from typing import Optional
 
 from sleeper.api.APIClient import APIClient
 from sleeper.enum.RosterPosition import RosterPosition
+from sleeper.enum.SeasonStatus import SeasonStatus
 from sleeper.enum.SeasonType import SeasonType
 from sleeper.enum.Sport import Sport
-from sleeper.enum.Status import Status
+from sleeper.enum.TransactionStatus import TransactionStatus
+from sleeper.enum.TransactionType import TransactionType
+from sleeper.model.DraftPick import DraftPick
+from sleeper.model.FAABTransaction import FAABTransaction
 from sleeper.model.FromPlayoffMatchup import FromPlayoffMatchup
 from sleeper.model.League import League
 from sleeper.model.LeagueSettings import LeagueSettings
@@ -13,6 +17,8 @@ from sleeper.model.PlayoffMatchup import PlayoffMatchup
 from sleeper.model.Roster import Roster
 from sleeper.model.RosterSettings import RosterSettings
 from sleeper.model.ScoringSettings import ScoringSettings
+from sleeper.model.Transaction import Transaction
+from sleeper.model.TransactionSettings import TransactionSettings
 from sleeper.util.ConfigReader import ConfigReader
 
 
@@ -24,6 +30,7 @@ class LeagueAPIClient(APIClient):
     __MATCHUPS_ROUTE = ConfigReader.get("api", "matchups_route")
     __WINNERS_BRACKET_ROUTE = ConfigReader.get("api", "winners_bracket_route")
     __LOSERS_BRACKET_ROUTE = ConfigReader.get("api", "losers_bracket_route")
+    __TRANSACTIONS_ROUTE = ConfigReader.get("api", "transactions_route")
     __SPORT = Sport.NFL  # For now, only NFL is supported in the API, when other sports are added, this can be passed in
 
     @staticmethod
@@ -153,7 +160,7 @@ class LeagueAPIClient(APIClient):
     @classmethod
     def __build_league_object(cls, league_dict: dict) -> League:
         return League(total_rosters=league_dict["total_rosters"],
-                      status=Status.from_str(league_dict["status"]),
+                      status=SeasonStatus.from_str(league_dict["status"]),
                       sport=Sport.from_str(league_dict["sport"]),
                       settings=cls.__build_settings_object(league_dict["settings"]),
                       season_type=SeasonType.from_str(league_dict["season_type"]),
@@ -249,6 +256,65 @@ class LeagueAPIClient(APIClient):
         return playoff_matchups
 
     @classmethod
+    def __build_transaction_settings_object(cls, transaction_settings_dict: Optional[dict]) -> Optional[
+        TransactionSettings]:
+        if transaction_settings_dict is None:
+            return None
+        return TransactionSettings(waiver_bid=transaction_settings_dict["waiver_bid"])
+
+    @classmethod
+    def __build_draft_pick_object(cls, draft_pick_dict: dict) -> DraftPick:
+        return DraftPick(season=draft_pick_dict["season"],
+                         round=draft_pick_dict["round"],
+                         roster_id=draft_pick_dict["roster_id"],
+                         previous_owner_id=draft_pick_dict["previous_owner_id"],
+                         owner_id=draft_pick_dict["owner_id"])
+
+    @classmethod
+    def __build_draft_pick_list(cls, draft_pick_dict_list: dict) -> list[DraftPick]:
+        draft_picks = list()
+        for draft_pick_dict in draft_pick_dict_list:
+            draft_picks.append(cls.__build_draft_pick_object(draft_pick_dict))
+        return draft_picks
+
+    @classmethod
+    def __build_faab_transaction(cls, faab_transaction_dict: dict) -> FAABTransaction:
+        return FAABTransaction(sender=faab_transaction_dict["sender"],
+                               receiver=faab_transaction_dict["receiver"],
+                               amount=faab_transaction_dict["amount"])
+
+    @classmethod
+    def __build_faab_transaction_list(cls, faab_transaction_dict_list: dict) -> list[FAABTransaction]:
+        faab_transactions = list()
+        for faab_transaction_dict in faab_transaction_dict_list:
+            faab_transactions.append(cls.__build_faab_transaction(faab_transaction_dict))
+        return faab_transactions
+
+    @classmethod
+    def __build_transaction_object(cls, transaction_dict: dict) -> Transaction:
+        return Transaction(type=TransactionType.from_str(transaction_dict["type"]),
+                           transaction_id=transaction_dict["transaction_id"],
+                           status_updated=transaction_dict["status_updated"],
+                           status=TransactionStatus.from_str(transaction_dict["status"]),
+                           settings=cls.__build_transaction_settings_object(transaction_dict["settings"]),
+                           roster_ids=transaction_dict["roster_ids"],
+                           week=transaction_dict["leg"],
+                           adds=transaction_dict["adds"],
+                           drops=transaction_dict["drops"],
+                           draft_picks=cls.__build_draft_pick_list(transaction_dict["draft_picks"]),
+                           creator=transaction_dict["creator"],
+                           created=transaction_dict["created"],
+                           consenter_ids=transaction_dict["consenter_ids"],
+                           waiver_budget=cls.__build_faab_transaction_list(transaction_dict["waiver_budget"]))
+
+    @classmethod
+    def __build_transaction_list(cls, transaction_dict_list: dict) -> list[Transaction]:
+        transactions = list()
+        for transaction_dict in transaction_dict_list:
+            transactions.append(cls.__build_transaction_object(transaction_dict))
+        return transactions
+
+    @classmethod
     def get_league(cls, *, league_id: str) -> League:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id)
         return cls.__build_league_object(cls._get(url))
@@ -277,3 +343,8 @@ class LeagueAPIClient(APIClient):
     def get_losers_bracket(cls, *, league_id: str) -> list[PlayoffMatchup]:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__LOSERS_BRACKET_ROUTE)
         return cls.__build_playoff_matchups_list(cls._get(url))
+
+    @classmethod
+    def get_transactions(cls, *, league_id: str, week: int) -> list[Transaction]:
+        url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__TRANSACTIONS_ROUTE, week)
+        return cls.__build_transaction_list(cls._get(url))

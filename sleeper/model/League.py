@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 
 from sleeper.enum.RosterPosition import RosterPosition
+from sleeper.enum.SeasonStatus import SeasonStatus
 from sleeper.enum.SeasonType import SeasonType
 from sleeper.enum.Sport import Sport
-from sleeper.enum.Status import Status
 from sleeper.model.LeagueSettings import LeagueSettings
 from sleeper.model.ScoringSettings import ScoringSettings
 
@@ -11,7 +11,7 @@ from sleeper.model.ScoringSettings import ScoringSettings
 @dataclass(kw_only=True)
 class League:
     total_rosters: int
-    status: Status
+    status: SeasonStatus
     sport: Sport
     settings: LeagueSettings
     season_type: SeasonType
