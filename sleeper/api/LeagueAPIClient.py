@@ -62,16 +62,10 @@ class LeagueAPIClient(APIClient):
         return draft_picks
 
     @classmethod
-    def __build_faab_transaction(cls, faab_transaction_dict: dict) -> FAABTransaction:
-        return FAABTransaction(sender=faab_transaction_dict["sender"],
-                               receiver=faab_transaction_dict["receiver"],
-                               amount=faab_transaction_dict["amount"])
-
-    @classmethod
     def __build_faab_transaction_list(cls, faab_transaction_dict_list: dict) -> list[FAABTransaction]:
         faab_transactions = list()
         for faab_transaction_dict in faab_transaction_dict_list:
-            faab_transactions.append(cls.__build_faab_transaction(faab_transaction_dict))
+            faab_transactions.append(FAABTransaction.from_dict(faab_transaction_dict))
         return faab_transactions
 
     @classmethod
