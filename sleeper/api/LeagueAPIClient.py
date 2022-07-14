@@ -22,13 +22,6 @@ class LeagueAPIClient(APIClient):
     __SPORT = Sport.NFL  # For now, only NFL is supported in the API, when other sports are added, this can be passed in
 
     @classmethod
-    def __build_rosters_list(cls, roster_dict_list: dict) -> list[Roster]:
-        rosters = list()
-        for roster_dict in roster_dict_list:
-            rosters.append(Roster.from_dict(roster_dict))
-        return rosters
-
-    @classmethod
     def __build_matchups_list(cls, matchup_dict_list: dict) -> list[Matchup]:
         matchups = list()
         for matchup_dict in matchup_dict_list:
@@ -77,7 +70,7 @@ class LeagueAPIClient(APIClient):
     @classmethod
     def get_rosters(cls, *, league_id: str) -> list[Roster]:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__ROSTERS_ROUTE)
-        return cls.__build_rosters_list(cls._get(url))
+        return Roster.from_dict_list(cls._get(url))
 
     @classmethod
     def get_matchups_for_week(cls, *, league_id: str, week: int) -> list[Matchup]:

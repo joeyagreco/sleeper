@@ -24,3 +24,10 @@ class Roster:
                       players=roster_dict["players"],
                       owner_id=roster_dict["owner_id"],
                       league_id=roster_dict["league_id"])
+    
+    @staticmethod
+    def from_dict_list(roster_dict_list: dict) -> list[Roster]:
+        rosters = list()
+        for roster_dict in roster_dict_list:
+            rosters.append(Roster.from_dict(roster_dict))
+        return rosters
