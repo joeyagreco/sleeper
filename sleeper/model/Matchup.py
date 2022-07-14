@@ -21,3 +21,10 @@ class Matchup:
                        matchup_id=matchup_object_dict["matchup_id"],
                        points=matchup_object_dict["points"],
                        custom_points=matchup_object_dict["custom_points"])
+    
+    @staticmethod
+    def from_dict_list(matchup_dict_list: dict) -> list[Matchup]:
+        matchups = list()
+        for matchup_dict in matchup_dict_list:
+            matchups.append(Matchup.from_dict(matchup_dict))
+        return matchups
