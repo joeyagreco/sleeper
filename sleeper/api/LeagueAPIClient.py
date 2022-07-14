@@ -38,22 +38,9 @@ class LeagueAPIClient(APIClient):
         return leagues
 
     @classmethod
-    def __build_roster_settings_object(cls, roster_settings_dict: dict) -> RosterSettings:
-        return RosterSettings(wins=roster_settings_dict["wins"],
-                              waiver_position=roster_settings_dict["waiver_position"],
-                              waiver_budget_used=roster_settings_dict["waiver_budget_used"],
-                              total_moves=roster_settings_dict["total_moves"],
-                              ties=roster_settings_dict["ties"],
-                              losses=roster_settings_dict["losses"],
-                              fpts_decimal=roster_settings_dict.get("fpts_decimal", None),
-                              fpts_against_decimal=roster_settings_dict.get("fpts_against_decimal", None),
-                              fpts_against=roster_settings_dict.get("fpts_against", None),
-                              fpts=roster_settings_dict["fpts"])
-
-    @classmethod
     def __build_roster_object(cls, roster_dict: dict) -> Roster:
         return Roster(starters=roster_dict["starters"],
-                      settings=cls.__build_roster_settings_object(roster_dict["settings"]),
+                      settings=RosterSettings.from_dict(roster_dict["settings"]),
                       roster_id=roster_dict["roster_id"],
                       reserve=roster_dict["reserve"],
                       players=roster_dict["players"],
