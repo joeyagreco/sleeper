@@ -1,5 +1,3 @@
-from typing import Optional
-
 from sleeper.api.APIClient import APIClient
 from sleeper.enum.Sport import Sport
 from sleeper.enum.TransactionStatus import TransactionStatus
@@ -35,16 +33,6 @@ class LeagueAPIClient(APIClient):
             leagues.append(League.from_dict(league_dict))
         return leagues
 
-    # @classmethod
-    # def __build_roster_object(cls, roster_dict: dict) -> Roster:
-    #     return Roster(starters=roster_dict["starters"],
-    #                   settings=RosterSettings.from_dict(roster_dict["settings"]),
-    #                   roster_id=roster_dict["roster_id"],
-    #                   reserve=roster_dict["reserve"],
-    #                   players=roster_dict["players"],
-    #                   owner_id=roster_dict["owner_id"],
-    #                   league_id=roster_dict["league_id"])
-
     @classmethod
     def __build_rosters_list(cls, roster_dict_list: dict) -> list[Roster]:
         rosters = list()
@@ -65,14 +53,6 @@ class LeagueAPIClient(APIClient):
         for playoff_matchup_dict in playoff_matchup_dict_list:
             playoff_matchups.append(PlayoffMatchup.from_dict(playoff_matchup_dict))
         return playoff_matchups
-
-    @classmethod
-    def __build_transaction_settings_object(cls, transaction_settings_dict: Optional[dict]) -> Optional[
-        TransactionSettings]:
-        if transaction_settings_dict is None:
-            return None
-        return TransactionSettings(waiver_bid=transaction_settings_dict.get("waiver_bid", None),
-                                   seq=transaction_settings_dict.get("seq", None))
 
     @classmethod
     def __build_draft_pick_object(cls, draft_pick_dict: dict) -> DraftPick:
@@ -108,7 +88,7 @@ class LeagueAPIClient(APIClient):
                            transaction_id=transaction_dict["transaction_id"],
                            status_updated=transaction_dict["status_updated"],
                            status=TransactionStatus.from_str(transaction_dict["status"]),
-                           settings=cls.__build_transaction_settings_object(transaction_dict["settings"]),
+                           settings=TransactionSettings.from_dict(transaction_dict["settings"]),
                            roster_ids=transaction_dict["roster_ids"],
                            week=transaction_dict["leg"],
                            adds=transaction_dict["adds"],
