@@ -23,7 +23,6 @@ class LeagueAPIClient(APIClient):
     __TRANSACTIONS_ROUTE = ConfigReader.get("api", "transactions_route")
     __TRADED_PICKS_ROUTE = ConfigReader.get("api", "traded_picks_route")
     __STATE_ROUTE = ConfigReader.get("api", "state_route")
-    __SPORT = Sport.NFL  # For now, only NFL is supported in the API, when other sports are added, this can be passed in
 
     @classmethod
     def get_league(cls, *, league_id: str) -> League:
@@ -31,8 +30,8 @@ class LeagueAPIClient(APIClient):
         return League.from_dict(cls._get(url))
 
     @classmethod
-    def get_user_leagues_for_year(cls, *, user_id: str, year: str) -> list[League]:
-        url = cls._build_route(cls.__USER_ROUTE, user_id, cls.__LEAGUES_ROUTE, cls.__SPORT.value.lower(), year)
+    def get_user_leagues_for_year(cls, *, user_id: str, sport: Sport, year: str) -> list[League]:
+        url = cls._build_route(cls.__USER_ROUTE, user_id, cls.__LEAGUES_ROUTE, sport.value.lower(), year)
         return League.from_dict_list(cls._get(url))
 
     @classmethod
