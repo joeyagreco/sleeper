@@ -27,3 +27,10 @@ class PlayoffMatchup:
                               losing_roster_id=playoff_matchup_object["l"],
                               team_1_from=FromPlayoffMatchup.from_dict(playoff_matchup_object.get("t1_from", None)),
                               team_2_from=FromPlayoffMatchup.from_dict(playoff_matchup_object.get("t2_from", None)))
+
+    @staticmethod
+    def from_dict_str(playoff_matchup_dict_list: dict) -> list[PlayoffMatchup]:
+        playoff_matchups = list()
+        for playoff_matchup_dict in playoff_matchup_dict_list:
+            playoff_matchups.append(PlayoffMatchup.from_dict(playoff_matchup_dict))
+        return playoff_matchups

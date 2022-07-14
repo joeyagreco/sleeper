@@ -22,13 +22,6 @@ class LeagueAPIClient(APIClient):
     __SPORT = Sport.NFL  # For now, only NFL is supported in the API, when other sports are added, this can be passed in
 
     @classmethod
-    def __build_playoff_matchups_list(cls, playoff_matchup_dict_list: dict) -> list[PlayoffMatchup]:
-        playoff_matchups = list()
-        for playoff_matchup_dict in playoff_matchup_dict_list:
-            playoff_matchups.append(PlayoffMatchup.from_dict(playoff_matchup_dict))
-        return playoff_matchups
-
-    @classmethod
     def __build_transaction_list(cls, transaction_dict_list: dict) -> list[Transaction]:
         transactions = list()
         for transaction_dict in transaction_dict_list:
@@ -73,12 +66,12 @@ class LeagueAPIClient(APIClient):
     @classmethod
     def get_winners_bracket(cls, *, league_id: str) -> list[PlayoffMatchup]:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__WINNERS_BRACKET_ROUTE)
-        return cls.__build_playoff_matchups_list(cls._get(url))
+        return PlayoffMatchup.from_dict_str(cls._get(url))
 
     @classmethod
     def get_losers_bracket(cls, *, league_id: str) -> list[PlayoffMatchup]:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__LOSERS_BRACKET_ROUTE)
-        return cls.__build_playoff_matchups_list(cls._get(url))
+        return PlayoffMatchup.from_dict_str(cls._get(url))
 
     @classmethod
     def get_transactions(cls, *, league_id: str, week: int) -> list[Transaction]:
