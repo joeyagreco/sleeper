@@ -54,19 +54,10 @@ class LeagueAPIClient(APIClient):
         return rosters
 
     @classmethod
-    def __build_matchup_object(cls, matchup_object_dict: dict) -> Matchup:
-        return Matchup(starters=matchup_object_dict["starters"],
-                       roster_id=matchup_object_dict["roster_id"],
-                       players=matchup_object_dict["players"],
-                       matchup_id=matchup_object_dict["matchup_id"],
-                       points=matchup_object_dict["points"],
-                       custom_points=matchup_object_dict["custom_points"])
-
-    @classmethod
     def __build_matchups_list(cls, matchup_dict_list: dict) -> list[Matchup]:
         matchups = list()
         for matchup_dict in matchup_dict_list:
-            matchups.append(cls.__build_matchup_object(matchup_dict))
+            matchups.append(Matchup.from_dict(matchup_dict))
         return matchups
 
     @classmethod
