@@ -11,7 +11,6 @@ from sleeper.model.League import League
 from sleeper.model.Matchup import Matchup
 from sleeper.model.PlayoffMatchup import PlayoffMatchup
 from sleeper.model.Roster import Roster
-from sleeper.model.RosterSettings import RosterSettings
 from sleeper.model.TradedPick import TradedPick
 from sleeper.model.Transaction import Transaction
 from sleeper.model.TransactionSettings import TransactionSettings
@@ -37,21 +36,21 @@ class LeagueAPIClient(APIClient):
             leagues.append(League.from_dict(league_dict))
         return leagues
 
-    @classmethod
-    def __build_roster_object(cls, roster_dict: dict) -> Roster:
-        return Roster(starters=roster_dict["starters"],
-                      settings=RosterSettings.from_dict(roster_dict["settings"]),
-                      roster_id=roster_dict["roster_id"],
-                      reserve=roster_dict["reserve"],
-                      players=roster_dict["players"],
-                      owner_id=roster_dict["owner_id"],
-                      league_id=roster_dict["league_id"])
+    # @classmethod
+    # def __build_roster_object(cls, roster_dict: dict) -> Roster:
+    #     return Roster(starters=roster_dict["starters"],
+    #                   settings=RosterSettings.from_dict(roster_dict["settings"]),
+    #                   roster_id=roster_dict["roster_id"],
+    #                   reserve=roster_dict["reserve"],
+    #                   players=roster_dict["players"],
+    #                   owner_id=roster_dict["owner_id"],
+    #                   league_id=roster_dict["league_id"])
 
     @classmethod
     def __build_rosters_list(cls, roster_dict_list: dict) -> list[Roster]:
         rosters = list()
         for roster_dict in roster_dict_list:
-            rosters.append(cls.__build_roster_object(roster_dict))
+            rosters.append(Roster.from_dict(roster_dict))
         return rosters
 
     @classmethod

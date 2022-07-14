@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 
 from sleeper.model.RosterSettings import RosterSettings
@@ -12,3 +14,13 @@ class Roster:
     players: list[str]
     owner_id: str
     league_id: str
+
+    @staticmethod
+    def from_dict(roster_dict: dict) -> Roster:
+        return Roster(starters=roster_dict["starters"],
+                      settings=RosterSettings.from_dict(roster_dict["settings"]),
+                      roster_id=roster_dict["roster_id"],
+                      reserve=roster_dict["reserve"],
+                      players=roster_dict["players"],
+                      owner_id=roster_dict["owner_id"],
+                      league_id=roster_dict["league_id"])
