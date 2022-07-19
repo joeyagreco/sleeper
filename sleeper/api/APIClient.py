@@ -8,6 +8,8 @@ from sleeper.util.ConfigReader import ConfigReader
 class APIClient(ABC):
     """
     Should be inherited by all API Clients.
+
+    Sleeper API Documentation: https://docs.sleeper.app/
     """
     __BASE_URL = ConfigReader.get("api", "base_url")
     __VERSION = ConfigReader.get("api", "version")
