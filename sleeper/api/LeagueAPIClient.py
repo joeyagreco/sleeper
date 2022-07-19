@@ -8,68 +8,56 @@ from sleeper.model.SportState import SportState
 from sleeper.model.TradedPick import TradedPick
 from sleeper.model.Transaction import Transaction
 from sleeper.model.User import User
-from sleeper.util.ConfigReader import ConfigReader
 
 
 class LeagueAPIClient(APIClient):
-    __LEAGUE_ROUTE = ConfigReader.get("api", "league_route")
-    __LEAGUES_ROUTE = ConfigReader.get("api", "leagues_route")
-    __USER_ROUTE = ConfigReader.get("api", "user_route")
-    __USERS_ROUTE = ConfigReader.get("api", "users_route")
-    __ROSTERS_ROUTE = ConfigReader.get("api", "rosters_route")
-    __MATCHUPS_ROUTE = ConfigReader.get("api", "matchups_route")
-    __WINNERS_BRACKET_ROUTE = ConfigReader.get("api", "winners_bracket_route")
-    __LOSERS_BRACKET_ROUTE = ConfigReader.get("api", "losers_bracket_route")
-    __TRANSACTIONS_ROUTE = ConfigReader.get("api", "transactions_route")
-    __TRADED_PICKS_ROUTE = ConfigReader.get("api", "traded_picks_route")
-    __STATE_ROUTE = ConfigReader.get("api", "state_route")
 
     @classmethod
     def get_league(cls, *, league_id: str) -> League:
-        url = cls._build_route(cls.__LEAGUE_ROUTE, league_id)
+        url = cls._build_route(cls._LEAGUE_ROUTE, league_id)
         return League.from_dict(cls._get(url))
 
     @classmethod
     def get_user_leagues_for_year(cls, *, user_id: str, sport: Sport, year: str) -> list[League]:
-        url = cls._build_route(cls.__USER_ROUTE, user_id, cls.__LEAGUES_ROUTE, sport.value.lower(), year)
+        url = cls._build_route(cls._USER_ROUTE, user_id, cls._LEAGUES_ROUTE, sport.value.lower(), year)
         return League.from_dict_list(cls._get(url))
 
     @classmethod
     def get_rosters(cls, *, league_id: str) -> list[Roster]:
-        url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__ROSTERS_ROUTE)
+        url = cls._build_route(cls._LEAGUE_ROUTE, league_id, cls._ROSTERS_ROUTE)
         return Roster.from_dict_list(cls._get(url))
 
     @classmethod
     def get_users_in_league(cls, *, league_id: str) -> list[User]:
-        url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__USERS_ROUTE)
+        url = cls._build_route(cls._LEAGUE_ROUTE, league_id, cls._USERS_ROUTE)
         return User.from_dict_list(cls._get(url))
 
     @classmethod
     def get_matchups_for_week(cls, *, league_id: str, week: int) -> list[Matchup]:
-        url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__MATCHUPS_ROUTE, week)
+        url = cls._build_route(cls._LEAGUE_ROUTE, league_id, cls._MATCHUPS_ROUTE, week)
         return Matchup.from_dict_list(cls._get(url))
 
     @classmethod
     def get_winners_bracket(cls, *, league_id: str) -> list[PlayoffMatchup]:
-        url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__WINNERS_BRACKET_ROUTE)
+        url = cls._build_route(cls._LEAGUE_ROUTE, league_id, cls._WINNERS_BRACKET_ROUTE)
         return PlayoffMatchup.from_dict_str(cls._get(url))
 
     @classmethod
     def get_losers_bracket(cls, *, league_id: str) -> list[PlayoffMatchup]:
-        url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__LOSERS_BRACKET_ROUTE)
+        url = cls._build_route(cls._LEAGUE_ROUTE, league_id, cls._LOSERS_BRACKET_ROUTE)
         return PlayoffMatchup.from_dict_str(cls._get(url))
 
     @classmethod
     def get_transactions(cls, *, league_id: str, week: int) -> list[Transaction]:
-        url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__TRANSACTIONS_ROUTE, week)
+        url = cls._build_route(cls._LEAGUE_ROUTE, league_id, cls._TRANSACTIONS_ROUTE, week)
         return Transaction.from_dict_list(cls._get(url))
 
     @classmethod
     def get_traded_picks(cls, *, league_id: str) -> list[TradedPick]:
-        url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__TRADED_PICKS_ROUTE)
+        url = cls._build_route(cls._LEAGUE_ROUTE, league_id, cls._TRADED_PICKS_ROUTE)
         return TradedPick.from_dict_list(cls._get(url))
 
     @classmethod
     def get_sport_state(cls, *, sport: Sport) -> SportState:
-        url = cls._build_route(cls.__STATE_ROUTE, sport.value.lower())
+        url = cls._build_route(cls._STATE_ROUTE, sport.value.lower())
         return SportState.from_dict(cls._get(url))
