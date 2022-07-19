@@ -5,6 +5,7 @@ from sleeper.util.ConfigReader import ConfigReader
 
 
 class DraftAPIClient(APIClient):
+    __DRAFT_ROUTE = ConfigReader.get("api", "draft_route")
     __DRAFTS_ROUTE = ConfigReader.get("api", "drafts_route")
     __LEAGUE_ROUTE = ConfigReader.get("api", "league_route")
     __USER_ROUTE = ConfigReader.get("api", "user_route")
@@ -18,3 +19,8 @@ class DraftAPIClient(APIClient):
     def get_drafts_in_league(cls, *, league_id: str) -> list[Draft]:
         url = cls._build_route(cls.__LEAGUE_ROUTE, league_id, cls.__DRAFTS_ROUTE)
         return Draft.from_dict_list(cls._get(url))
+
+    @classmethod
+    def get_draft(cls, *, draft_id: str) -> Draft:
+        url = cls._build_route(cls.__DRAFT_ROUTE, draft_id)
+        return Draft.from_dict(cls._get(url))
