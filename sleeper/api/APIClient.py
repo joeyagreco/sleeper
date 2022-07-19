@@ -23,4 +23,5 @@ class APIClient(ABC):
     @staticmethod
     def _get(url: str) -> dict:
         # TODO: error handling
+        response = requests.get(url)
         return requests.get(url).json()

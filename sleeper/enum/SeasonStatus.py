@@ -21,4 +21,4 @@ class SeasonStatus(Enum):
         elif s.upper() == "PRE_DRAFT":
             return SeasonStatus.PRE_DRAFT
         else:
-            raise ValueError(f"Invalid value for Status: '{s}'.")
+            raise ValueError(f"Invalid value for SeasonStatus: '{s}'.")
