@@ -10,6 +10,7 @@ class ScoringType(Enum):
     DYNASTY_TWO_QB = "DYNASTY_2QB"
     HALF_PPR = "HALF_PPR"
     PPR = "PPR"
+    STD = "STD"
     TWO_QB = "2QB"
 
     @classmethod
@@ -24,6 +25,8 @@ class ScoringType(Enum):
             return ScoringType.HALF_PPR
         elif s.upper() == "PPR":
             return ScoringType.PPR
+        elif s.upper() == "STD":
+            return ScoringType.STD
         elif s.upper() == "2QB":
             return ScoringType.TWO_QB
         else:

@@ -28,7 +28,7 @@ class Draft:
     draft_order: dict[str, int]
     slot_to_roster_id: dict[str, int]
     draft_id: Optional[str]
-    creators: None  # TODO
+    creators: list[str]
     created: Optional[int]
 
     @staticmethod
@@ -48,7 +48,7 @@ class Draft:
                      draft_order=draft_dict.get("draft_order", dict()),
                      slot_to_roster_id=draft_dict.get("slot_to_roster_id", dict()),
                      draft_id=draft_dict.get("draft_id", None),
-                     creators=draft_dict.get("creators", None),
+                     creators=draft_dict.get("creators", list()),
                      created=draft_dict.get("created", None))
 
     @staticmethod
