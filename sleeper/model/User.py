@@ -1,28 +1,27 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional
 
 
 @dataclass(kw_only=True)
 class User:
-    username: Optional[str]
-    user_id: str
-    display_name: str
     avatar: str
-    league_id: Optional[str]
-    is_owner: Optional[bool]
-    is_bot: Optional[bool]
+    display_name: str
+    is_bot: bool
+    is_owner: bool
+    league_id: str
+    user_id: str
+    username: str
 
     @staticmethod
     def from_dict(user_dict: dict) -> User:
-        return User(username=user_dict.get("username", None),
-                    user_id=user_dict["user_id"],
-                    display_name=user_dict["display_name"],
-                    avatar=user_dict["avatar"],
+        return User(username=user_dict.get("username"),
+                    user_id=user_dict.get("user_id"),
+                    display_name=user_dict.get("display_name"),
+                    avatar=user_dict.get("avatar"),
                     is_owner=user_dict.get("is_owner", False),
                     is_bot=user_dict.get("is_bot", False),
-                    league_id=user_dict.get("league_id", None))
+                    league_id=user_dict.get("league_id"))
 
     @staticmethod
     def from_dict_list(user_dict_list: dict) -> list[User]:
