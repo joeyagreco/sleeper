@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional
 
 from sleeper.enum.InjuryStatus import InjuryStatus
 from sleeper.enum.NFLPlayerStatus import PlayerStatus
@@ -13,78 +12,78 @@ from sleeper.enum.SportTeam import SportTeam
 
 @dataclass(kw_only=True)
 class Player:
-    hashtag: Optional[str]
-    depth_chart_position: Optional[int]
-    status: PlayerStatus
-    sport: Sport
+    age: int
+    birth_country: str
+    college: str
+    depth_chart_order: int
+    depth_chart_position: int
+    espn_id: str
+    fantasy_data_id: int
     fantasy_positions: list[PlayerPosition]
-    number: Optional[int]
-    search_last_name: Optional[str]
-    injury_start_date: Optional[str]
-    weight: Optional[str]
+    first_name: str
+    hashtag: str
+    height: str
+    injury_start_date: str
+    injury_status: InjuryStatus
+    last_name: str
+    number: int
+    player_id: str
     position: PlayerPosition
     practice_participation: PracticeParticipation
-    sportradar_id: Optional[str]
+    rotowire_id: int
+    rotoworld_id: int
+    search_first_name: str
+    search_full_name: str
+    search_last_name: str
+    search_rank: int
+    sport: Sport
+    sportradar_id: str
+    stats_id: str
+    status: PlayerStatus
     team: SportTeam
-    last_name: Optional[str]
-    college: Optional[str]
-    fantasy_data_id: Optional[int]
-    injury_status: InjuryStatus
-    player_id: Optional[str]
-    height: Optional[str]
-    search_full_name: Optional[str]
-    age: Optional[int]
-    stats_id: Optional[str]
-    birth_country: Optional[str]
-    espn_id: Optional[str]
-    search_rank: Optional[int]
-    first_name: Optional[str]
-    depth_chart_order: int
+    weight: str
+    yahoo_id: str
     years_exp: int
-    rotowire_id: Optional[int]
-    rotoworld_id: Optional[int]
-    search_first_name: Optional[str]
-    yahoo_id: Optional[str]
 
     @staticmethod
     def from_dict(player_dict: dict) -> Player:
-        given_fantasy_positions = player_dict.get("fantasy_positions", list())
-        given_fantasy_positions = given_fantasy_positions if given_fantasy_positions is not None else list()
-        fantasy_positions = [PlayerPosition.from_str(pos) for pos in given_fantasy_positions]
+        given_fantasy_positions = player_dict.get("fantasy_positions")
+        fantasy_positions = [PlayerPosition.from_str(pos) for pos in
+                             given_fantasy_positions] if given_fantasy_positions is not None else None
 
-        return Player(hashtag=player_dict.get("hashtag", None),
-                      depth_chart_position=player_dict.get("depth_chart_position", None),
-                      status=PlayerStatus.from_str(player_dict.get("status", None)),
-                      sport=Sport.from_str(player_dict.get("sport", None)),
+        return Player(hashtag=player_dict.get("hashtag"),
+                      depth_chart_position=player_dict.get("depth_chart_position"),
+                      status=PlayerStatus.from_str(player_dict.get("status")),
+                      sport=Sport.from_str(player_dict.get("sport")),
                       fantasy_positions=fantasy_positions,
-                      number=player_dict.get("number", None),
-                      search_last_name=player_dict.get("search_last_name", None),
-                      injury_start_date=player_dict.get("injury_start_date", None),
-                      weight=player_dict.get("weight", None),
-                      position=PlayerPosition.from_str(player_dict.get("position", None)),
+                      number=player_dict.get("number"),
+                      search_last_name=player_dict.get("search_last_name"),
+                      injury_start_date=player_dict.get("injury_start_date"),
+                      weight=player_dict.get("weight"),
+                      position=PlayerPosition.from_str(player_dict.get("position")),
                       practice_participation=PracticeParticipation.from_str(
-                          player_dict.get("practice_participation", None)),
-                      sportradar_id=player_dict.get("sportradar_id", None),
-                      team=SportTeam.from_str(player_dict.get("team", None)),
-                      last_name=player_dict.get("last_name", None),
-                      college=player_dict.get("college", None),
-                      fantasy_data_id=player_dict.get("fantasy_data_id", None),
-                      injury_status=InjuryStatus.from_str(player_dict.get("injury_status", None)),
-                      player_id=player_dict.get("player_id", None),
-                      height=player_dict.get("height", None),
-                      search_full_name=player_dict.get("player_full_name", None),
-                      age=player_dict.get("age", None),
-                      stats_id=player_dict.get("stats_id", None),
-                      birth_country=player_dict.get("birth_country", None),
-                      espn_id=player_dict.get("espn_id", None),
-                      search_rank=player_dict.get("search_rank", None),
-                      first_name=player_dict.get("first_name", None),
-                      depth_chart_order=player_dict.get("depth_chart_order", None),
-                      years_exp=player_dict.get("years_exp", None),
-                      rotowire_id=player_dict.get("rotowire_id", None),
-                      rotoworld_id=player_dict.get("rotoworld_id", None),
-                      search_first_name=player_dict.get("search_first_name", None),
-                      yahoo_id=player_dict.get("yahoo_id", None))
+                          player_dict.get("practice_participation")),
+                      sportradar_id=player_dict.get("sportradar_id"),
+                      team=SportTeam.from_str(player_dict.get("team")),
+                      last_name=player_dict.get("last_name"),
+                      college=player_dict.get("college"),
+                      fantasy_data_id=player_dict.get("fantasy_data_id"),
+                      injury_status=InjuryStatus.from_str(player_dict.get("injury_status")),
+                      player_id=player_dict.get("player_id"),
+                      height=player_dict.get("height"),
+                      search_full_name=player_dict.get("player_full_name"),
+                      age=player_dict.get("age"),
+                      stats_id=player_dict.get("stats_id"),
+                      birth_country=player_dict.get("birth_country"),
+                      espn_id=player_dict.get("espn_id"),
+                      search_rank=player_dict.get("search_rank"),
+                      first_name=player_dict.get("first_name"),
+                      depth_chart_order=player_dict.get("depth_chart_order"),
+                      years_exp=player_dict.get("years_exp"),
+                      rotowire_id=player_dict.get("rotowire_id"),
+                      rotoworld_id=player_dict.get("rotoworld_id"),
+                      search_first_name=player_dict.get("search_first_name"),
+                      yahoo_id=player_dict.get("yahoo_id"))
 
     @staticmethod
     def dict_by_id(player_dict_list: dict) -> dict[str, Player]:
