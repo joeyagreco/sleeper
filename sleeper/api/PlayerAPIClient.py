@@ -13,6 +13,9 @@ class PlayerAPIClient(APIClient):
         return Player.dict_by_id(cls._get(url))
 
     @classmethod
-    def get_trending_players(cls, *, sport: Sport, trend_type: TrendType) -> list[PlayerTrend]:
+    def get_trending_players(cls, *, sport: Sport, trend_type: TrendType, **kwargs) -> list[PlayerTrend]:
+        lookback_hours = kwargs.pop("lookback_hours", 24)
+        limit = kwargs.pop("limit", 25)
         url = cls._build_route(cls._PLAYERS_ROUTE, sport.name.lower(), cls._TRENDING_ROUTE, trend_type.name.lower())
+        url = cls._add_filters(url, ("lookback_hours", lookback_hours), ("limit", limit))
         return PlayerTrend.from_dict_list(cls._get(url))

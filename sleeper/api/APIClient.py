@@ -38,6 +38,19 @@ class APIClient(ABC):
         routes = "/".join(args)
         return f"{cls.__BASE_URL}/{cls.__VERSION}/{routes}"
 
+    @classmethod
+    def _add_filters(cls, url: str, *args) -> str:
+        """
+        Adds filters to the given url.
+        """
+        if len(args) > 0:
+            symbol = "?"
+            for i, arg in enumerate(args):
+                if i > 0:
+                    symbol = "&"
+                url = f"{url}{symbol}{arg[0]}={arg[1]}"
+        return url
+
     @staticmethod
     def _get(url: str) -> dict:
         # TODO: error handling
