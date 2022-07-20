@@ -1,6 +1,7 @@
 from sleeper.api.APIClient import APIClient
 from sleeper.enum.Sport import Sport
 from sleeper.model.Draft import Draft
+from sleeper.model.DraftPick import DraftPick
 from sleeper.model.PlayerDraftPick import PlayerDraftPick
 
 
@@ -25,3 +26,8 @@ class DraftAPIClient(APIClient):
     def get_player_draft_picks(cls, *, draft_id: str) -> list[PlayerDraftPick]:
         url = cls._build_route(cls._DRAFT_ROUTE, draft_id, cls._PICKS_ROUTE)
         return PlayerDraftPick.from_dict_list(cls._get(url))
+    
+    @classmethod
+    def get_traded_draft_picks(cls, *, draft_id: str) -> list[DraftPick]:
+        url = cls._build_route(cls._DRAFT_ROUTE, draft_id, cls._TRADED_PICKS_ROUTE)
+        return DraftPick.from_dict_list(cls._get(url))
