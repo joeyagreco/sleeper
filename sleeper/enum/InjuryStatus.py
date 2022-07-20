@@ -7,6 +7,7 @@ from typing import Optional
 @unique
 class InjuryStatus(Enum):
     COV = "COV"
+    DNR = "DNR"
     DOUBTFUL = "DOUBTFUL"
     IR = "IR"
     NA = "NA"
@@ -17,12 +18,14 @@ class InjuryStatus(Enum):
 
     @classmethod
     def from_str(cls, s: Optional[str]) -> InjuryStatus:
-        if s is None or s.upper() == "NA":
+        if s is None or s.upper() in ("NA", ""):
             return InjuryStatus.NA
         elif s.upper() == "COV":
             return InjuryStatus.COV
         elif s.upper() == "DOUBTFUL":
             return InjuryStatus.DOUBTFUL
+        elif s.upper() == "DNR":
+            return InjuryStatus.DNR
         elif s.upper() == "IR":
             return InjuryStatus.IR
         elif s.upper() == "OUT":
