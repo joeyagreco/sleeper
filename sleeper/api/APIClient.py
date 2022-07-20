@@ -21,6 +21,7 @@ class APIClient(ABC):
     _LEAGUES_ROUTE = ConfigReader.get("api", "leagues_route")
     _LOSERS_BRACKET_ROUTE = ConfigReader.get("api", "losers_bracket_route")
     _MATCHUPS_ROUTE = ConfigReader.get("api", "matchups_route")
+    _PICKS_ROUTE = ConfigReader.get("api", "picks_route")
     _ROSTERS_ROUTE = ConfigReader.get("api", "rosters_route")
     _STATE_ROUTE = ConfigReader.get("api", "state_route")
     _TRADED_PICKS_ROUTE = ConfigReader.get("api", "traded_picks_route")
