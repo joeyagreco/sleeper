@@ -27,6 +27,7 @@ class APIClient(ABC):
     _STATE_ROUTE = ConfigReader.get("api", "state_route")
     _TRADED_PICKS_ROUTE = ConfigReader.get("api", "traded_picks_route")
     _TRANSACTIONS_ROUTE = ConfigReader.get("api", "transactions_route")
+    _TRENDING_ROUTE = ConfigReader.get("api", "trending_route")
     _USER_ROUTE = ConfigReader.get("api", "user_route")
     _USERS_ROUTE = ConfigReader.get("api", "users_route")
     _WINNERS_BRACKET_ROUTE = ConfigReader.get("api", "winners_bracket_route")
