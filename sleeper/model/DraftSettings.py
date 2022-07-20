@@ -1,43 +1,42 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Optional
 
 
 @dataclass(kw_only=True)
 class DraftSettings:
-    teams: Optional[int]
-    slots_wr: Optional[int]
-    slots_te: Optional[int]
-    slots_rb: Optional[int]
-    slots_qb: Optional[int]
-    slots_flex: Optional[int]
-    slots_super_flex: Optional[int]
-    slots_bn: Optional[int]
-    rounds: Optional[int]
-    pick_timer: Optional[int]
-    reversal_round: Optional[int]
-    player_type: Optional[int]
-    nomination_timer: Optional[int]
-    enforce_position_limits: Optional[int]
-    cpu_autopick: Optional[int]
-    alpha_sort: Optional[int]
+    alpha_sort: int
+    cpu_autopick: int
+    enforce_position_limits: int
+    nomination_timer: int
+    pick_timer: int
+    player_type: int
+    reversal_round: int
+    rounds: int
+    slots_bn: int
+    slots_flex: int
+    slots_qb: int
+    slots_rb: int
+    slots_super_flex: int
+    slots_te: int
+    slots_wr: int
+    teams: int
 
     @staticmethod
     def from_dict(draft_settings_dict: dict) -> DraftSettings:
-        return DraftSettings(teams=draft_settings_dict.get("teams", None),
-                             slots_wr=draft_settings_dict.get("slots_wr", None),
-                             slots_te=draft_settings_dict.get("slots_te", None),
-                             slots_rb=draft_settings_dict.get("slots_rb", None),
-                             slots_qb=draft_settings_dict.get("slots_qb", None),
-                             slots_flex=draft_settings_dict.get("slots_flex", None),
-                             slots_super_flex=draft_settings_dict.get("slots_super_flex", None),
-                             slots_bn=draft_settings_dict.get("slots_bn", None),
-                             rounds=draft_settings_dict.get("rounds", None),
-                             pick_timer=draft_settings_dict.get("pick_timer", None),
-                             reversal_round=draft_settings_dict.get("reversal_round", None),
-                             player_type=draft_settings_dict.get("player_type", None),
-                             nomination_timer=draft_settings_dict.get("nomination_timer", None),
-                             enforce_position_limits=draft_settings_dict.get("enforce_position_limits", None),
-                             cpu_autopick=draft_settings_dict.get("cpu_autopick", None),
-                             alpha_sort=draft_settings_dict.get("alpha_sort", None))
+        return DraftSettings(teams=draft_settings_dict.get("teams"),
+                             slots_wr=draft_settings_dict.get("slots_wr"),
+                             slots_te=draft_settings_dict.get("slots_te"),
+                             slots_rb=draft_settings_dict.get("slots_rb"),
+                             slots_qb=draft_settings_dict.get("slots_qb"),
+                             slots_flex=draft_settings_dict.get("slots_flex"),
+                             slots_super_flex=draft_settings_dict.get("slots_super_flex"),
+                             slots_bn=draft_settings_dict.get("slots_bn"),
+                             rounds=draft_settings_dict.get("rounds"),
+                             pick_timer=draft_settings_dict.get("pick_timer"),
+                             reversal_round=draft_settings_dict.get("reversal_round"),
+                             player_type=draft_settings_dict.get("player_type"),
+                             nomination_timer=draft_settings_dict.get("nomination_timer"),
+                             enforce_position_limits=draft_settings_dict.get("enforce_position_limits"),
+                             cpu_autopick=draft_settings_dict.get("cpu_autopick"),
+                             alpha_sort=draft_settings_dict.get("alpha_sort"))
