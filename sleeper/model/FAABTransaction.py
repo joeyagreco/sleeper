@@ -5,15 +5,15 @@ from dataclasses import dataclass
 
 @dataclass(kw_only=True)
 class FAABTransaction:
-    sender: int
-    receiver: int
     amount: int
+    receiver: int
+    sender: int
 
     @staticmethod
     def from_dict(faab_transaction_dict: dict) -> FAABTransaction:
-        return FAABTransaction(sender=faab_transaction_dict["sender"],
-                               receiver=faab_transaction_dict["receiver"],
-                               amount=faab_transaction_dict["amount"])
+        return FAABTransaction(sender=faab_transaction_dict.get("sender"),
+                               receiver=faab_transaction_dict.get("receiver"),
+                               amount=faab_transaction_dict.get("amount"))
 
     @staticmethod
     def from_dict_list(faab_transaction_dict_list: dict) -> list[FAABTransaction]:
