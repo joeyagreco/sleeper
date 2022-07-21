@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from enum import unique, Enum
 
+from sleeper.util.CustomLogger import CustomLogger
+
 
 @unique
 class ModelEnum(Enum):
@@ -12,5 +14,4 @@ class ModelEnum(Enum):
 
     @staticmethod
     def _handle_unknown_value(enum_class: ModelEnum, value: str) -> None:
-        # TODO: make this a logger warning
-        print(f"Unknown value for {enum_class.__name__}: '{value}'.")
+        CustomLogger.getLogger().warning(f"Unknown value for {enum_class.__name__}: '{value}'.")
