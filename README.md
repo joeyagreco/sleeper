@@ -4,6 +4,9 @@
 
 A Python wrapper for the Sleeper API.
 
+[Sleeper Website](https://sleeper.com/)\
+[Sleeper API Documentation](https://docs.sleeper.app/)
+
 ![Main Build](https://github.com/joeyagreco/sleeper/actions/workflows/main-build.yml/badge.svg)
 ![Last Commit](https://img.shields.io/github/last-commit/joeyagreco/sleeper)
 </div>
