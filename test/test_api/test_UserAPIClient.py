@@ -50,3 +50,13 @@ class TestUserAPIClient(unittest.TestCase):
         self.assertEqual(response.user_id, "user_id")
         self.assertEqual(response.display_name, "display_name")
         self.assertEqual(response.avatar, "avatar")
+
+    @mock.patch("requests.get")
+    def test_get_user_username_not_found_raises_exception(self, mock_requests_get):
+        mock_dict = None
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(ValueError) as context:
+            UserAPIClient.get_user(user_id="user_id")
+        self.assertEqual("Could not find User for username/user_id: 'user_id'.", str(context.exception))

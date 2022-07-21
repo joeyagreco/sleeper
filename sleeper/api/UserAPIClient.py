@@ -10,4 +10,7 @@ class UserAPIClient(SleeperAPIClient):
             raise ValueError("Must pass 'username' or 'user_id'.")
         user_arg = username if username is not None else user_id
         url = cls._build_route(cls._SLEEPER_APP_BASE_URL, cls._VERSION, cls._USER_ROUTE, f"{user_arg}")
-        return User.from_dict(cls._get(url))
+        response_dict = cls._get(url)
+        if response_dict is None:
+            raise ValueError(f"Could not find User for username/user_id: '{user_arg}'.")
+        return User.from_dict(response_dict)

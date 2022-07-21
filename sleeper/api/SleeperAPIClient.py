@@ -60,7 +60,7 @@ class SleeperAPIClient(ABC):
         return url
 
     @staticmethod
-    def _get(url: str) -> dict:
+    def _get(url: str) -> Optional[dict]:
         # TODO: error handling
         return requests.get(url).json()
 
