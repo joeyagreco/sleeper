@@ -15,6 +15,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     long_description=read_me,
     license=license,
+    include_package_data=True,
     packages=setuptools.find_packages(exclude=("test", "docs")),
     install_requires=["requests",
                       "configparser",
