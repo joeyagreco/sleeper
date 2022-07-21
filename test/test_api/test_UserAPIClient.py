@@ -51,8 +51,13 @@ class TestUserAPIClient(unittest.TestCase):
         self.assertEqual(response.display_name, "display_name")
         self.assertEqual(response.avatar, "avatar")
 
+    def test_get_user_username_and_user_id_not_given_raises_exception(self):
+        with self.assertRaises(ValueError) as context:
+            UserAPIClient.get_user()
+        self.assertEqual("'username' and 'user_id' cannot both be None.", str(context.exception))
+
     @mock.patch("requests.get")
-    def test_get_user_username_not_found_raises_exception(self, mock_requests_get):
+    def test_get_user_username_or_user_id_not_found_raises_exception(self, mock_requests_get):
         mock_dict = None
         mock_response = MockResponse(mock_dict, 200)
         mock_requests_get.return_value = mock_response
