@@ -3,8 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from sleeper.enum.InjuryStatus import InjuryStatus
-from sleeper.enum.NFLPlayerStatus import PlayerStatus
 from sleeper.enum.PlayerPosition import PlayerPosition
+from sleeper.enum.PlayerStatus import PlayerStatus
 from sleeper.enum.Sport import Sport
 from sleeper.enum.SportTeam import SportTeam
 
