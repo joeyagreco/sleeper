@@ -1,3 +1,3 @@
-from .api import UserAPIClient, LeagueAPIClient, AvatarAPIClient, DraftAPIClient, PlayerAPIClient
+from .api import AvatarAPIClient, DraftAPIClient, LeagueAPIClient, PlayerAPIClient, UserAPIClient
 
-__version__ = "0.4.0"
+__version__ = "0.5=.0"
