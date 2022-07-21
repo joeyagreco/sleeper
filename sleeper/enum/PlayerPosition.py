@@ -3,6 +3,8 @@ from __future__ import annotations
 from abc import abstractmethod
 from enum import unique, Enum
 
+from sleeper.enum.Sport import Sport
+
 
 @unique
 class PlayerPosition(Enum):
@@ -15,3 +17,11 @@ class PlayerPosition(Enum):
     @abstractmethod
     def from_str(cls, s: str) -> PlayerPosition:
         ...
+
+    @staticmethod
+    def enum(sport: Sport) -> PlayerPosition:
+        from sleeper.enum.nfl.NFLPosition import NFLPosition
+        if sport == Sport.NFL:
+            return NFLPosition
+        else:
+            raise ValueError(f"Cannot find PlayerPosition for sport: 'sport'.")

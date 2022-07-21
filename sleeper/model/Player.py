@@ -46,25 +46,25 @@ class Player:
     years_exp: int
 
     @staticmethod
-    def from_dict(player_dict: dict) -> Player:
+    def from_dict(player_dict: dict, sport: Sport) -> Player:
         given_fantasy_positions = player_dict.get("fantasy_positions")
-        fantasy_positions = [PlayerPosition.from_str(pos) for pos in
+        fantasy_positions = [PlayerPosition.enum(sport).from_str(pos) for pos in
                              given_fantasy_positions] if given_fantasy_positions is not None else None
 
         return Player(hashtag=player_dict.get("hashtag"),
                       depth_chart_position=player_dict.get("depth_chart_position"),
-                      status=PlayerStatus.from_str(player_dict.get("status")),
+                      status=PlayerStatus.enum(sport).from_str(player_dict.get("status")),
                       sport=Sport.from_str(player_dict.get("sport")),
                       fantasy_positions=fantasy_positions,
                       number=player_dict.get("number"),
                       search_last_name=player_dict.get("search_last_name"),
                       injury_start_date=player_dict.get("injury_start_date"),
                       weight=player_dict.get("weight"),
-                      position=PlayerPosition.from_str(player_dict.get("position")),
+                      position=PlayerPosition.enum(sport).from_str(player_dict.get("position")),
                       practice_participation=PracticeParticipation.from_str(
                           player_dict.get("practice_participation")),
                       sportradar_id=player_dict.get("sportradar_id"),
-                      team=SportTeam.from_str(player_dict.get("team")),
+                      team=SportTeam.enum(sport).from_str(player_dict.get("team")),
                       last_name=player_dict.get("last_name"),
                       college=player_dict.get("college"),
                       fantasy_data_id=player_dict.get("fantasy_data_id"),
@@ -86,8 +86,8 @@ class Player:
                       yahoo_id=player_dict.get("yahoo_id"))
 
     @staticmethod
-    def dict_by_id(player_dict_list: dict) -> dict[str, Player]:
+    def dict_by_id(player_dict_list: dict, sport: Sport) -> dict[str, Player]:
         players_by_id = dict()
         for player_id in player_dict_list:
-            players_by_id[player_id] = Player.from_dict(player_dict_list[player_id])
+            players_by_id[player_id] = Player.from_dict(player_dict_list[player_id], sport)
         return players_by_id

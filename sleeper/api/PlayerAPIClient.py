@@ -10,7 +10,7 @@ class PlayerAPIClient(SleeperAPIClient):
     @classmethod
     def get_all_players(cls, *, sport: Sport) -> dict[str, Player]:
         url = cls._build_route(cls._SLEEPER_APP_BASE_URL, cls._VERSION, cls._PLAYERS_ROUTE, sport.name.lower())
-        return Player.dict_by_id(cls._get(url))
+        return Player.dict_by_id(cls._get(url), sport)
 
     @classmethod
     def get_trending_players(cls, *, sport: Sport, trend_type: TrendType, **kwargs) -> list[PlayerTrend]:

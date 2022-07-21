@@ -24,9 +24,9 @@ class DraftAPIClient(SleeperAPIClient):
         return Draft.from_dict(cls._get(url))
 
     @classmethod
-    def get_player_draft_picks(cls, *, draft_id: str) -> list[PlayerDraftPick]:
+    def get_player_draft_picks(cls, *, draft_id: str, sport: Sport) -> list[PlayerDraftPick]:
         url = cls._build_route(cls._SLEEPER_APP_BASE_URL, cls._VERSION, cls._DRAFT_ROUTE, draft_id, cls._PICKS_ROUTE)
-        return PlayerDraftPick.from_dict_list(cls._get(url))
+        return PlayerDraftPick.from_dict_list(cls._get(url), sport)
 
     @classmethod
     def get_traded_draft_picks(cls, *, draft_id: str) -> list[DraftPick]:

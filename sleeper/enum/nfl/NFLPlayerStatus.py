@@ -12,7 +12,9 @@ class NFLPlayerStatus(PlayerStatus):
     INACTIVE = "INACTIVE"
     INJURED_RESERVE = "INJURED_RESERVE"
     NA = "NA"
+    NON_FOOTBALL_INJURY = "NON_FOOTBALL_INJURY"
     PHYSICALLY_UNABLE_TO_PERFORM = "PHYSICALLY_UNABLE_TO_PERFORM"
+    PRACTICE_SQUAD = "PRACTICE_SQUAD"
 
     @classmethod
     def from_str(cls, s: Optional[str]) -> NFLPlayerStatus:
@@ -24,7 +26,11 @@ class NFLPlayerStatus(PlayerStatus):
             return NFLPlayerStatus.INACTIVE
         elif s.upper() == "INJURED RESERVE":
             return NFLPlayerStatus.INJURED_RESERVE
+        elif s.upper() == "NON FOOTBALL INJURY":
+            return NFLPlayerStatus.NON_FOOTBALL_INJURY
         elif s.upper() == "PHYSICALLY UNABLE TO PERFORM":
             return NFLPlayerStatus.PHYSICALLY_UNABLE_TO_PERFORM
+        elif s.upper() == "PRACTICE SQUAD":
+            return NFLPlayerStatus.PRACTICE_SQUAD
         else:
             raise ValueError(f"Invalid value for NFLPlayerStatus: '{s}'.")
