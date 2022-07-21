@@ -1,10 +1,12 @@
 from __future__ import annotations
 
-from enum import unique, Enum
+from enum import unique
+
+from sleeper.enum.ModelEnum import ModelEnum
 
 
 @unique
-class TransactionType(Enum):
+class TransactionType(ModelEnum):
     FREE_AGENT = "FREE_AGENT"
     TRADE = "TRADE"
     WAIVER = "WAIVER"
@@ -18,4 +20,4 @@ class TransactionType(Enum):
         elif s.upper() == "WAIVER":
             return TransactionType.WAIVER
         else:
-            raise ValueError(f"Invalid value for TransactionType: '{s}'.")
+            cls._handle_unknown_value(TransactionType, s)

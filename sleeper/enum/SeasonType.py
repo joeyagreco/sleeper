@@ -1,10 +1,12 @@
 from __future__ import annotations
 
-from enum import unique, Enum
+from enum import unique
+
+from sleeper.enum.ModelEnum import ModelEnum
 
 
 @unique
-class SeasonType(Enum):
+class SeasonType(ModelEnum):
     OFF = "OFF"
     POST = "POST"
     PRE = "PRE"
@@ -21,4 +23,4 @@ class SeasonType(Enum):
         elif s.upper() == "REGULAR":
             return SeasonType.REGULAR
         else:
-            raise ValueError(f"Invalid value for SeasonType: '{s}'.")
+            cls._handle_unknown_value(SeasonType, s)

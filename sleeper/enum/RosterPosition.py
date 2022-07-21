@@ -1,17 +1,19 @@
 from __future__ import annotations
 
-from enum import unique, Enum
+from enum import unique
+
+from sleeper.enum.ModelEnum import ModelEnum
 
 
 @unique
-class RosterPosition(Enum):
+class RosterPosition(ModelEnum):
     BN = "BN"
     DEF = "DEF"
     FLEX = "FLEX"
     K = "K"
     QB = "QB"
     RB = "RB"
-    SUPER_FLEX = "SUPERFLEX"
+    SUPER_FLEX = "SUPER_FLEX"
     TE = "TE"
     WR = "WR"
 
@@ -36,4 +38,4 @@ class RosterPosition(Enum):
         elif s.upper() == "WR":
             return RosterPosition.WR
         else:
-            raise ValueError(f"Invalid value for RosterPosition: '{s}'.")
+            cls._handle_unknown_value(RosterPosition, s)

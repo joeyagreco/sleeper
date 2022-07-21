@@ -1,10 +1,12 @@
 from __future__ import annotations
 
-from enum import unique, Enum
+from enum import unique
+
+from sleeper.enum.ModelEnum import ModelEnum
 
 
 @unique
-class ScoringType(Enum):
+class ScoringType(ModelEnum):
     DYNASTY = "DYNASTY"
     DYNASTY_PPR = "DYNASTY_PPR"
     DYNASTY_TWO_QB = "DYNASTY_2QB"
@@ -30,4 +32,4 @@ class ScoringType(Enum):
         elif s.upper() == "2QB":
             return ScoringType.TWO_QB
         else:
-            raise ValueError(f"Invalid value for ScoringType: '{s}'.")
+            cls._handle_unknown_value(ScoringType, s)

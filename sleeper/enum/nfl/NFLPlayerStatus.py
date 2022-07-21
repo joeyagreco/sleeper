@@ -3,11 +3,12 @@ from __future__ import annotations
 from enum import unique
 from typing import Optional
 
+from sleeper.enum.ModelEnum import ModelEnum
 from sleeper.enum.PlayerStatus import PlayerStatus
 
 
 @unique
-class NFLPlayerStatus(PlayerStatus):
+class NFLPlayerStatus(PlayerStatus, ModelEnum):
     ACTIVE = "ACTIVE"
     INACTIVE = "INACTIVE"
     INJURED_RESERVE = "INJURED_RESERVE"
@@ -33,4 +34,4 @@ class NFLPlayerStatus(PlayerStatus):
         elif s.upper() == "PRACTICE SQUAD":
             return NFLPlayerStatus.PRACTICE_SQUAD
         else:
-            raise ValueError(f"Invalid value for NFLPlayerStatus: '{s}'.")
+            cls._handle_unknown_value(NFLPlayerStatus, s)

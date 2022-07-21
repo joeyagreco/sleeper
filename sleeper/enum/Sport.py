@@ -1,10 +1,12 @@
 from __future__ import annotations
 
-from enum import unique, Enum
+from enum import unique
+
+from sleeper.enum.ModelEnum import ModelEnum
 
 
 @unique
-class Sport(Enum):
+class Sport(ModelEnum):
     LCS = "LCS"
     NBA = "NBA"
     NFL = "NFL"
@@ -18,4 +20,4 @@ class Sport(Enum):
         elif s.upper() == "NFL":
             return Sport.NFL
         else:
-            raise ValueError(f"Invalid value for Sport: '{s}'.")
+            cls._handle_unknown_value(Sport, s)

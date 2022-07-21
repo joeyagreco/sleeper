@@ -3,11 +3,12 @@ from __future__ import annotations
 from enum import unique
 from typing import Optional
 
+from sleeper.enum.ModelEnum import ModelEnum
 from sleeper.enum.PlayerPosition import PlayerPosition
 
 
 @unique
-class NFLPosition(PlayerPosition):
+class NFLPosition(PlayerPosition, ModelEnum):
     C = "C"
     CB = "CB"
     DB = "DB"
@@ -99,4 +100,4 @@ class NFLPosition(PlayerPosition):
         elif s.upper() == "WR":
             return NFLPosition.WR
         else:
-            raise ValueError(f"Invalid value for NFLPosition: '{s}'.")
+            cls._handle_unknown_value(NFLPosition, s)

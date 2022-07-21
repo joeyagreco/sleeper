@@ -1,10 +1,12 @@
 from __future__ import annotations
 
-from enum import unique, Enum
+from enum import unique
+
+from sleeper.enum.ModelEnum import ModelEnum
 
 
 @unique
-class DraftStatus(Enum):
+class DraftStatus(ModelEnum):
     COMPLETE = "COMPLETE"
     PRE_DRAFT = "PRE_DRAFT"
 
@@ -15,4 +17,4 @@ class DraftStatus(Enum):
         elif s.upper() == "PRE_DRAFT":
             return DraftStatus.PRE_DRAFT
         else:
-            raise ValueError(f"Invalid value for DraftStatus: '{s}'.")
+            cls._handle_unknown_value(DraftStatus, s)

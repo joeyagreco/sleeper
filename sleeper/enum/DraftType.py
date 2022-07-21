@@ -1,10 +1,12 @@
 from __future__ import annotations
 
-from enum import unique, Enum
+from enum import unique
+
+from sleeper.enum.ModelEnum import ModelEnum
 
 
 @unique
-class DraftType(Enum):
+class DraftType(ModelEnum):
     AUCTION = "AUCTION"
     LINEAR = "LINEAR"
     SNAKE = "SNAKE"
@@ -18,4 +20,4 @@ class DraftType(Enum):
         elif s.upper() == "SNAKE":
             return DraftType.SNAKE
         else:
-            raise ValueError(f"Invalid value for DraftType: '{s}'.")
+            cls._handle_unknown_value(DraftType, s)

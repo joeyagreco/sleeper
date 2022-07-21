@@ -3,11 +3,12 @@ from __future__ import annotations
 from enum import unique
 from typing import Optional
 
+from sleeper.enum.ModelEnum import ModelEnum
 from sleeper.enum.SportTeam import SportTeam
 
 
 @unique
-class NFLTeam(SportTeam):
+class NFLTeam(SportTeam, ModelEnum):
     ARI = "ARI"
     ATL = "ATL"
     BAL = "BAL"
@@ -114,4 +115,4 @@ class NFLTeam(SportTeam):
         elif s.upper() == "WAS":
             return NFLTeam.WAS
         else:
-            raise ValueError(f"Invalid value for NFLTeam: '{s}'.")
+            cls._handle_unknown_value(NFLTeam, s)

@@ -1,10 +1,12 @@
 from __future__ import annotations
 
-from enum import unique, Enum
+from enum import unique
+
+from sleeper.enum.ModelEnum import ModelEnum
 
 
 @unique
-class TrendType(Enum):
+class TrendType(ModelEnum):
     ADD = "ADD"
     DROP = "DROP"
 
@@ -15,4 +17,4 @@ class TrendType(Enum):
         elif s.upper() == "DROP":
             return TrendType.DROP
         else:
-            raise ValueError(f"Invalid value for TrendType: '{s}'.")
+            cls._handle_unknown_value(TrendType, s)

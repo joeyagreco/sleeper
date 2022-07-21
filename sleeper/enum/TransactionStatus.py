@@ -1,10 +1,12 @@
 from __future__ import annotations
 
-from enum import unique, Enum
+from enum import unique
+
+from sleeper.enum.ModelEnum import ModelEnum
 
 
 @unique
-class TransactionStatus(Enum):
+class TransactionStatus(ModelEnum):
     COMPLETE = "COMPLETE"
     FAILED = "FAILED"
 
@@ -15,4 +17,4 @@ class TransactionStatus(Enum):
         elif s.upper() == "FAILED":
             return TransactionStatus.FAILED
         else:
-            raise ValueError(f"Invalid value for TransactionStatus: '{s}'.")
+            cls._handle_unknown_value(TransactionStatus, s)

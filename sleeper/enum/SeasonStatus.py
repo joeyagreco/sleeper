@@ -1,10 +1,12 @@
 from __future__ import annotations
 
-from enum import unique, Enum
+from enum import unique
+
+from sleeper.enum.ModelEnum import ModelEnum
 
 
 @unique
-class SeasonStatus(Enum):
+class SeasonStatus(ModelEnum):
     COMPLETE = "COMPLETE"
     DRAFTING = "DRAFTING"
     IN_SEASON = "IN_SEASON"
@@ -21,4 +23,4 @@ class SeasonStatus(Enum):
         elif s.upper() == "PRE_DRAFT":
             return SeasonStatus.PRE_DRAFT
         else:
-            raise ValueError(f"Invalid value for SeasonStatus: '{s}'.")
+            cls._handle_unknown_value(SeasonStatus, s)

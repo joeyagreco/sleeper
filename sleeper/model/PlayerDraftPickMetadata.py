@@ -25,7 +25,8 @@ class PlayerDraftPickMetadata:
     @staticmethod
     def from_dict(player_draft_pick_metadata_dict: dict, sport: Sport) -> PlayerDraftPickMetadata:
         return PlayerDraftPickMetadata(team=SportTeam.enum(sport).from_str(player_draft_pick_metadata_dict.get("team")),
-                                       status=PlayerStatus.from_str(player_draft_pick_metadata_dict.get("status")),
+                                       status=PlayerStatus.enum(sport).from_str(
+                                           player_draft_pick_metadata_dict.get("status")),
                                        sport=Sport.from_str(player_draft_pick_metadata_dict.get("sport")),
                                        position=PlayerPosition.enum(sport).from_str(
                                            player_draft_pick_metadata_dict.get("position")),

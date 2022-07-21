@@ -1,11 +1,13 @@
 from __future__ import annotations
 
-from enum import unique, Enum
+from enum import unique
 from typing import Optional
+
+from sleeper.enum.ModelEnum import ModelEnum
 
 
 @unique
-class PracticeParticipation(Enum):
+class PracticeParticipation(ModelEnum):
     NA = "NA"
     OUT = "OUT"
 
@@ -16,4 +18,4 @@ class PracticeParticipation(Enum):
         elif s.upper() == "OUT":
             return PracticeParticipation.OUT
         else:
-            raise ValueError(f"Invalid value for PracticeParticipation: '{s}'.")
+            cls._handle_unknown_value(PracticeParticipation, s)

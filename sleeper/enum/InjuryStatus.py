@@ -1,11 +1,13 @@
 from __future__ import annotations
 
-from enum import unique, Enum
+from enum import unique
 from typing import Optional
+
+from sleeper.enum.ModelEnum import ModelEnum
 
 
 @unique
-class InjuryStatus(Enum):
+class InjuryStatus(ModelEnum):
     COV = "COV"
     DNR = "DNR"
     DOUBTFUL = "DOUBTFUL"
@@ -37,4 +39,4 @@ class InjuryStatus(Enum):
         elif s.upper() == "SUS":
             return InjuryStatus.SUS
         else:
-            raise ValueError(f"Invalid value for InjuryStatus: '{s}'.")
+            cls._handle_unknown_value(InjuryStatus, s)
