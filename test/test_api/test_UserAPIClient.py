@@ -8,7 +8,7 @@ from sleeper.model.User import User
 class MockResponse:
     def __init__(self, data: dict, status_code: int):
         self.__data = data
-        self.__status_code = status_code
+        self.status_code = status_code
 
     def json(self):
         return self.__data

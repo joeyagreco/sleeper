@@ -1,5 +1,6 @@
 import io
 from abc import ABC
+from http import HTTPStatus
 from typing import Optional
 
 import requests
@@ -64,7 +65,7 @@ class SleeperAPIClient(ABC):
     def _get(url: str) -> Optional[dict]:
         # TODO: error handling
         response = requests.get(url)
-        if response.status_code != 200:
+        if response.status_code != HTTPStatus.OK:
             raise SleeperAPIException(f"Got bad status code ({response.status_code}) from request.")
         return response.json()
 
@@ -72,7 +73,7 @@ class SleeperAPIClient(ABC):
     def _get_image_file(url: str) -> Image:
         # TODO: error handling
         response = requests.get(url)
-        if response.status_code != 200:
+        if response.status_code != HTTPStatus.OK:
             raise SleeperAPIException(f"Got bad status code ({response.status_code}) from request.")
         image_bytes = response.content
         image_stream = io.BytesIO(image_bytes)
