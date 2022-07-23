@@ -5,6 +5,7 @@ from typing import Optional
 import requests
 from PIL import Image
 
+from sleeper.exception.SleeperAPIException import SleeperAPIException
 from sleeper.util.ConfigReader import ConfigReader
 
 
@@ -62,11 +63,17 @@ class SleeperAPIClient(ABC):
     @staticmethod
     def _get(url: str) -> Optional[dict]:
         # TODO: error handling
-        return requests.get(url).json()
+        response = requests.get(url)
+        if response.status_code != 200:
+            raise SleeperAPIException(f"Got bad status code ({response.status_code}) from request.")
+        return response.json()
 
     @staticmethod
     def _get_image_file(url: str) -> Image:
         # TODO: error handling
-        image_bytes = requests.get(url).content
+        response = requests.get(url)
+        if response.status_code != 200:
+            raise SleeperAPIException(f"Got bad status code ({response.status_code}) from request.")
+        image_bytes = response.content
         image_stream = io.BytesIO(image_bytes)
         return Image.open(image_stream)
