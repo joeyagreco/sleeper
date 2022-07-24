@@ -14,7 +14,7 @@ class DraftAPIClient(SleeperAPIClient):
         response_dict = cls._get(url)
         if response_dict is None:
             raise ValueError(f"Could not get Drafts for user_id '{user_id}', sport '{sport.name}', and year '{year}'.")
-        return Draft.from_dict_list(cls._get(url))
+        return Draft.from_dict_list(response_dict)
 
     @classmethod
     def get_drafts_in_league(cls, *, league_id: str) -> list[Draft]:
