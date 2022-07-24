@@ -63,7 +63,6 @@ class SleeperAPIClient(ABC):
 
     @staticmethod
     def _get(url: str) -> Optional[dict]:
-        # TODO: error handling
         response = requests.get(url)
         if response.status_code != HTTPStatus.OK:
             raise SleeperAPIException(f"Got bad status code ({response.status_code}) from request.")
@@ -71,7 +70,6 @@ class SleeperAPIClient(ABC):
 
     @staticmethod
     def _get_image_file(url: str) -> Image:
-        # TODO: error handling
         response = requests.get(url)
         if response.status_code != HTTPStatus.OK:
             raise SleeperAPIException(f"Got bad status code ({response.status_code}) from request.")
