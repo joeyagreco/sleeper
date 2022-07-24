@@ -93,7 +93,11 @@ class LeagueAPIClient(SleeperAPIClient):
     def get_traded_picks(cls, *, league_id: str) -> list[TradedPick]:
         url = cls._build_route(cls._SLEEPER_APP_BASE_URL, cls._VERSION, cls._LEAGUE_ROUTE, league_id,
                                cls._TRADED_PICKS_ROUTE)
-        return TradedPick.from_dict_list(cls._get(url))
+        response_list = cls._get(url)
+        if response_list is None:
+            raise ValueError(
+                f"Could not get TradedPicks for league_id '{league_id}'.")
+        return TradedPick.from_dict_list(response_list)
 
     @classmethod
     def get_sport_state(cls, *, sport: Sport) -> SportState:

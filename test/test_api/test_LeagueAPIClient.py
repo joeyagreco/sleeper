@@ -18,6 +18,7 @@ from sleeper.model.PlayoffMatchup import PlayoffMatchup
 from sleeper.model.Roster import Roster
 from sleeper.model.RosterSettings import RosterSettings
 from sleeper.model.ScoringSettings import ScoringSettings
+from sleeper.model.TradedPick import TradedPick
 from sleeper.model.Transaction import Transaction
 from sleeper.model.TransactionSettings import TransactionSettings
 from sleeper.model.User import User
@@ -1218,4 +1219,46 @@ class TestLeagueAPIClient(unittest.TestCase):
 
         with self.assertRaises(SleeperAPIException) as context:
             LeagueAPIClient.get_transactions(league_id="12345", week=1)
+        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_traded_picks_happy_path(self, mock_requests_get):
+        mock_list = [
+            {
+                "season": "2019",
+                "round": 5,
+                "roster_id": 1,
+                "previous_owner_id": 1,
+                "owner_id": 2}
+        ]
+        mock_response = MockResponse(mock_list, 200)
+        mock_requests_get.return_value = mock_response
+
+        response = LeagueAPIClient.get_traded_picks(league_id="12345")[0]
+
+        self.assertIsInstance(response, TradedPick)
+        self.assertEqual(2, response.owner_id)
+        self.assertEqual(1, response.previous_owner_id)
+        self.assertEqual(1, response.roster_id)
+        self.assertEqual(5, response.round)
+        self.assertEqual("2019", response.season)
+
+    @mock.patch("requests.get")
+    def test_get_traded_picks_not_found_raises_exception(self, mock_requests_get):
+        mock_dict = None
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(ValueError) as context:
+            LeagueAPIClient.get_traded_picks(league_id="12345")
+        self.assertEqual("Could not get TradedPicks for league_id '12345'.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_traded_picks_non_200_status_code_raises_exception(self, mock_requests_get):
+        mock_dict = {}
+        mock_response = MockResponse(mock_dict, 404)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(SleeperAPIException) as context:
+            LeagueAPIClient.get_traded_picks(league_id="12345")
         self.assertEqual("Got bad status code (404) from request.", str(context.exception))
