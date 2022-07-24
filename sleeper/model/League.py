@@ -28,14 +28,16 @@ class League:
 
     @staticmethod
     def from_dict(league_dict: dict) -> League:
+        sport = Sport.from_str(league_dict.get("sport"))
+
         return League(total_rosters=league_dict.get("total_rosters"),
                       status=SeasonStatus.from_str(league_dict.get("status")),
-                      sport=Sport.from_str(league_dict.get("sport")),
+                      sport=sport,
                       settings=LeagueSettings.from_dict(league_dict.get("settings")),
                       season_type=SeasonType.from_str(league_dict.get("season_type")),
                       season=league_dict.get("season"),
                       scoring_settings=ScoringSettings.from_dict(league_dict.get("scoring_settings")),
-                      roster_positions=[RosterPosition.from_str(roster_position) for roster_position in
+                      roster_positions=[RosterPosition.enum(sport).from_str(roster_position) for roster_position in
                                         league_dict.get("roster_positions")],
                       previous_league_id=league_dict.get("previous_league_id"),
                       name=league_dict.get("name"),

@@ -5,22 +5,44 @@ from dataclasses import dataclass
 
 @dataclass(kw_only=True)
 class LeagueSettings:
+    bench_lock: int
+    best_ball: int
+    capacity_override: int
+    commissioner_direct_invite: int
+    daily_waivers: int
+    daily_waivers_days: int
+    daily_waivers_hour: int
+    daily_waivers_last_ran: int
+    disable_adds: int
+    disable_trades: int
     draft_rounds: int
     last_report: int
     last_scored_leg: int
+    league_average_match: int
     leg: int
     max_keepers: int
     num_teams: int
     offseason_adds: int
     pick_trading: int
+    playoff_round_type: int
+    playoff_seed_type: int
     playoff_teams: int
+    playoff_type: int
     playoff_week_start: int
+    reserve_allow_cov: int
+    reserve_allow_dnr: int
+    reserve_allow_na: int
     reserve_allow_out: int
+    reserve_allow_sus: int
     reserve_slots: int
     start_week: int
+    taxi_allow_vets: int
+    taxi_slots: int
+    taxi_years: int
     trade_deadline: int
     trade_review_days: int
     type: int
+    waiver_bid_min: int
     waiver_budget: int
     waiver_clear_days: int
     waiver_day_of_week: int
@@ -47,4 +69,26 @@ class LeagueSettings:
                               leg=settings_dict.get("leg"),
                               last_scored_leg=settings_dict.get("last_scored_leg"),
                               last_report=settings_dict.get("last_report"),
-                              draft_rounds=settings_dict.get("draft_rounds"))
+                              draft_rounds=settings_dict.get("draft_rounds"),
+                              bench_lock=settings_dict.get("bench_lock"),
+                              best_ball=settings_dict.get("best_ball"),
+                              capacity_override=settings_dict.get("capacity_override"),
+                              commissioner_direct_invite=settings_dict.get("commissioner_direct_invite"),
+                              daily_waivers=settings_dict.get("daily_waivers"),
+                              daily_waivers_days=settings_dict.get("daily_waivers_days"),
+                              daily_waivers_hour=settings_dict.get("daily_waivers_hour"),
+                              daily_waivers_last_ran=settings_dict.get("daily_waivers_last_ran"),
+                              disable_adds=settings_dict.get("disable_adds"),
+                              disable_trades=settings_dict.get("disable_trades"),
+                              league_average_match=settings_dict.get("league_average_match"),
+                              playoff_round_type=settings_dict.get("playoff_round_type"),
+                              playoff_seed_type=settings_dict.get("playoff_seed_type"),
+                              playoff_type=settings_dict.get("playoff_type"),
+                              reserve_allow_cov=settings_dict.get("reserve_allow_cov"),
+                              reserve_allow_dnr=settings_dict.get("reserve_allow_dnr"),
+                              reserve_allow_na=settings_dict.get("reserve_allow_na"),
+                              reserve_allow_sus=settings_dict.get("reserve_allow_sus"),
+                              taxi_allow_vets=settings_dict.get("taxi_allow_vets"),
+                              taxi_slots=settings_dict.get("taxi_slots"),
+                              taxi_years=settings_dict.get("taxi_years"),
+                              waiver_bid_min=settings_dict.get("waiver_bid_min"))
