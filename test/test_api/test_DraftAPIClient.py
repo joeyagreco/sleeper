@@ -222,3 +222,13 @@ class TestDraftAPIClient(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             DraftAPIClient.get_drafts_in_league(league_id="12345")
         self.assertEqual("Could not get Drafts for league_id '12345'.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_drafts_in_league_non_200_status_code_raises_exception(self, mock_requests_get):
+        mock_dict = {}
+        mock_response = MockResponse(mock_dict, 404)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(SleeperAPIException) as context:
+            DraftAPIClient.get_drafts_in_league(league_id="12345")
+        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
