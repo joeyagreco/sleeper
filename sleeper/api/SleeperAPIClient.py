@@ -76,5 +76,7 @@ class SleeperAPIClient(ABC):
         if response.status_code != HTTPStatus.OK:
             raise SleeperAPIException(f"Got bad status code ({response.status_code}) from request.")
         image_bytes = response.content
+        if image_bytes is None:
+            raise SleeperAPIException(f"No avatar found.")
         image_stream = io.BytesIO(image_bytes)
         return Image.open(image_stream)
