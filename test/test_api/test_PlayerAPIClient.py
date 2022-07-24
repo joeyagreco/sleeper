@@ -45,22 +45,22 @@ class TestPlayerAPIClient(unittest.TestCase):
                     "OL"
                 ],
                 "position": "OT",
-                "stats_id": None,
+                "stats_id": 12345,
                 "search_last_name": "booth",
                 "yahoo_id": 27841,
-                "birth_country": None,
+                "birth_country": "USA",
                 "full_name": "Cody Booth",
                 "age": 27,
                 "sport": "nfl",
-                "team": None,
+                "team": "GB",
                 "pandascore_id": None,
                 "high_school": None,
                 "news_updated": None,
                 "metadata": None,
                 "injury_body_part": None,
-                "injury_start_date": None,
+                "injury_start_date": "20000101",
                 "fantasy_data_id": 16426,
-                "depth_chart_position": None,
+                "depth_chart_position": 1,
                 "height": "6'5\"",
                 "injury_status": None,
                 "sportradar_id": "4cd4976e-e230-4935-ad3f-c12876a41350",
@@ -68,9 +68,9 @@ class TestPlayerAPIClient(unittest.TestCase):
                 "birth_date": "1991-04-22",
                 "first_name": "Cody",
                 "active": False,
-                "depth_chart_order": None,
+                "depth_chart_order": 1,
                 "college": "Temple",
-                "rotoworld_id": None,
+                "rotoworld_id": 12345,
                 "search_rank": 9999999,
                 "search_first_name": "cody",
                 "search_full_name": "codybooth"
@@ -134,10 +134,10 @@ class TestPlayerAPIClient(unittest.TestCase):
         self.assertIsInstance(response, dict)
         self.assertEqual(2, len(response.keys()))
         self.assertEqual(27, response["2103"].age)
-        self.assertIsNone(response["2103"].birth_country)
+        self.assertEqual("USA", response["2103"].birth_country)
         self.assertEqual("Temple", response["2103"].college)
-        self.assertIsNone(response["2103"].depth_chart_order)
-        self.assertIsNone(response["2103"].depth_chart_position)
+        self.assertEqual(1, response["2103"].depth_chart_order)
+        self.assertEqual(1, response["2103"].depth_chart_position)
         self.assertEqual(17054, response["2103"].espn_id)
         self.assertEqual(16426, response["2103"].fantasy_data_id)
         self.assertEqual(1, len(response["2103"].fantasy_positions))
@@ -145,7 +145,7 @@ class TestPlayerAPIClient(unittest.TestCase):
         self.assertEqual("Cody", response["2103"].first_name)
         self.assertEqual("#codybooth-NFL-FA-60", response["2103"].hashtag)
         self.assertEqual("6'5\"", response["2103"].height)
-        self.assertIsNone(response["2103"].injury_start_date)
+        self.assertEqual("20000101", response["2103"].injury_start_date)
         self.assertEqual(InjuryStatus.NA, response["2103"].injury_status)
         self.assertEqual("Booth", response["2103"].last_name)
         self.assertEqual(60, response["2103"].number)
@@ -153,16 +153,16 @@ class TestPlayerAPIClient(unittest.TestCase):
         self.assertEqual(NFLPosition.OT, response["2103"].position)
         self.assertEqual(PracticeParticipation.NA, response["2103"].practice_participation)
         self.assertEqual(9866, response["2103"].rotowire_id)
-        self.assertIsNone(response["2103"].rotoworld_id)
+        self.assertEqual(12345, response["2103"].rotoworld_id)
         self.assertEqual("cody", response["2103"].search_first_name)
         self.assertEqual("codybooth", response["2103"].search_full_name)
         self.assertEqual("booth", response["2103"].search_last_name)
         self.assertEqual(9999999, response["2103"].search_rank)
         self.assertEqual(Sport.NFL, response["2103"].sport)
         self.assertEqual("4cd4976e-e230-4935-ad3f-c12876a41350", response["2103"].sportradar_id)
-        self.assertIsNone(response["2103"].stats_id)
+        self.assertEqual(12345, response["2103"].stats_id)
         self.assertEqual(NFLPlayerStatus.INACTIVE, response["2103"].status)
-        self.assertEqual(NFLTeam.NA, response["2103"].team)
+        self.assertEqual(NFLTeam.GB, response["2103"].team)
         self.assertEqual("285", response["2103"].weight)
         self.assertEqual(27841, response["2103"].yahoo_id)
         self.assertEqual(1, response["2103"].years_exp)
