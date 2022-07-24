@@ -318,3 +318,13 @@ class TestDraftAPIClient(unittest.TestCase):
         self.assertEqual(1630891562020, response.start_time)
         self.assertEqual(DraftStatus.COMPLETE, response.status)
         self.assertEqual(DraftType.SNAKE, response.type)
+
+    @mock.patch("requests.get")
+    def test_get_draft_not_found_raises_exception(self, mock_requests_get):
+        mock_dict = None
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(ValueError) as context:
+            DraftAPIClient.get_draft(draft_id="12345")
+        self.assertEqual("Could not get Draft with draft_id '12345'.", str(context.exception))
