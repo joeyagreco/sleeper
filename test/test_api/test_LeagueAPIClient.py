@@ -1199,3 +1199,23 @@ class TestLeagueAPIClient(unittest.TestCase):
         self.assertEqual(55, response.waiver_budget[0].amount)
         self.assertEqual(1, response.leg)
         self.assertEqual({"test": "t"}, response.metadata)
+
+    @mock.patch("requests.get")
+    def test_get_transactions_not_found_raises_exception(self, mock_requests_get):
+        mock_dict = None
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(ValueError) as context:
+            LeagueAPIClient.get_transactions(league_id="12345", week=1)
+        self.assertEqual("Could not get Transactions for league_id '12345' and week '1'.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_transactions_non_200_status_code_raises_exception(self, mock_requests_get):
+        mock_dict = {}
+        mock_response = MockResponse(mock_dict, 404)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(SleeperAPIException) as context:
+            LeagueAPIClient.get_transactions(league_id="12345", week=1)
+        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
