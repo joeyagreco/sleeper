@@ -4,13 +4,19 @@ from unittest import mock
 from sleeper import DraftAPIClient
 from sleeper.enum.DraftStatus import DraftStatus
 from sleeper.enum.DraftType import DraftType
+from sleeper.enum.InjuryStatus import InjuryStatus
 from sleeper.enum.ScoringType import ScoringType
 from sleeper.enum.SeasonType import SeasonType
 from sleeper.enum.Sport import Sport
+from sleeper.enum.nfl.NFLPlayerStatus import NFLPlayerStatus
+from sleeper.enum.nfl.NFLPosition import NFLPosition
+from sleeper.enum.nfl.NFLTeam import NFLTeam
 from sleeper.exception.SleeperAPIException import SleeperAPIException
 from sleeper.model.Draft import Draft
 from sleeper.model.DraftMetadata import DraftMetadata
 from sleeper.model.DraftSettings import DraftSettings
+from sleeper.model.PlayerDraftPick import PlayerDraftPick
+from sleeper.model.PlayerDraftPickMetadata import PlayerDraftPickMetadata
 from test.helper.helper_classes import MockResponse
 
 
@@ -338,3 +344,57 @@ class TestDraftAPIClient(unittest.TestCase):
         with self.assertRaises(SleeperAPIException) as context:
             DraftAPIClient.get_draft(draft_id="12345")
         self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_player_draft_picks_happy_path(self, mock_requests_get):
+        mock_list = [
+            {
+                "player_id": "2391",
+                "picked_by": "234343434",
+                "roster_id": "1",
+                "round": 5,
+                "draft_slot": 5,
+                "pick_no": 1,
+                "metadata": {
+                    "team": "ARI",
+                    "status": "Injured Reserve",
+                    "sport": "nfl",
+                    "position": "RB",
+                    "player_id": "2391",
+                    "number": "31",
+                    "news_updated": "1513007102037",
+                    "last_name": "Johnson",
+                    "injury_status": "Out",
+                    "first_name": "David"
+                },
+                "is_keeper": True,
+                "draft_id": "257270643320426496"
+            }
+        ]
+
+        mock_response = MockResponse(mock_list, 200)
+        mock_requests_get.return_value = mock_response
+
+        response = DraftAPIClient.get_player_draft_picks(draft_id="12345", sport=Sport.NFL)
+
+        self.assertIsInstance(response, list)
+        self.assertIsInstance(response[0], PlayerDraftPick)
+        self.assertEqual("257270643320426496", response[0].draft_id)
+        self.assertEqual(5, response[0].draft_slot)
+        self.assertTrue(response[0].is_keeper)
+        self.assertIsInstance(response[0].metadata, PlayerDraftPickMetadata)
+        self.assertEqual("David", response[0].metadata.first_name)
+        self.assertEqual(InjuryStatus.OUT, response[0].metadata.injury_status)
+        self.assertEqual("Johnson", response[0].metadata.last_name)
+        self.assertEqual("1513007102037", response[0].metadata.news_updated)
+        self.assertEqual("31", response[0].metadata.number)
+        self.assertEqual("2391", response[0].metadata.player_id)
+        self.assertEqual(NFLPosition.RB, response[0].metadata.position)
+        self.assertEqual(Sport.NFL, response[0].metadata.sport)
+        self.assertEqual(NFLPlayerStatus.INJURED_RESERVE, response[0].metadata.status)
+        self.assertEqual(NFLTeam.ARI, response[0].metadata.team)
+        self.assertEqual(1, response[0].pick_no)
+        self.assertEqual("234343434", response[0].picked_by)
+        self.assertEqual("2391", response[0].player_id)
+        self.assertEqual("1", response[0].roster_id)
+        self.assertEqual(5, response[0].round)
