@@ -15,6 +15,7 @@ class PlayoffMatchup:
     team_2_from: FromPlayoffMatchup
     team_2_roster_id: int
     winning_roster_id: int
+    p: int  # no documentation on what this field means
 
     @staticmethod
     def from_dict(playoff_matchup_object: dict) -> PlayoffMatchup:
@@ -25,7 +26,8 @@ class PlayoffMatchup:
                               winning_roster_id=playoff_matchup_object.get("w"),
                               losing_roster_id=playoff_matchup_object.get("l"),
                               team_1_from=FromPlayoffMatchup.from_dict(playoff_matchup_object.get("t1_from")),
-                              team_2_from=FromPlayoffMatchup.from_dict(playoff_matchup_object.get("t2_from")))
+                              team_2_from=FromPlayoffMatchup.from_dict(playoff_matchup_object.get("t2_from")),
+                              p=playoff_matchup_object.get("p"))
 
     @staticmethod
     def from_dict_str(playoff_matchup_dict_list: dict) -> list[PlayoffMatchup]:

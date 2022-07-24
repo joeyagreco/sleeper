@@ -7,9 +7,11 @@ from sleeper.enum.SeasonType import SeasonType
 from sleeper.enum.Sport import Sport
 from sleeper.enum.nfl.NFLRosterPosition import NFLRosterPosition
 from sleeper.exception.SleeperAPIException import SleeperAPIException
+from sleeper.model.FromPlayoffMatchup import FromPlayoffMatchup
 from sleeper.model.League import League
 from sleeper.model.LeagueSettings import LeagueSettings
 from sleeper.model.Matchup import Matchup
+from sleeper.model.PlayoffMatchup import PlayoffMatchup
 from sleeper.model.Roster import Roster
 from sleeper.model.RosterSettings import RosterSettings
 from sleeper.model.ScoringSettings import ScoringSettings
@@ -987,4 +989,65 @@ class TestLeagueAPIClient(unittest.TestCase):
 
         with self.assertRaises(SleeperAPIException) as context:
             LeagueAPIClient.get_matchups_for_week(league_id="12345", week=1)
+        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_winners_bracket_happy_path(self, mock_requests_get):
+        mock_list = [
+            {
+                "w": 8,
+                "t2_from": {
+                    "l": 5,
+                    "w": 6
+                },
+                "t2": 4,
+                "t1_from": {
+                    "l": 6,
+                    "w": 5
+                },
+                "t1": 8,
+                "r": 3,
+                "p": 1,
+                "m": 9,
+                "l": 4
+            }
+        ]
+        mock_response = MockResponse(mock_list, 200)
+        mock_requests_get.return_value = mock_response
+
+        response = LeagueAPIClient.get_winners_bracket(league_id="12345")[0]
+
+        self.assertIsInstance(response, PlayoffMatchup)
+        self.assertEqual(4, response.losing_roster_id)
+        self.assertEqual(9, response.matchup_id)
+        self.assertEqual(3, response.round)
+        self.assertIsInstance(response.team_1_from, FromPlayoffMatchup)
+        self.assertEqual(6, response.team_1_from.lost_matchup_id)
+        self.assertEqual(5, response.team_1_from.won_matchup_id)
+        self.assertEqual(8, response.team_1_roster_id)
+        self.assertIsInstance(response.team_2_from, FromPlayoffMatchup)
+        self.assertEqual(5, response.team_2_from.lost_matchup_id)
+        self.assertEqual(6, response.team_2_from.won_matchup_id)
+        self.assertEqual(4, response.team_2_roster_id)
+        self.assertEqual(8, response.winning_roster_id)
+        self.assertEqual(1, response.p)
+
+    @mock.patch("requests.get")
+    def test_get_winners_bracket_not_found_raises_exception(self, mock_requests_get):
+        mock_dict = None
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(ValueError) as context:
+            LeagueAPIClient.get_winners_bracket(league_id="12345")
+        self.assertEqual("Could not get PlayoffMatchups for league_id '12345'.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_winners_bracket_non_200_status_code_raises_exception(self, mock_requests_get):
+        mock_dict = {}
+        mock_response = MockResponse(mock_dict, 404)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(SleeperAPIException) as context:
+            LeagueAPIClient.get_winners_bracket(league_id="12345")
         self.assertEqual("Got bad status code (404) from request.", str(context.exception))
