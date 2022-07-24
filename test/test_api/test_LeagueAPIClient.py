@@ -1,3 +1,4 @@
+import datetime
 import unittest
 from unittest import mock
 
@@ -18,6 +19,7 @@ from sleeper.model.PlayoffMatchup import PlayoffMatchup
 from sleeper.model.Roster import Roster
 from sleeper.model.RosterSettings import RosterSettings
 from sleeper.model.ScoringSettings import ScoringSettings
+from sleeper.model.SportState import SportState
 from sleeper.model.TradedPick import TradedPick
 from sleeper.model.Transaction import Transaction
 from sleeper.model.TransactionSettings import TransactionSettings
@@ -1261,4 +1263,53 @@ class TestLeagueAPIClient(unittest.TestCase):
 
         with self.assertRaises(SleeperAPIException) as context:
             LeagueAPIClient.get_traded_picks(league_id="12345")
+        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_sport_state_happy_path(self, mock_requests_get):
+        mock_dict = {
+            "week": 0,
+            "season_type": "off",
+            "season_start_date": "2022-09-08",
+            "season": "2022",
+            "previous_season": "2021",
+            "leg": 0,
+            "league_season": "2022",
+            "league_create_season": "2022",
+            "display_week": 0
+        }
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        response = LeagueAPIClient.get_sport_state(sport=Sport.NFL)
+
+        self.assertIsInstance(response, SportState)
+        self.assertEqual(0, response.display_week)
+        self.assertEqual("2022", response.league_create_season)
+        self.assertEqual("2022", response.league_season)
+        self.assertEqual(0, response.leg)
+        self.assertEqual("2021", response.previous_season)
+        self.assertEqual("2022", response.season)
+        self.assertEqual(datetime.date(2022, 9, 8), response.season_start_date)
+        self.assertEqual(SeasonType.OFF, response.season_type)
+        self.assertEqual(0, response.week)
+
+    @mock.patch("requests.get")
+    def test_get_sport_state_not_found_raises_exception(self, mock_requests_get):
+        mock_dict = None
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(ValueError) as context:
+            LeagueAPIClient.get_sport_state(sport=Sport.NFL)
+        self.assertEqual("Could not get SportState for sport 'NFL'.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_sport_state_non_200_status_code_raises_exception(self, mock_requests_get):
+        mock_dict = {}
+        mock_response = MockResponse(mock_dict, 404)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(SleeperAPIException) as context:
+            LeagueAPIClient.get_sport_state(sport=Sport.NFL)
         self.assertEqual("Got bad status code (404) from request.", str(context.exception))

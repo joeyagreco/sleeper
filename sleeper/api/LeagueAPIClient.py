@@ -102,4 +102,8 @@ class LeagueAPIClient(SleeperAPIClient):
     @classmethod
     def get_sport_state(cls, *, sport: Sport) -> SportState:
         url = cls._build_route(cls._SLEEPER_APP_BASE_URL, cls._VERSION, cls._STATE_ROUTE, sport.value.lower())
-        return SportState.from_dict(cls._get(url))
+        response_dict = cls._get(url)
+        if response_dict is None:
+            raise ValueError(
+                f"Could not get SportState for sport '{sport.name}'.")
+        return SportState.from_dict(response_dict)
