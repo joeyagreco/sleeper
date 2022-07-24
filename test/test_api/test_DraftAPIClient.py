@@ -398,3 +398,14 @@ class TestDraftAPIClient(unittest.TestCase):
         self.assertEqual("2391", response[0].player_id)
         self.assertEqual("1", response[0].roster_id)
         self.assertEqual(5, response[0].round)
+
+    @mock.patch("requests.get")
+    def test_get_player_draft_picks_not_found_raises_exception(self, mock_requests_get):
+        mock_dict = None
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(ValueError) as context:
+            DraftAPIClient.get_player_draft_picks(draft_id="12345", sport=Sport.NFL)
+        self.assertEqual("Could not get PlayerDraftPicks with draft_id '12345' and sport 'NFL'.",
+                         str(context.exception))
