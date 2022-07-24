@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Any
 
 from sleeper.enum.TransactionStatus import TransactionStatus
 from sleeper.enum.TransactionType import TransactionType
@@ -24,7 +25,8 @@ class Transaction:
     transaction_id: str
     type: TransactionType
     waiver_budget: list[FAABTransaction]
-    week: int
+    leg: int
+    metadata: Any  # not sure what this is
 
     @staticmethod
     def from_dict(transaction_dict: dict) -> Transaction:
@@ -34,14 +36,15 @@ class Transaction:
                            status=TransactionStatus.from_str(transaction_dict.get("status")),
                            settings=TransactionSettings.from_dict(transaction_dict.get("settings")),
                            roster_ids=transaction_dict.get("roster_ids"),
-                           week=transaction_dict.get("leg"),
+                           leg=transaction_dict.get("leg"),
                            adds=transaction_dict.get("adds"),
                            drops=transaction_dict.get("drops"),
                            draft_picks=DraftPick.from_dict_list(transaction_dict.get("draft_picks")),
                            creator=transaction_dict.get("creator"),
                            created=transaction_dict.get("created"),
                            consenter_ids=transaction_dict.get("consenter_ids"),
-                           waiver_budget=FAABTransaction.from_dict_list(transaction_dict.get("waiver_budget")))
+                           waiver_budget=FAABTransaction.from_dict_list(transaction_dict.get("waiver_budget")),
+                           metadata=transaction_dict.get("metadata"))
 
     @staticmethod
     def from_dict_list(transaction_dict_list: dict) -> list[Transaction]:

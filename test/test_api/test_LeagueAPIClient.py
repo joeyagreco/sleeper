@@ -5,8 +5,11 @@ from sleeper import LeagueAPIClient
 from sleeper.enum.SeasonStatus import SeasonStatus
 from sleeper.enum.SeasonType import SeasonType
 from sleeper.enum.Sport import Sport
+from sleeper.enum.TransactionStatus import TransactionStatus
+from sleeper.enum.TransactionType import TransactionType
 from sleeper.enum.nfl.NFLRosterPosition import NFLRosterPosition
 from sleeper.exception.SleeperAPIException import SleeperAPIException
+from sleeper.model.FAABTransaction import FAABTransaction
 from sleeper.model.FromPlayoffMatchup import FromPlayoffMatchup
 from sleeper.model.League import League
 from sleeper.model.LeagueSettings import LeagueSettings
@@ -15,6 +18,8 @@ from sleeper.model.PlayoffMatchup import PlayoffMatchup
 from sleeper.model.Roster import Roster
 from sleeper.model.RosterSettings import RosterSettings
 from sleeper.model.ScoringSettings import ScoringSettings
+from sleeper.model.Transaction import Transaction
+from sleeper.model.TransactionSettings import TransactionSettings
 from sleeper.model.User import User
 from test.helper.helper_classes import MockResponse
 
@@ -1112,3 +1117,85 @@ class TestLeagueAPIClient(unittest.TestCase):
         with self.assertRaises(SleeperAPIException) as context:
             LeagueAPIClient.get_losers_bracket(league_id="12345")
         self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_transactions_happy_path(self, mock_requests_get):
+        mock_list = [
+            {
+                "waiver_budget": [
+                    {
+                        "sender": 2,
+                        "receiver": 3,
+                        "amount": 55
+                    }
+                ],
+                "type": "free_agent",
+                "transaction_id": "852289191705423872",
+                "status_updated": 1657564087371,
+                "status": "complete",
+                "settings": {
+                    "seq": 1,
+                    "waiver_bid": 1
+                },
+                "roster_ids": [
+                    1
+                ],
+                "metadata": {"test": "t"},
+                "leg": 1,
+                "drops": {
+                    "1234": 1
+                },
+                "draft_picks": [
+                    {
+                        "season": "2019",
+                        "round": 5,
+                        "roster_id": 1,
+                        "previous_owner_id": 1,
+                        "owner_id": 2,
+                        "draft_id": "12345"
+                    }
+                ],
+                "creator": "342404703486779392",
+                "created": 1657564087371,
+                "consenter_ids": [
+                    1
+                ],
+                "adds": {
+                    "5880": 1
+                }
+            }
+        ]
+        mock_response = MockResponse(mock_list, 200)
+        mock_requests_get.return_value = mock_response
+
+        response = LeagueAPIClient.get_transactions(league_id="12345", week=1)[0]
+
+        self.assertIsInstance(response, Transaction)
+        self.assertEqual({"5880": 1}, response.adds)
+        self.assertEqual([1], response.consenter_ids)
+        self.assertEqual(1657564087371, response.created)
+        self.assertEqual("342404703486779392", response.creator)
+        self.assertIsInstance(response.draft_picks, list)
+        self.assertEqual(1, len(response.draft_picks))
+        self.assertEqual("12345", response.draft_picks[0].draft_id)
+        self.assertEqual(2, response.draft_picks[0].owner_id)
+        self.assertEqual(1, response.draft_picks[0].previous_owner_id)
+        self.assertEqual(1, response.draft_picks[0].roster_id)
+        self.assertEqual(5, response.draft_picks[0].round)
+        self.assertEqual("2019", response.draft_picks[0].season)
+        self.assertEqual({"1234": 1}, response.drops)
+        self.assertEqual([1], response.roster_ids)
+        self.assertIsInstance(response.settings, TransactionSettings)
+        self.assertEqual(1, response.settings.seq)
+        self.assertEqual(1, response.settings.waiver_bid)
+        self.assertIsInstance(response.status, TransactionStatus)
+        self.assertEqual(TransactionStatus.COMPLETE, response.status)
+        self.assertEqual(1657564087371, response.status_updated)
+        self.assertEqual("852289191705423872", response.transaction_id)
+        self.assertEqual(TransactionType.FREE_AGENT, response.type)
+        self.assertIsInstance(response.waiver_budget[0], FAABTransaction)
+        self.assertEqual(2, response.waiver_budget[0].sender)
+        self.assertEqual(3, response.waiver_budget[0].receiver)
+        self.assertEqual(55, response.waiver_budget[0].amount)
+        self.assertEqual(1, response.leg)
+        self.assertEqual({"test": "t"}, response.metadata)
