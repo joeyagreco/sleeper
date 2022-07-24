@@ -1,3 +1,4 @@
+import datetime
 import unittest
 from unittest import mock
 
@@ -29,16 +30,16 @@ class TestPlayerAPIClient(unittest.TestCase):
                 "player_id": "2103",
                 "number": 60,
                 "years_exp": 1,
-                "swish_id": None,
-                "birth_city": None,
+                "swish_id": 12345,
+                "birth_city": "Milwaukee",
                 "espn_id": 17054,
                 "rotowire_id": 9866,
-                "injury_notes": None,
-                "gsis_id": None,
-                "birth_state": None,
+                "injury_notes": "some injury",
+                "gsis_id": "gsis",
+                "birth_state": "WI",
                 "weight": "285",
                 "status": "Inactive",
-                "practice_description": None,
+                "practice_description": "practice description",
                 "last_name": "Booth",
                 "hashtag": "#codybooth-NFL-FA-60",
                 "fantasy_positions": [
@@ -53,11 +54,11 @@ class TestPlayerAPIClient(unittest.TestCase):
                 "age": 27,
                 "sport": "nfl",
                 "team": "GB",
-                "pandascore_id": None,
-                "high_school": None,
-                "news_updated": None,
-                "metadata": None,
-                "injury_body_part": None,
+                "pandascore_id": "pandascore",
+                "high_school": "Rufus King",
+                "news_updated": 20200101,
+                "metadata": {"test": 1},
+                "injury_body_part": "ear",
                 "injury_start_date": "20000101",
                 "fantasy_data_id": 16426,
                 "depth_chart_position": 1,
@@ -116,3 +117,16 @@ class TestPlayerAPIClient(unittest.TestCase):
         self.assertEqual("285", response["2103"].weight)
         self.assertEqual(27841, response["2103"].yahoo_id)
         self.assertEqual(1, response["2103"].years_exp)
+        self.assertEqual(12345, response["2103"].swish_id)
+        self.assertEqual("Milwaukee", response["2103"].birth_city)
+        self.assertEqual("some injury", response["2103"].injury_notes)
+        self.assertEqual("gsis", response["2103"].gsis_id)
+        self.assertEqual("WI", response["2103"].birth_state)
+        self.assertEqual("practice description", response["2103"].practice_description)
+        self.assertEqual("pandascore", response["2103"].pandascore_id)
+        self.assertEqual("Rufus King", response["2103"].high_school)
+        self.assertEqual(20200101, response["2103"].news_updated)
+        self.assertEqual({"test": 1}, response["2103"].metadata)
+        self.assertEqual("ear", response["2103"].injury_body_part)
+        self.assertEqual(datetime.date(1991, 4, 22), response["2103"].birth_date)
+        self.assertFalse(response["2103"].active)

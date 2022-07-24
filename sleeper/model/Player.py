@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import datetime
 from dataclasses import dataclass
+from datetime import date
+from typing import Any
 
 from sleeper.enum.InjuryStatus import InjuryStatus
 from sleeper.enum.PlayerPosition import PlayerPosition
@@ -12,8 +15,12 @@ from sleeper.enum.SportTeam import SportTeam
 
 @dataclass(kw_only=True)
 class Player:
+    active: bool
     age: int
+    birth_city: str
     birth_country: str
+    birth_date: date
+    birth_state: str
     college: str
     depth_chart_order: int
     depth_chart_position: int
@@ -21,14 +28,22 @@ class Player:
     fantasy_data_id: int
     fantasy_positions: list[PlayerPosition]
     first_name: str
+    gsis_id: str
     hashtag: str
     height: str
+    high_school: str
+    injury_body_part: str
+    injury_notes: str
     injury_start_date: str
     injury_status: InjuryStatus
     last_name: str
+    metadata: dict[str, Any]
+    news_updated: int
     number: int
+    pandascore_id: str
     player_id: str
     position: PlayerPosition
+    practice_description: str
     practice_participation: PracticeParticipation
     rotowire_id: int
     rotoworld_id: int
@@ -40,6 +55,7 @@ class Player:
     sportradar_id: str
     stats_id: str
     status: PlayerStatus
+    swish_id: int
     team: SportTeam
     weight: str
     yahoo_id: str
@@ -83,7 +99,20 @@ class Player:
                       rotowire_id=player_dict.get("rotowire_id"),
                       rotoworld_id=player_dict.get("rotoworld_id"),
                       search_first_name=player_dict.get("search_first_name"),
-                      yahoo_id=player_dict.get("yahoo_id"))
+                      yahoo_id=player_dict.get("yahoo_id"),
+                      swish_id=player_dict.get("swish_id"),
+                      birth_city=player_dict.get("birth_city"),
+                      injury_notes=player_dict.get("injury_notes"),
+                      gsis_id=player_dict.get("gsis_id"),
+                      birth_state=player_dict.get("birth_state"),
+                      practice_description=player_dict.get("practice_description"),
+                      pandascore_id=player_dict.get("pandascore_id"),
+                      high_school=player_dict.get("high_school"),
+                      news_updated=player_dict.get("news_updated"),
+                      metadata=player_dict.get("metadata"),
+                      injury_body_part=player_dict.get("injury_body_part"),
+                      birth_date=datetime.datetime.strptime(player_dict.get("birth_date"), "%Y-%m-%d").date(),
+                      active=player_dict.get("active"))
 
     @staticmethod
     def dict_by_id(player_dict_list: dict, sport: Sport) -> dict[str, Player]:
