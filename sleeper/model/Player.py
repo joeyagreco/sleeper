@@ -67,6 +67,9 @@ class Player:
         fantasy_positions = [PlayerPosition.enum(sport).from_str(pos) for pos in
                              given_fantasy_positions] if given_fantasy_positions is not None else None
 
+        birth_date = None if player_dict.get("birth_date") is None else datetime.datetime.strptime(
+            player_dict.get("birth_date"), "%Y-%m-%d").date()
+
         return Player(hashtag=player_dict.get("hashtag"),
                       depth_chart_position=player_dict.get("depth_chart_position"),
                       status=PlayerStatus.enum(sport).from_str(player_dict.get("status")),
@@ -111,7 +114,7 @@ class Player:
                       news_updated=player_dict.get("news_updated"),
                       metadata=player_dict.get("metadata"),
                       injury_body_part=player_dict.get("injury_body_part"),
-                      birth_date=datetime.datetime.strptime(player_dict.get("birth_date"), "%Y-%m-%d").date(),
+                      birth_date=birth_date,
                       active=player_dict.get("active"))
 
     @staticmethod
