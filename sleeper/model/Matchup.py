@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Any
 
 
 @dataclass(kw_only=True)
 class Matchup:
-    custom_points: float
+    custom_points: Any  # not sure what this is
     matchup_id: int
     players: list[str]
     players_points: dict[str, float]

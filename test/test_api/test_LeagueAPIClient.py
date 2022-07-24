@@ -9,6 +9,7 @@ from sleeper.enum.nfl.NFLRosterPosition import NFLRosterPosition
 from sleeper.exception.SleeperAPIException import SleeperAPIException
 from sleeper.model.League import League
 from sleeper.model.LeagueSettings import LeagueSettings
+from sleeper.model.Matchup import Matchup
 from sleeper.model.Roster import Roster
 from sleeper.model.RosterSettings import RosterSettings
 from sleeper.model.ScoringSettings import ScoringSettings
@@ -926,3 +927,44 @@ class TestLeagueAPIClient(unittest.TestCase):
         with self.assertRaises(SleeperAPIException) as context:
             LeagueAPIClient.get_users_in_league(league_id="12345")
         self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_matchups_for_week_happy_path(self, mock_requests_get):
+        mock_list = [
+            {
+                "starters_points": [
+                    10.04,
+                    20.7
+                ],
+                "starters": [
+                    "421",
+                    "2315"
+                ],
+                "roster_id": 1,
+                "points": 74.04,
+                "players_points": {
+                    "NO": -9.0,
+                    "830": 11.2
+                },
+                "players": [
+                    "NO",
+                    "830"
+                ],
+                "matchup_id": 5,
+                "custom_points": "cp"
+            }
+        ]
+        mock_response = MockResponse(mock_list, 200)
+        mock_requests_get.return_value = mock_response
+
+        response = LeagueAPIClient.get_matchups_for_week(league_id="12345", week=1)[0]
+
+        self.assertIsInstance(response, Matchup)
+        self.assertEqual("cp", response.custom_points)
+        self.assertEqual(5, response.matchup_id)
+        self.assertEqual(["NO", "830"], response.players)
+        self.assertEqual({"NO": -9.0, "830": 11.2}, response.players_points)
+        self.assertEqual(74.04, response.points)
+        self.assertEqual(1, response.roster_id)
+        self.assertEqual(["421", "2315"], response.starters)
+        self.assertEqual([10.04, 20.7], response.starters_points)
