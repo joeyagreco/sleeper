@@ -74,56 +74,6 @@ class TestPlayerAPIClient(unittest.TestCase):
                 "search_rank": 9999999,
                 "search_first_name": "cody",
                 "search_full_name": "codybooth"
-            },
-            "6250": {
-                "player_id": "6250",
-                "number": 0,
-                "years_exp": 0,
-                "swish_id": None,
-                "birth_city": None,
-                "espn_id": 3916426,
-                "rotowire_id": None,
-                "injury_notes": None,
-                "gsis_id": None,
-                "birth_state": None,
-                "weight": "330",
-                "status": "Inactive",
-                "practice_description": None,
-                "last_name": "Bryant",
-                "hashtag": "#eurndrausbryant-NFL-FA-0",
-                "fantasy_positions": [
-                    "DL"
-                ],
-                "position": "DT",
-                "stats_id": None,
-                "search_last_name": "bryant",
-                "yahoo_id": 32538,
-                "birth_country": None,
-                "full_name": "Eurndraus Bryant",
-                "age": None,
-                "sport": "nfl",
-                "team": None,
-                "pandascore_id": None,
-                "high_school": "Fort Dorchester",
-                "news_updated": None,
-                "metadata": None,
-                "injury_body_part": None,
-                "injury_start_date": None,
-                "fantasy_data_id": 21183,
-                "depth_chart_position": None,
-                "height": "73",
-                "injury_status": "NA",
-                "sportradar_id": "9ff46edb-988f-4c8a-ad56-0502808ca1a6",
-                "practice_participation": None,
-                "birth_date": None,
-                "first_name": "Eurndraus",
-                "active": False,
-                "depth_chart_order": None,
-                "college": "North Carolina State",
-                "rotoworld_id": None,
-                "search_rank": 9999999,
-                "search_first_name": "eurndraus",
-                "search_full_name": "eurndrausbryant"
             }
         }
         mock_response = MockResponse(mock_dict, 200)
@@ -132,7 +82,7 @@ class TestPlayerAPIClient(unittest.TestCase):
         response = PlayerAPIClient.get_all_players(sport=Sport.NFL)
 
         self.assertIsInstance(response, dict)
-        self.assertEqual(2, len(response.keys()))
+        self.assertEqual(1, len(response.keys()))
         self.assertEqual(27, response["2103"].age)
         self.assertEqual("USA", response["2103"].birth_country)
         self.assertEqual("Temple", response["2103"].college)
