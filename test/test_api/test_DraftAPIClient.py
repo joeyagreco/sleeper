@@ -7,6 +7,7 @@ from sleeper.enum.DraftType import DraftType
 from sleeper.enum.ScoringType import ScoringType
 from sleeper.enum.SeasonType import SeasonType
 from sleeper.enum.Sport import Sport
+from sleeper.exception.SleeperAPIException import SleeperAPIException
 from sleeper.model.Draft import Draft
 from sleeper.model.DraftMetadata import DraftMetadata
 from sleeper.model.DraftSettings import DraftSettings
@@ -113,3 +114,13 @@ class TestDraftAPIClient(unittest.TestCase):
             DraftAPIClient.get_user_drafts_for_year(user_id="user_id", sport=Sport.NFL, year="2020")
         self.assertEqual("Could not get Drafts for user_id 'user_id', sport 'NFL', and year '2020'.",
                          str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_user_drafts_for_year_non_200_status_code_raises_exception(self, mock_requests_get):
+        mock_dict = {}
+        mock_response = MockResponse(mock_dict, 404)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(SleeperAPIException) as context:
+            DraftAPIClient.get_user_drafts_for_year(user_id="user_id", sport=Sport.NFL, year="2020")
+        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
