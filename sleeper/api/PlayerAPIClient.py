@@ -15,7 +15,7 @@ class PlayerAPIClient(SleeperAPIClient):
         response_dict = cls._get(url)
         if response_dict is None:
             raise ValueError(f"Could not get Players.")
-        return Player.dict_by_id(cls._get(url), sport)
+        return Player.dict_by_id(response_dict, sport)
 
     @classmethod
     def get_trending_players(cls, *, sport: Sport, trend_type: TrendType, **kwargs) -> list[PlayerTrend]:
@@ -24,4 +24,7 @@ class PlayerAPIClient(SleeperAPIClient):
         url = cls._build_route(cls._SLEEPER_APP_BASE_URL, cls._VERSION, cls._PLAYERS_ROUTE, sport.name.lower(),
                                cls._TRENDING_ROUTE, trend_type.name.lower())
         url = cls._add_filters(url, ("lookback_hours", lookback_hours), ("limit", limit))
-        return PlayerTrend.from_dict_list(cls._get(url))
+        response_dict = cls._get(url)
+        if response_dict is None:
+            raise ValueError(f"Could not get PlayerTrends.")
+        return PlayerTrend.from_dict_list(response_dict)

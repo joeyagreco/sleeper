@@ -240,3 +240,23 @@ class TestPlayerAPIClient(unittest.TestCase):
         self.assertIsInstance(response[0], PlayerTrend)
         self.assertEqual("943", response[0].player_id)
         self.assertEqual(13750, response[0].count)
+
+    @mock.patch("requests.get")
+    def test_get_trending_players_not_found_raises_exception(self, mock_requests_get):
+        mock_dict = None
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(ValueError) as context:
+            PlayerAPIClient.get_trending_players(sport=Sport.NFL, trend_type=TrendType.ADD)
+        self.assertEqual("Could not get PlayerTrends.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_trending_players_non_200_status_code_raises_exception(self, mock_requests_get):
+        mock_dict = {}
+        mock_response = MockResponse(mock_dict, 404)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(SleeperAPIException) as context:
+            PlayerAPIClient.get_trending_players(sport=Sport.NFL, trend_type=TrendType.ADD)
+        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
