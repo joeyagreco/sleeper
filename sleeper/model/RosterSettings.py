@@ -10,8 +10,11 @@ class RosterSettings:
     fpts_against_decimal: int
     fpts_decimal: int
     losses: int
+    ppts: int
+    ppts_decimal: int
     ties: int
     total_moves: int
+    waiver_adjusted: int
     waiver_budget_used: int
     waiver_position: int
     wins: int
@@ -27,4 +30,7 @@ class RosterSettings:
                               fpts_decimal=roster_settings_dict.get("fpts_decimal"),
                               fpts_against_decimal=roster_settings_dict.get("fpts_against_decimal"),
                               fpts_against=roster_settings_dict.get("fpts_against"),
-                              fpts=roster_settings_dict.get("fpts"))
+                              fpts=roster_settings_dict.get("fpts"),
+                              ppts_decimal=roster_settings_dict.get("ppts_decimal"),
+                              ppts=roster_settings_dict.get("ppts"),
+                              waiver_adjusted=roster_settings_dict.get("waiver_adjusted"))

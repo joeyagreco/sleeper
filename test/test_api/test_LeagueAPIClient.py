@@ -9,6 +9,8 @@ from sleeper.enum.nfl.NFLRosterPosition import NFLRosterPosition
 from sleeper.exception.SleeperAPIException import SleeperAPIException
 from sleeper.model.League import League
 from sleeper.model.LeagueSettings import LeagueSettings
+from sleeper.model.Roster import Roster
+from sleeper.model.RosterSettings import RosterSettings
 from sleeper.model.ScoringSettings import ScoringSettings
 from test.helper.helper_classes import MockResponse
 
@@ -761,3 +763,73 @@ class TestLeagueAPIClient(unittest.TestCase):
         with self.assertRaises(SleeperAPIException) as context:
             LeagueAPIClient.get_user_leagues_for_year(user_id="12345", sport=Sport.NFL, year="2020")
         self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_rosters_happy_path(self, mock_requests_get):
+        mock_dict = [
+            {
+                "taxi": 1,
+                "starters": [
+                    "3163",
+                    "CHI"
+                ],
+                "settings": {
+                    "wins": 10,
+                    "waiver_position": 10,
+                    "waiver_budget_used": 0,
+                    "waiver_adjusted": 14,
+                    "total_moves": 0,
+                    "ties": 0,
+                    "ppts_decimal": 64,
+                    "ppts": 1934,
+                    "losses": 3,
+                    "fpts_decimal": 8,
+                    "fpts_against_decimal": 4,
+                    "fpts_against": 1101,
+                    "fpts": 1611
+                },
+                "roster_id": 1,
+                "reserve": ["test"],
+                "players": [
+                    "1833",
+                    "CHI"
+                ],
+                "player_map": {"test": "t"},
+                "owner_id": "66947650880421888",
+                "metadata": {
+                    "test": "t"
+                },
+                "league_id": "308857914418823168",
+                "co_owners": 1
+            }
+        ]
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        response = LeagueAPIClient.get_rosters(league_id="12345")[0]
+
+        self.assertIsInstance(response, Roster)
+        self.assertEqual(1, response.co_owners)
+        self.assertEqual("308857914418823168", response.league_id)
+        self.assertEqual({"test": "t"}, response.metadata)
+        self.assertEqual("66947650880421888", response.owner_id)
+        self.assertEqual(["1833", "CHI"], response.players)
+        self.assertEqual({"test": "t"}, response.player_map)
+        self.assertEqual(["test"], response.reserve)
+        self.assertEqual(1, response.roster_id)
+        self.assertIsInstance(response.settings, RosterSettings)
+        self.assertEqual(1611, response.settings.fpts)
+        self.assertEqual(1101, response.settings.fpts_against)
+        self.assertEqual(4, response.settings.fpts_against_decimal)
+        self.assertEqual(8, response.settings.fpts_decimal)
+        self.assertEqual(3, response.settings.losses)
+        self.assertEqual(1934, response.settings.ppts)
+        self.assertEqual(64, response.settings.ppts_decimal)
+        self.assertEqual(0, response.settings.ties)
+        self.assertEqual(0, response.settings.total_moves)
+        self.assertEqual(14, response.settings.waiver_adjusted)
+        self.assertEqual(0, response.settings.waiver_budget_used)
+        self.assertEqual(10, response.settings.waiver_position)
+        self.assertEqual(10, response.settings.wins)
+        self.assertEqual(["3163", "CHI"], response.starters)
+        self.assertEqual(1, response.taxi)
