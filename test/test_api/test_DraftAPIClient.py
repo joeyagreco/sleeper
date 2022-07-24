@@ -102,3 +102,14 @@ class TestDraftAPIClient(unittest.TestCase):
         self.assertEqual(1630891562020, response[0].start_time)
         self.assertEqual(DraftStatus.COMPLETE, response[0].status)
         self.assertEqual(DraftType.SNAKE, response[0].type)
+
+    @mock.patch("requests.get")
+    def test_get_user_drafts_for_year_not_found_raises_exception(self, mock_requests_get):
+        mock_dict = None
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(ValueError) as context:
+            DraftAPIClient.get_user_drafts_for_year(user_id="user_id", sport=Sport.NFL, year="2020")
+        self.assertEqual("Could not get Drafts for user_id 'user_id', sport 'NFL', and year '2020'.",
+                         str(context.exception))

@@ -135,7 +135,7 @@ class TestPlayerAPIClient(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             PlayerAPIClient.get_all_players(sport=Sport.NFL)
-        self.assertEqual("Could not get Players.", str(context.exception))
+        self.assertEqual("Could not get Players for sport: 'NFL'.", str(context.exception))
 
     @mock.patch("requests.get")
     def test_get_all_players_non_200_status_code_raises_exception(self, mock_requests_get):

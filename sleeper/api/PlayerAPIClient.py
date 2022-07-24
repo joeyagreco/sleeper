@@ -14,7 +14,7 @@ class PlayerAPIClient(SleeperAPIClient):
         url = cls._build_route(cls._SLEEPER_APP_BASE_URL, cls._VERSION, cls._PLAYERS_ROUTE, sport.name.lower())
         response_dict = cls._get(url)
         if response_dict is None:
-            raise ValueError(f"Could not get Players.")
+            raise ValueError(f"Could not get Players for sport: '{sport.name}'.")
         return Player.dict_by_id(response_dict, sport)
 
     @classmethod

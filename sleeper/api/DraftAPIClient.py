@@ -11,6 +11,9 @@ class DraftAPIClient(SleeperAPIClient):
     def get_user_drafts_for_year(cls, *, user_id: str, sport: Sport, year: str) -> list[Draft]:
         url = cls._build_route(cls._SLEEPER_APP_BASE_URL, cls._VERSION, cls._USER_ROUTE, user_id, cls._DRAFTS_ROUTE,
                                sport.name.lower(), year)
+        response_dict = cls._get(url)
+        if response_dict is None:
+            raise ValueError(f"Could not get Drafts for user_id '{user_id}', sport '{sport.name}', and year '{year}'.")
         return Draft.from_dict_list(cls._get(url))
 
     @classmethod
