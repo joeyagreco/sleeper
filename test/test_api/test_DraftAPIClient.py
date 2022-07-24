@@ -447,3 +447,23 @@ class TestDraftAPIClient(unittest.TestCase):
         self.assertEqual(1, response[0].roster_id)
         self.assertEqual(3, response[0].round)
         self.assertEqual("2021", response[0].season)
+
+    @mock.patch("requests.get")
+    def test_get_traded_draft_picks_not_found_raises_exception(self, mock_requests_get):
+        mock_dict = None
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(ValueError) as context:
+            DraftAPIClient.get_traded_draft_picks(draft_id="12345")
+        self.assertEqual("Could not get traded DraftPicks with draft_id '12345'.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_traded_draft_picks_non_200_status_code_raises_exception(self, mock_requests_get):
+        mock_dict = {}
+        mock_response = MockResponse(mock_dict, 404)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(SleeperAPIException) as context:
+            DraftAPIClient.get_traded_draft_picks(draft_id="12345")
+        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
