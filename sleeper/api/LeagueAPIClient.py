@@ -73,7 +73,11 @@ class LeagueAPIClient(SleeperAPIClient):
     def get_losers_bracket(cls, *, league_id: str) -> list[PlayoffMatchup]:
         url = cls._build_route(cls._SLEEPER_APP_BASE_URL, cls._VERSION, cls._LEAGUE_ROUTE, league_id,
                                cls._LOSERS_BRACKET_ROUTE)
-        return PlayoffMatchup.from_dict_str(cls._get(url))
+        response_list = cls._get(url)
+        if response_list is None:
+            raise ValueError(
+                f"Could not get PlayoffMatchups for league_id '{league_id}'.")
+        return PlayoffMatchup.from_dict_str(response_list)
 
     @classmethod
     def get_transactions(cls, *, league_id: str, week: int) -> list[Transaction]:
