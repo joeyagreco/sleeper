@@ -12,6 +12,7 @@ from sleeper.model.LeagueSettings import LeagueSettings
 from sleeper.model.Roster import Roster
 from sleeper.model.RosterSettings import RosterSettings
 from sleeper.model.ScoringSettings import ScoringSettings
+from sleeper.model.User import User
 from test.helper.helper_classes import MockResponse
 
 
@@ -852,4 +853,76 @@ class TestLeagueAPIClient(unittest.TestCase):
 
         with self.assertRaises(SleeperAPIException) as context:
             LeagueAPIClient.get_rosters(league_id="12345")
+        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_users_in_league_happy_path(self, mock_requests_get):
+        mock_list = [
+            {
+                "verification": "v",
+                "username": "username",
+                "user_id": "user_id",
+                "token": "t",
+                "summoner_region": "r",
+                "solicitable": "s",
+                "real_name": "name",
+                "phone": "1",
+                "pending": "1",
+                "notifications": "1",
+                "metadata": {"test": "t"},
+                "is_bot": True,
+                "email": "email",
+                "display_name": "display_name",
+                "deleted": "deleted",
+                "data_updated": "data",
+                "currencies": "currencies",
+                "created": "created",
+                "cookies": "cookies",
+                "avatar": "avatar"
+            }
+        ]
+        mock_response = MockResponse(mock_list, 200)
+        mock_requests_get.return_value = mock_response
+
+        response = LeagueAPIClient.get_users_in_league(league_id="12345")[0]
+
+        self.assertIsInstance(response, User)
+        self.assertEqual(response.username, "username")
+        self.assertEqual(response.user_id, "user_id")
+        self.assertEqual(response.display_name, "display_name")
+        self.assertEqual(response.avatar, "avatar")
+        self.assertEqual("cookies", response.cookies)
+        self.assertEqual("created", response.created)
+        self.assertEqual("currencies", response.currencies)
+        self.assertEqual("data", response.data_updated)
+        self.assertEqual("deleted", response.deleted)
+        self.assertEqual("email", response.email)
+        self.assertEqual({"test": "t"}, response.metadata)
+        self.assertEqual("1", response.notifications)
+        self.assertEqual("1", response.pending)
+        self.assertEqual("1", response.phone)
+        self.assertEqual("name", response.real_name)
+        self.assertEqual("s", response.solicitable)
+        self.assertEqual("r", response.summoner_region)
+        self.assertEqual("t", response.token)
+        self.assertEqual("v", response.verification)
+
+    @mock.patch("requests.get")
+    def test_get_users_in_league_not_found_raises_exception(self, mock_requests_get):
+        mock_dict = None
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(ValueError) as context:
+            LeagueAPIClient.get_users_in_league(league_id="12345")
+        self.assertEqual("Could not get Users for league_id '12345'.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_users_in_league_non_200_status_code_raises_exception(self, mock_requests_get):
+        mock_dict = {}
+        mock_response = MockResponse(mock_dict, 404)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(SleeperAPIException) as context:
+            LeagueAPIClient.get_users_in_league(league_id="12345")
         self.assertEqual("Got bad status code (404) from request.", str(context.exception))
