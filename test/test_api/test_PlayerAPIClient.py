@@ -9,6 +9,7 @@ from sleeper.enum.Sport import Sport
 from sleeper.enum.nfl.NFLPlayerStatus import NFLPlayerStatus
 from sleeper.enum.nfl.NFLPosition import NFLPosition
 from sleeper.enum.nfl.NFLTeam import NFLTeam
+from sleeper.exception.SleeperAPIException import SleeperAPIException
 
 
 class MockResponse:
@@ -140,3 +141,13 @@ class TestPlayerAPIClient(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             PlayerAPIClient.get_all_players(sport=Sport.NFL)
         self.assertEqual("Could not get Players.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_all_players_non_200_status_code_raises_exception(self, mock_requests_get):
+        mock_dict = {}
+        mock_response = MockResponse(mock_dict, 404)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(SleeperAPIException) as context:
+            PlayerAPIClient.get_all_players(sport=Sport.NFL)
+        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
