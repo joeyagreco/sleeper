@@ -833,3 +833,23 @@ class TestLeagueAPIClient(unittest.TestCase):
         self.assertEqual(10, response.settings.wins)
         self.assertEqual(["3163", "CHI"], response.starters)
         self.assertEqual(1, response.taxi)
+
+    @mock.patch("requests.get")
+    def test_get_rosters_not_found_raises_exception(self, mock_requests_get):
+        mock_dict = None
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(ValueError) as context:
+            LeagueAPIClient.get_rosters(league_id="12345")
+        self.assertEqual("Could not get Rosters for league_id '12345'.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_rosters_non_200_status_code_raises_exception(self, mock_requests_get):
+        mock_dict = {}
+        mock_response = MockResponse(mock_dict, 404)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(SleeperAPIException) as context:
+            LeagueAPIClient.get_rosters(league_id="12345")
+        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
