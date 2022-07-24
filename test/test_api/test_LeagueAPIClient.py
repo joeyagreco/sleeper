@@ -756,7 +756,7 @@ class TestLeagueAPIClient(unittest.TestCase):
         self.assertEqual(12, response.total_rosters)
 
     @mock.patch("requests.get")
-    def test_get_league_not_found_raises_exception(self, mock_requests_get):
+    def test_get_user_leagues_for_year_not_found_raises_exception(self, mock_requests_get):
         mock_dict = None
         mock_response = MockResponse(mock_dict, 200)
         mock_requests_get.return_value = mock_response
@@ -767,7 +767,7 @@ class TestLeagueAPIClient(unittest.TestCase):
                          str(context.exception))
 
     @mock.patch("requests.get")
-    def test_get_league_non_200_status_code_raises_exception(self, mock_requests_get):
+    def test_get_user_leagues_for_year_non_200_status_code_raises_exception(self, mock_requests_get):
         mock_dict = {}
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
