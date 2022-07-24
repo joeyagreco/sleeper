@@ -12,25 +12,25 @@ class TestUserAPIClient(unittest.TestCase):
     @mock.patch("requests.get")
     def test_get_user_happy_path(self, mock_requests_get):
         mock_dict = {
-            "verification": None,
+            "verification": "v",
             "username": "username",
             "user_id": "user_id",
-            "token": None,
-            "summoner_region": None,
-            "solicitable": None,
-            "real_name": None,
-            "phone": None,
-            "pending": None,
-            "notifications": None,
-            "metadata": None,
+            "token": "t",
+            "summoner_region": "r",
+            "solicitable": "s",
+            "real_name": "name",
+            "phone": "1",
+            "pending": "1",
+            "notifications": "1",
+            "metadata": {"test": "t"},
             "is_bot": True,
-            "email": None,
+            "email": "email",
             "display_name": "display_name",
-            "deleted": None,
-            "data_updated": None,
-            "currencies": None,
-            "created": None,
-            "cookies": None,
+            "deleted": "deleted",
+            "data_updated": "data",
+            "currencies": "currencies",
+            "created": "created",
+            "cookies": "cookies",
             "avatar": "avatar"
         }
         mock_response = MockResponse(mock_dict, 200)
@@ -43,6 +43,21 @@ class TestUserAPIClient(unittest.TestCase):
         self.assertEqual(response.user_id, "user_id")
         self.assertEqual(response.display_name, "display_name")
         self.assertEqual(response.avatar, "avatar")
+        self.assertEqual("cookies", response.cookies)
+        self.assertEqual("created", response.created)
+        self.assertEqual("currencies", response.currencies)
+        self.assertEqual("data", response.data_updated)
+        self.assertEqual("deleted", response.deleted)
+        self.assertEqual("email", response.email)
+        self.assertEqual({"test": "t"}, response.metadata)
+        self.assertEqual("1", response.notifications)
+        self.assertEqual("1", response.pending)
+        self.assertEqual("1", response.phone)
+        self.assertEqual("name", response.real_name)
+        self.assertEqual("s", response.solicitable)
+        self.assertEqual("r", response.summoner_region)
+        self.assertEqual("t", response.token)
+        self.assertEqual("v", response.verification)
 
     def test_get_user_username_and_user_id_not_given_raises_exception(self):
         with self.assertRaises(ValueError) as context:
