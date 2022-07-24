@@ -8,9 +8,11 @@ class Matchup:
     custom_points: float
     matchup_id: int
     players: list[str]
+    players_points: dict[str, float]
     points: float
     roster_id: int
     starters: list[str]
+    starters_points: list[float]
 
     @staticmethod
     def from_dict(matchup_object_dict: dict) -> Matchup:
@@ -19,7 +21,9 @@ class Matchup:
                        players=matchup_object_dict.get("players"),
                        matchup_id=matchup_object_dict.get("matchup_id"),
                        points=matchup_object_dict.get("points"),
-                       custom_points=matchup_object_dict.get("custom_points"))
+                       custom_points=matchup_object_dict.get("custom_points"),
+                       players_points=matchup_object_dict.get("players_points"),
+                       starters_points=matchup_object_dict.get("starters_points"))
 
     @staticmethod
     def from_dict_list(matchup_dict_list: dict) -> list[Matchup]:
