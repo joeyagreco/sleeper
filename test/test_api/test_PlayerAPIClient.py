@@ -130,3 +130,13 @@ class TestPlayerAPIClient(unittest.TestCase):
         self.assertEqual("ear", response["2103"].injury_body_part)
         self.assertEqual(datetime.date(1991, 4, 22), response["2103"].birth_date)
         self.assertFalse(response["2103"].active)
+
+    @mock.patch("requests.get")
+    def test_get_all_players_not_found_raises_exception(self, mock_requests_get):
+        mock_dict = None
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(ValueError) as context:
+            PlayerAPIClient.get_all_players(sport=Sport.NFL)
+        self.assertEqual("Could not get Players.", str(context.exception))
