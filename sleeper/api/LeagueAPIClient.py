@@ -15,6 +15,9 @@ class LeagueAPIClient(SleeperAPIClient):
     @classmethod
     def get_league(cls, *, league_id: str) -> League:
         url = cls._build_route(cls._SLEEPER_APP_BASE_URL, cls._VERSION, cls._LEAGUE_ROUTE, league_id)
+        response_dict = cls._get(url)
+        if response_dict is None:
+            raise ValueError(f"Could not get League with league_id '{league_id}'.")
         return League.from_dict(cls._get(url))
 
     @classmethod

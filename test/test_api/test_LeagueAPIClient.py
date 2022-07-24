@@ -366,3 +366,13 @@ class TestLeagueAPIClient(unittest.TestCase):
         self.assertEqual(Sport.NFL, response.sport)
         self.assertEqual(SeasonStatus.IN_SEASON, response.status)
         self.assertEqual(12, response.total_rosters)
+
+    @mock.patch("requests.get")
+    def test_get_league_not_found_raises_exception(self, mock_requests_get):
+        mock_dict = None
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(ValueError) as context:
+            LeagueAPIClient.get_league(league_id="12345")
+        self.assertEqual("Could not get League with league_id '12345'.", str(context.exception))
