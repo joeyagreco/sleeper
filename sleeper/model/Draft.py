@@ -12,11 +12,11 @@ from sleeper.model.DraftSettings import DraftSettings
 
 @dataclass(kw_only=True)
 class Draft:
-    created: str
+    created: int
     creators: list[str]
     draft_id: str
     draft_order: dict[str, int]
-    last_message_id: int
+    last_message_id: str
     last_message_time: int
     last_picked: int
     league_id: str
