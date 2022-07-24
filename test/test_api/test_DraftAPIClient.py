@@ -232,3 +232,89 @@ class TestDraftAPIClient(unittest.TestCase):
         with self.assertRaises(SleeperAPIException) as context:
             DraftAPIClient.get_drafts_in_league(league_id="12345")
         self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_draft_happy_path(self, mock_requests_get):
+        mock_dict = {
+            "type": "snake",
+            "status": "complete",
+            "start_time": 1630891562020,
+            "sport": "nfl",
+            "settings": {
+                "teams": 8,
+                "slots_wr": 3,
+                "slots_te": 1,
+                "slots_rb": 2,
+                "slots_qb": 2,
+                "slots_super_flex": 1,
+                "slots_flex": 3,
+                "slots_bn": 6,
+                "rounds": 17,
+                "reversal_round": 0,
+                "player_type": 0,
+                "pick_timer": 0,
+                "nomination_timer": 60,
+                "enforce_position_limits": 1,
+                "cpu_autopick": 1,
+                "alpha_sort": 0
+            },
+            "season_type": "regular",
+            "season": "2021",
+            "metadata": {
+                "scoring_type": "2qb",
+                "name": "The Test",
+                "description": "des"
+            },
+            "league_id": "738979251063275520",
+            "last_picked": 1630897024291,
+            "last_message_time": 1630897024793,
+            "last_message_id": "740439424466202624",
+            "draft_order": {"123": 45},
+            "draft_id": "738979252392919040",
+            "creators": ["12345", "67890"],
+            "created": 1630548892636,
+            "slot_to_roster_id": {"123": 45}
+        }
+
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        response = DraftAPIClient.get_draft(draft_id="12345")
+
+        self.assertIsInstance(response, Draft)
+        self.assertEqual(1630548892636, response.created)
+        self.assertEqual(["12345", "67890"], response.creators)
+        self.assertEqual("738979252392919040", response.draft_id)
+        self.assertEqual({"123": 45}, response.draft_order)
+        self.assertEqual("740439424466202624", response.last_message_id)
+        self.assertEqual(1630897024793, response.last_message_time)
+        self.assertEqual(1630897024291, response.last_picked)
+        self.assertEqual("738979251063275520", response.league_id)
+        self.assertIsInstance(response.metadata, DraftMetadata)
+        self.assertEqual("des", response.metadata.description)
+        self.assertEqual("The Test", response.metadata.name)
+        self.assertEqual(ScoringType.TWO_QB, response.metadata.scoring_type)
+        self.assertEqual("2021", response.season)
+        self.assertEqual(SeasonType.REGULAR, response.season_type)
+        self.assertIsInstance(response.settings, DraftSettings)
+        self.assertEqual(0, response.settings.alpha_sort)
+        self.assertEqual(1, response.settings.cpu_autopick)
+        self.assertEqual(1, response.settings.enforce_position_limits)
+        self.assertEqual(60, response.settings.nomination_timer)
+        self.assertEqual(0, response.settings.pick_timer)
+        self.assertEqual(0, response.settings.player_type)
+        self.assertEqual(0, response.settings.reversal_round)
+        self.assertEqual(17, response.settings.rounds)
+        self.assertEqual(6, response.settings.slots_bn)
+        self.assertEqual(3, response.settings.slots_flex)
+        self.assertEqual(2, response.settings.slots_qb)
+        self.assertEqual(2, response.settings.slots_rb)
+        self.assertEqual(1, response.settings.slots_super_flex)
+        self.assertEqual(1, response.settings.slots_te)
+        self.assertEqual(3, response.settings.slots_wr)
+        self.assertEqual(8, response.settings.teams)
+        self.assertEqual({"123": 45}, response.slot_to_roster_id)
+        self.assertEqual(Sport.NFL, response.sport)
+        self.assertEqual(1630891562020, response.start_time)
+        self.assertEqual(DraftStatus.COMPLETE, response.status)
+        self.assertEqual(DraftType.SNAKE, response.type)
