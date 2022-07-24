@@ -14,6 +14,7 @@ from sleeper.enum.nfl.NFLTeam import NFLTeam
 from sleeper.exception.SleeperAPIException import SleeperAPIException
 from sleeper.model.Draft import Draft
 from sleeper.model.DraftMetadata import DraftMetadata
+from sleeper.model.DraftPick import DraftPick
 from sleeper.model.DraftSettings import DraftSettings
 from sleeper.model.PlayerDraftPick import PlayerDraftPick
 from sleeper.model.PlayerDraftPickMetadata import PlayerDraftPickMetadata
@@ -419,3 +420,30 @@ class TestDraftAPIClient(unittest.TestCase):
         with self.assertRaises(SleeperAPIException) as context:
             DraftAPIClient.get_player_draft_picks(draft_id="12345", sport=Sport.NFL)
         self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_traded_draft_picks_happy_path(self, mock_requests_get):
+        mock_list = [
+            {
+                "season": "2021",
+                "round": 3,
+                "roster_id": 1,
+                "previous_owner_id": 1,
+                "owner_id": 4,
+                "draft_id": 726312889421496320
+            }
+        ]
+
+        mock_response = MockResponse(mock_list, 200)
+        mock_requests_get.return_value = mock_response
+
+        response = DraftAPIClient.get_traded_draft_picks(draft_id="12345")
+
+        self.assertIsInstance(response, list)
+        self.assertIsInstance(response[0], DraftPick)
+        self.assertEqual(726312889421496320, response[0].draft_id)
+        self.assertEqual(4, response[0].owner_id)
+        self.assertEqual(1, response[0].previous_owner_id)
+        self.assertEqual(1, response[0].roster_id)
+        self.assertEqual(3, response[0].round)
+        self.assertEqual("2021", response[0].season)
