@@ -6,14 +6,17 @@ from sleeper.api.PlayerAPIClient import PlayerAPIClient
 from sleeper.enum.InjuryStatus import InjuryStatus
 from sleeper.enum.PracticeParticipation import PracticeParticipation
 from sleeper.enum.Sport import Sport
+from sleeper.enum.TrendType import TrendType
 from sleeper.enum.nfl.NFLPlayerStatus import NFLPlayerStatus
 from sleeper.enum.nfl.NFLPosition import NFLPosition
 from sleeper.enum.nfl.NFLTeam import NFLTeam
 from sleeper.exception.SleeperAPIException import SleeperAPIException
+from sleeper.model.Player import Player
+from sleeper.model.PlayerTrend import PlayerTrend
 
 
 class MockResponse:
-    def __init__(self, data: dict, status_code: int, **kwargs):
+    def __init__(self, data: dict | list, status_code: int, **kwargs):
         self.__data = data
         self.content = kwargs.pop("content", None)
         self.status_code = status_code
@@ -84,6 +87,7 @@ class TestPlayerAPIClient(unittest.TestCase):
         response = PlayerAPIClient.get_all_players(sport=Sport.NFL)
 
         self.assertIsInstance(response, dict)
+        self.assertIsInstance(response["2103"], Player)
         self.assertEqual(1, len(response.keys()))
         self.assertEqual(27, response["2103"].age)
         self.assertEqual("USA", response["2103"].birth_country)
@@ -151,3 +155,88 @@ class TestPlayerAPIClient(unittest.TestCase):
         with self.assertRaises(SleeperAPIException) as context:
             PlayerAPIClient.get_all_players(sport=Sport.NFL)
         self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_trending_players_add_happy_path(self, mock_requests_get):
+        mock_dict = [
+            {
+                "player_id": "943",
+                "count": 13750
+            },
+            {
+                "player_id": "5284",
+                "count": 8070
+            },
+            {
+                "player_id": "4863",
+                "count": 6139
+            }
+        ]
+
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        response = PlayerAPIClient.get_trending_players(sport=Sport.NFL, trend_type=TrendType.ADD)
+
+        self.assertIsInstance(response, list)
+        self.assertEqual(3, len(response))
+        self.assertIsInstance(response[0], PlayerTrend)
+        self.assertEqual("943", response[0].player_id)
+        self.assertEqual(13750, response[0].count)
+
+    @mock.patch("requests.get")
+    def test_get_trending_players_drop_happy_path(self, mock_requests_get):
+        mock_dict = [
+            {
+                "player_id": "943",
+                "count": 13750
+            },
+            {
+                "player_id": "5284",
+                "count": 8070
+            },
+            {
+                "player_id": "4863",
+                "count": 6139
+            }
+        ]
+
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        response = PlayerAPIClient.get_trending_players(sport=Sport.NFL, trend_type=TrendType.DROP)
+
+        self.assertIsInstance(response, list)
+        self.assertEqual(3, len(response))
+        self.assertIsInstance(response[0], PlayerTrend)
+        self.assertEqual("943", response[0].player_id)
+        self.assertEqual(13750, response[0].count)
+
+    @mock.patch("requests.get")
+    def test_get_trending_players_filters_given(self, mock_requests_get):
+        mock_dict = [
+            {
+                "player_id": "943",
+                "count": 13750
+            },
+            {
+                "player_id": "5284",
+                "count": 8070
+            },
+            {
+                "player_id": "4863",
+                "count": 6139
+            }
+        ]
+
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        response = PlayerAPIClient.get_trending_players(sport=Sport.NFL, trend_type=TrendType.ADD, lookback_hours=1,
+                                                        limit=3)
+
+        self.assertIsInstance(response, list)
+        self.assertEqual(3, len(response))
+        self.assertIsInstance(response[0], PlayerTrend)
+        self.assertEqual("943", response[0].player_id)
+        self.assertEqual(13750, response[0].count)
