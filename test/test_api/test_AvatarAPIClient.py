@@ -5,16 +5,7 @@ from unittest import mock
 
 from sleeper.api.AvatarAPIClient import AvatarAPIClient
 from sleeper.exception.SleeperAPIException import SleeperAPIException
-
-
-class MockResponse:
-    def __init__(self, data: dict, status_code: int, **kwargs):
-        self.__data = data
-        self.content = kwargs.pop("content", None)
-        self.status_code = status_code
-
-    def json(self):
-        return self.__data
+from test.helper.helper_classes import MockResponse
 
 
 class TestAvatarAPIClient(unittest.TestCase):

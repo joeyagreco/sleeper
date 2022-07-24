@@ -4,15 +4,7 @@ from unittest import mock
 from sleeper.api.UserAPIClient import UserAPIClient
 from sleeper.exception.SleeperAPIException import SleeperAPIException
 from sleeper.model.User import User
-
-
-class MockResponse:
-    def __init__(self, data: dict, status_code: int):
-        self.__data = data
-        self.status_code = status_code
-
-    def json(self):
-        return self.__data
+from test.helper.helper_classes import MockResponse
 
 
 class TestUserAPIClient(unittest.TestCase):
