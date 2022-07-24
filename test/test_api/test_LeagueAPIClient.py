@@ -6,6 +6,7 @@ from sleeper.enum.SeasonStatus import SeasonStatus
 from sleeper.enum.SeasonType import SeasonType
 from sleeper.enum.Sport import Sport
 from sleeper.enum.nfl.NFLRosterPosition import NFLRosterPosition
+from sleeper.exception.SleeperAPIException import SleeperAPIException
 from sleeper.model.League import League
 from sleeper.model.LeagueSettings import LeagueSettings
 from sleeper.model.ScoringSettings import ScoringSettings
@@ -376,3 +377,13 @@ class TestLeagueAPIClient(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             LeagueAPIClient.get_league(league_id="12345")
         self.assertEqual("Could not get League with league_id '12345'.", str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_league_non_200_status_code_raises_exception(self, mock_requests_get):
+        mock_dict = {}
+        mock_response = MockResponse(mock_dict, 404)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(SleeperAPIException) as context:
+            LeagueAPIClient.get_league(league_id="12345")
+        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
