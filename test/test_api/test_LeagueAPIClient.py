@@ -740,3 +740,24 @@ class TestLeagueAPIClient(unittest.TestCase):
         self.assertEqual(Sport.NFL, response.sport)
         self.assertEqual(SeasonStatus.IN_SEASON, response.status)
         self.assertEqual(12, response.total_rosters)
+
+    @mock.patch("requests.get")
+    def test_get_league_not_found_raises_exception(self, mock_requests_get):
+        mock_dict = None
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(ValueError) as context:
+            LeagueAPIClient.get_user_leagues_for_year(user_id="12345", sport=Sport.NFL, year="2020")
+        self.assertEqual("Could not get user Leagues for user_id '12345', sport 'NFL', and year '2020'.",
+                         str(context.exception))
+
+    @mock.patch("requests.get")
+    def test_get_league_non_200_status_code_raises_exception(self, mock_requests_get):
+        mock_dict = {}
+        mock_response = MockResponse(mock_dict, 404)
+        mock_requests_get.return_value = mock_response
+
+        with self.assertRaises(SleeperAPIException) as context:
+            LeagueAPIClient.get_user_leagues_for_year(user_id="12345", sport=Sport.NFL, year="2020")
+        self.assertEqual("Got bad status code (404) from request.", str(context.exception))

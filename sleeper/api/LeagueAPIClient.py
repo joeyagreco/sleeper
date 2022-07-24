@@ -18,13 +18,17 @@ class LeagueAPIClient(SleeperAPIClient):
         response_dict = cls._get(url)
         if response_dict is None:
             raise ValueError(f"Could not get League with league_id '{league_id}'.")
-        return League.from_dict(cls._get(url))
+        return League.from_dict(response_dict)
 
     @classmethod
     def get_user_leagues_for_year(cls, *, user_id: str, sport: Sport, year: str) -> list[League]:
         url = cls._build_route(cls._SLEEPER_APP_BASE_URL, cls._VERSION, cls._USER_ROUTE, user_id, cls._LEAGUES_ROUTE,
                                sport.value.lower(), year)
-        return League.from_dict_list(cls._get(url))
+        response_list = cls._get(url)
+        if response_list is None:
+            raise ValueError(
+                f"Could not get user Leagues for user_id '{user_id}', sport '{sport.name}', and year '{year}'.")
+        return League.from_dict_list(response_list)
 
     @classmethod
     def get_rosters(cls, *, league_id: str) -> list[Roster]:
