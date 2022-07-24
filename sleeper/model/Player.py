@@ -71,7 +71,7 @@ class Player:
                       injury_status=InjuryStatus.from_str(player_dict.get("injury_status")),
                       player_id=player_dict.get("player_id"),
                       height=player_dict.get("height"),
-                      search_full_name=player_dict.get("player_full_name"),
+                      search_full_name=player_dict.get("search_full_name"),
                       age=player_dict.get("age"),
                       stats_id=player_dict.get("stats_id"),
                       birth_country=player_dict.get("birth_country"),
