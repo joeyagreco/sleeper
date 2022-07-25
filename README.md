@@ -19,6 +19,11 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install.
 pip install sleeper
 ```
 
+## Usage
+
+For examples on how to utilize the different features of this library, see
+the [`example`](https://github.com/joeyagreco/sleeper/tree/main/example) folder.
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
