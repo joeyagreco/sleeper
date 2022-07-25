@@ -8,7 +8,7 @@ with open("LICENSE") as f:
 
 setuptools.setup(
     name="sleeper",
-    version="0.11.0",
+    version="0.12.0",
     author="Joey Greco",
     author_email="joeyagreco@gmail.com",
     description="A Python wrapper for the Sleeper API.",
