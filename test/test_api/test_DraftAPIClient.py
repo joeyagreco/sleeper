@@ -1,7 +1,7 @@
 import unittest
 from unittest import mock
 
-from sleeper import DraftAPIClient
+from sleeper.api import DraftAPIClient
 from sleeper.enum.DraftStatus import DraftStatus
 from sleeper.enum.DraftType import DraftType
 from sleeper.enum.InjuryStatus import InjuryStatus

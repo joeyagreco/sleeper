@@ -2,7 +2,7 @@ import datetime
 import unittest
 from unittest import mock
 
-from sleeper import LeagueAPIClient
+from sleeper.api import LeagueAPIClient
 from sleeper.enum.SeasonStatus import SeasonStatus
 from sleeper.enum.SeasonType import SeasonType
 from sleeper.enum.Sport import Sport

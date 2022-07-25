@@ -1,4 +1,4 @@
-from sleeper import AvatarAPIClient
+from sleeper.api import AvatarAPIClient
 
 if __name__ == "__main__":
     # get avatar by ID and save locally

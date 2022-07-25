@@ -1,4 +1,4 @@
-from sleeper import LeagueAPIClient
+from sleeper.api import LeagueAPIClient
 from sleeper.enum import Sport
 from sleeper.model import League, Roster, User, Matchup, PlayoffMatchup, Transaction, TradedPick, SportState
 

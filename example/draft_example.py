@@ -1,4 +1,4 @@
-from sleeper import DraftAPIClient
+from sleeper.api import DraftAPIClient
 from sleeper.enum import Sport
 from sleeper.model import Draft
 from sleeper.model import DraftPick
