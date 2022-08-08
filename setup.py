@@ -1,22 +1,21 @@
 import setuptools
 
-from _version import __version__ as version
+pkg_vars = dict()
+with open("sleeper/_version.py") as f:
+    exec(f.read(), pkg_vars)
 
 with open("README.md") as f:
     read_me = f.read()
 
-with open("LICENSE") as f:
-    license_ = f.read()
-
 setuptools.setup(
     name="sleeper",
-    version=version,
+    version=pkg_vars["__version__"],
     author="Joey Greco",
     author_email="joeyagreco@gmail.com",
     description="A Python wrapper for the Sleeper API.",
     long_description_content_type="text/markdown",
     long_description=read_me,
-    license=license_,
+    license="MIT",
     include_package_data=True,
     packages=setuptools.find_packages(exclude=("test", "docs")),
     install_requires=["requests",
