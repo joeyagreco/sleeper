@@ -3,6 +3,8 @@ import tempfile
 import unittest
 from unittest import mock
 
+from requests import HTTPError
+
 from sleeper.api.AvatarAPIClient import AvatarAPIClient
 from sleeper.exception.SleeperAPIException import SleeperAPIException
 from test.helper.helper_classes import MockResponse
@@ -65,6 +67,6 @@ class TestAvatarAPIClient(unittest.TestCase):
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
 
-        with self.assertRaises(SleeperAPIException) as context:
+        with self.assertRaises(HTTPError) as context:
             AvatarAPIClient.get_avatar(avatar_id="avatar_id", save_to_path="")
-        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+        self.assertEqual("404 Client Error", str(context.exception))

@@ -1,8 +1,9 @@
 import unittest
 from unittest import mock
 
+from requests import HTTPError
+
 from sleeper.api.UserAPIClient import UserAPIClient
-from sleeper.exception.SleeperAPIException import SleeperAPIException
 from sleeper.model.User import User
 from test.helper.helper_classes import MockResponse
 
@@ -80,6 +81,6 @@ class TestUserAPIClient(unittest.TestCase):
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
 
-        with self.assertRaises(SleeperAPIException) as context:
+        with self.assertRaises(HTTPError) as context:
             UserAPIClient.get_user(user_id="user_id")
-        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+        self.assertEqual("404 Client Error", str(context.exception))

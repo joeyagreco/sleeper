@@ -2,6 +2,8 @@ import datetime
 import unittest
 from unittest import mock
 
+from requests import HTTPError
+
 from sleeper.api import LeagueAPIClient
 from sleeper.enum.SeasonStatus import SeasonStatus
 from sleeper.enum.SeasonType import SeasonType
@@ -9,7 +11,6 @@ from sleeper.enum.Sport import Sport
 from sleeper.enum.TransactionStatus import TransactionStatus
 from sleeper.enum.TransactionType import TransactionType
 from sleeper.enum.nfl.NFLRosterPosition import NFLRosterPosition
-from sleeper.exception.SleeperAPIException import SleeperAPIException
 from sleeper.model.FAABTransaction import FAABTransaction
 from sleeper.model.FromPlayoffMatchup import FromPlayoffMatchup
 from sleeper.model.League import League
@@ -397,9 +398,9 @@ class TestLeagueAPIClient(unittest.TestCase):
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
 
-        with self.assertRaises(SleeperAPIException) as context:
+        with self.assertRaises(HTTPError) as context:
             LeagueAPIClient.get_league(league_id="12345")
-        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+        self.assertEqual("404 Client Error", str(context.exception))
 
     @mock.patch("requests.get")
     def test_get_user_leagues_for_year_happy_path(self, mock_requests_get):
@@ -772,9 +773,9 @@ class TestLeagueAPIClient(unittest.TestCase):
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
 
-        with self.assertRaises(SleeperAPIException) as context:
+        with self.assertRaises(HTTPError) as context:
             LeagueAPIClient.get_user_leagues_for_year(user_id="12345", sport=Sport.NFL, year="2020")
-        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+        self.assertEqual("404 Client Error", str(context.exception))
 
     @mock.patch("requests.get")
     def test_get_rosters_happy_path(self, mock_requests_get):
@@ -862,9 +863,9 @@ class TestLeagueAPIClient(unittest.TestCase):
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
 
-        with self.assertRaises(SleeperAPIException) as context:
+        with self.assertRaises(HTTPError) as context:
             LeagueAPIClient.get_rosters(league_id="12345")
-        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+        self.assertEqual("404 Client Error", str(context.exception))
 
     @mock.patch("requests.get")
     def test_get_users_in_league_happy_path(self, mock_requests_get):
@@ -934,9 +935,9 @@ class TestLeagueAPIClient(unittest.TestCase):
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
 
-        with self.assertRaises(SleeperAPIException) as context:
+        with self.assertRaises(HTTPError) as context:
             LeagueAPIClient.get_users_in_league(league_id="12345")
-        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+        self.assertEqual("404 Client Error", str(context.exception))
 
     @mock.patch("requests.get")
     def test_get_matchups_for_week_happy_path(self, mock_requests_get):
@@ -995,9 +996,9 @@ class TestLeagueAPIClient(unittest.TestCase):
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
 
-        with self.assertRaises(SleeperAPIException) as context:
+        with self.assertRaises(HTTPError) as context:
             LeagueAPIClient.get_matchups_for_week(league_id="12345", week=1)
-        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+        self.assertEqual("404 Client Error", str(context.exception))
 
     @mock.patch("requests.get")
     def test_get_winners_bracket_happy_path(self, mock_requests_get):
@@ -1056,9 +1057,9 @@ class TestLeagueAPIClient(unittest.TestCase):
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
 
-        with self.assertRaises(SleeperAPIException) as context:
+        with self.assertRaises(HTTPError) as context:
             LeagueAPIClient.get_winners_bracket(league_id="12345")
-        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+        self.assertEqual("404 Client Error", str(context.exception))
 
     @mock.patch("requests.get")
     def test_get_losers_bracket_happy_path(self, mock_requests_get):
@@ -1117,9 +1118,9 @@ class TestLeagueAPIClient(unittest.TestCase):
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
 
-        with self.assertRaises(SleeperAPIException) as context:
+        with self.assertRaises(HTTPError) as context:
             LeagueAPIClient.get_losers_bracket(league_id="12345")
-        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+        self.assertEqual("404 Client Error", str(context.exception))
 
     @mock.patch("requests.get")
     def test_get_transactions_happy_path(self, mock_requests_get):
@@ -1219,9 +1220,9 @@ class TestLeagueAPIClient(unittest.TestCase):
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
 
-        with self.assertRaises(SleeperAPIException) as context:
+        with self.assertRaises(HTTPError) as context:
             LeagueAPIClient.get_transactions(league_id="12345", week=1)
-        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+        self.assertEqual("404 Client Error", str(context.exception))
 
     @mock.patch("requests.get")
     def test_get_traded_picks_happy_path(self, mock_requests_get):
@@ -1261,9 +1262,9 @@ class TestLeagueAPIClient(unittest.TestCase):
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
 
-        with self.assertRaises(SleeperAPIException) as context:
+        with self.assertRaises(HTTPError) as context:
             LeagueAPIClient.get_traded_picks(league_id="12345")
-        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+        self.assertEqual("404 Client Error", str(context.exception))
 
     @mock.patch("requests.get")
     def test_get_sport_state_happy_path(self, mock_requests_get):
@@ -1310,6 +1311,6 @@ class TestLeagueAPIClient(unittest.TestCase):
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
 
-        with self.assertRaises(SleeperAPIException) as context:
+        with self.assertRaises(HTTPError) as context:
             LeagueAPIClient.get_sport_state(sport=Sport.NFL)
-        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+        self.assertEqual("404 Client Error", str(context.exception))

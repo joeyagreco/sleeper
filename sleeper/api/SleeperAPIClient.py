@@ -1,6 +1,5 @@
 import io
 from abc import ABC
-from http import HTTPStatus
 from typing import Optional
 
 import requests
@@ -64,15 +63,13 @@ class SleeperAPIClient(ABC):
     @staticmethod
     def _get(url: str) -> Optional[dict]:
         response = requests.get(url)
-        if response.status_code != HTTPStatus.OK:
-            raise SleeperAPIException(f"Got bad status code ({response.status_code}) from request.")
+        response.raise_for_status()
         return response.json()
 
     @staticmethod
     def _get_image_file(url: str) -> Image:
         response = requests.get(url)
-        if response.status_code != HTTPStatus.OK:
-            raise SleeperAPIException(f"Got bad status code ({response.status_code}) from request.")
+        response.raise_for_status()
         image_bytes = response.content
         if image_bytes is None:
             raise SleeperAPIException(f"No avatar found.")

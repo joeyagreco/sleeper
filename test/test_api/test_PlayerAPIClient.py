@@ -2,6 +2,8 @@ import datetime
 import unittest
 from unittest import mock
 
+from requests import HTTPError
+
 from sleeper.api.PlayerAPIClient import PlayerAPIClient
 from sleeper.enum.InjuryStatus import InjuryStatus
 from sleeper.enum.PracticeParticipation import PracticeParticipation
@@ -10,7 +12,6 @@ from sleeper.enum.TrendType import TrendType
 from sleeper.enum.nfl.NFLPlayerStatus import NFLPlayerStatus
 from sleeper.enum.nfl.NFLPosition import NFLPosition
 from sleeper.enum.nfl.NFLTeam import NFLTeam
-from sleeper.exception.SleeperAPIException import SleeperAPIException
 from sleeper.model.Player import Player
 from sleeper.model.PlayerTrend import PlayerTrend
 from test.helper.helper_classes import MockResponse
@@ -143,9 +144,9 @@ class TestPlayerAPIClient(unittest.TestCase):
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
 
-        with self.assertRaises(SleeperAPIException) as context:
+        with self.assertRaises(HTTPError) as context:
             PlayerAPIClient.get_all_players(sport=Sport.NFL)
-        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+        self.assertEqual("404 Client Error", str(context.exception))
 
     @mock.patch("requests.get")
     def test_get_trending_players_add_happy_path(self, mock_requests_get):
@@ -248,6 +249,6 @@ class TestPlayerAPIClient(unittest.TestCase):
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
 
-        with self.assertRaises(SleeperAPIException) as context:
+        with self.assertRaises(HTTPError) as context:
             PlayerAPIClient.get_trending_players(sport=Sport.NFL, trend_type=TrendType.ADD)
-        self.assertEqual("Got bad status code (404) from request.", str(context.exception))
+        self.assertEqual("404 Client Error", str(context.exception))
