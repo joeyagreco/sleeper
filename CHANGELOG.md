@@ -22,7 +22,7 @@ All notable changes to this project will be documented in this file.
 
 ### Initial Release
 
-[Unreleased]: https://github.com/joeyagreco/sleeper/compare/v1.0.2...HEAD
+[Unreleased]: https://github.com/joeyagreco/sleeper/compare/v1.1.1...HEAD
 
 [1.1.1]: https://github.com/joeyagreco/sleeper/compare/v1.0.1...v1.1.1
 
