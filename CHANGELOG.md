@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-- N/A
+- Changed frequency of dependabot checks from daily to weekly
 
 ## [1.1.1]
 
