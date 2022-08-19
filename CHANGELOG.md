@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 - Changed frequency of dependabot checks from daily to weekly
+- Updated README
 
 ## [1.1.1]
 
