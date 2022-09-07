@@ -5,6 +5,7 @@ from unittest import mock
 from requests import HTTPError
 
 from sleeper.api import LeagueAPIClient
+from sleeper.enum.PlayoffRoundType import PlayoffRoundType
 from sleeper.enum.SeasonStatus import SeasonStatus
 from sleeper.enum.SeasonType import SeasonType
 from sleeper.enum.Sport import Sport
@@ -368,6 +369,7 @@ class TestLeagueAPIClient(unittest.TestCase):
         self.assertEqual(1, response.settings.disable_trades)
         self.assertEqual(0, response.settings.league_average_match)
         self.assertEqual(0, response.settings.playoff_round_type)
+        self.assertEqual(PlayoffRoundType.ONE_WEEK_PER_ROUND, response.settings.playoff_round_type_enum)
         self.assertEqual(0, response.settings.playoff_seed_type)
         self.assertEqual(0, response.settings.playoff_type)
         self.assertEqual(0, response.settings.reserve_allow_cov)
@@ -742,6 +744,7 @@ class TestLeagueAPIClient(unittest.TestCase):
         self.assertEqual(1, response.settings.disable_trades)
         self.assertEqual(0, response.settings.league_average_match)
         self.assertEqual(0, response.settings.playoff_round_type)
+        self.assertEqual(PlayoffRoundType.ONE_WEEK_PER_ROUND, response.settings.playoff_round_type_enum)
         self.assertEqual(0, response.settings.playoff_seed_type)
         self.assertEqual(0, response.settings.playoff_type)
         self.assertEqual(0, response.settings.reserve_allow_cov)

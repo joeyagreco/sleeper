@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
+from sleeper.enum.PlayoffRoundType import PlayoffRoundType
+
 
 @dataclass(kw_only=True)
 class LeagueSettings:
@@ -25,6 +27,7 @@ class LeagueSettings:
     offseason_adds: int
     pick_trading: int
     playoff_round_type: int
+    playoff_round_type_enum: PlayoffRoundType  # a more clear representation of the "playoff_round_type" field
     playoff_seed_type: int
     playoff_teams: int
     playoff_type: int
@@ -82,6 +85,8 @@ class LeagueSettings:
                               disable_trades=settings_dict.get("disable_trades"),
                               league_average_match=settings_dict.get("league_average_match"),
                               playoff_round_type=settings_dict.get("playoff_round_type"),
+                              playoff_round_type_enum=PlayoffRoundType.from_int(
+                                  settings_dict.get("playoff_round_type")),
                               playoff_seed_type=settings_dict.get("playoff_seed_type"),
                               playoff_type=settings_dict.get("playoff_type"),
                               reserve_allow_cov=settings_dict.get("reserve_allow_cov"),
