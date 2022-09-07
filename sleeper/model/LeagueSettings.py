@@ -27,7 +27,7 @@ class LeagueSettings:
     offseason_adds: int
     pick_trading: int
     playoff_round_type: int
-    playoff_round_type_enum: PlayoffRoundType
+    playoff_round_type_enum: PlayoffRoundType  # a more clear representation of the "playoff_round_type" field
     playoff_seed_type: int
     playoff_teams: int
     playoff_type: int
