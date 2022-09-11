@@ -8,6 +8,7 @@ from sleeper.model.Stats import Stats
 @dataclass(kw_only=True)
 class NFLStats(Stats):
     cmp_pct: float
+    def_snp: float
     fum: float
     fum_lost: float
     gms_active: float
@@ -37,6 +38,7 @@ class NFLStats(Stats):
     rush_yac: float
     rush_yd: float
     rush_ypa: float
+    st_snp: float
     tm_def_snp: float
     tm_off_snp: float
     tm_st_snp: float
@@ -44,6 +46,7 @@ class NFLStats(Stats):
     @staticmethod
     def from_dict(nfl_stats_dict: dict) -> NFLStats:
         return NFLStats(cmp_pct=nfl_stats_dict.get("cmp_pct"),
+                        def_snp=nfl_stats_dict.get("def_snp"),
                         fum=nfl_stats_dict.get("fum"),
                         fum_lost=nfl_stats_dict.get("fum_lost"),
                         gms_active=nfl_stats_dict.get("gms_active"),
@@ -73,6 +76,7 @@ class NFLStats(Stats):
                         rush_yac=nfl_stats_dict.get("rush_yac"),
                         rush_yd=nfl_stats_dict.get("rush_yd"),
                         rush_ypa=nfl_stats_dict.get("rush_ypa"),
+                        st_snp=nfl_stats_dict.get("st_snp"),
                         tm_def_snp=nfl_stats_dict.get("tm_def_snp"),
                         tm_off_snp=nfl_stats_dict.get("tm_off_snp"),
                         tm_st_snp=nfl_stats_dict.get("tm_st_snp"))
