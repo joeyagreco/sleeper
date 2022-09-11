@@ -28,9 +28,11 @@ class SleeperAPIClient(ABC):
     _LOSERS_BRACKET_ROUTE = ConfigReader.get("api", "losers_bracket_route")
     _MATCHUPS_ROUTE = ConfigReader.get("api", "matchups_route")
     _PICKS_ROUTE = ConfigReader.get("api", "picks_route")
+    _PLAYER_ROUTE = ConfigReader.get("api", "player_route")
     _PLAYERS_ROUTE = ConfigReader.get("api", "players_route")
     _ROSTERS_ROUTE = ConfigReader.get("api", "rosters_route")
     _STATE_ROUTE = ConfigReader.get("api", "state_route")
+    _STATS_ROUTE = ConfigReader.get("api", "stats_route")
     _THUMBS_ROUTE = ConfigReader.get("api", "thumbs_route")
     _TRADED_PICKS_ROUTE = ConfigReader.get("api", "traded_picks_route")
     _TRANSACTIONS_ROUTE = ConfigReader.get("api", "transactions_route")
@@ -57,7 +59,8 @@ class SleeperAPIClient(ABC):
             for i, arg in enumerate(args):
                 if i > 0:
                     symbol = "&"
-                url = f"{url}{symbol}{arg[0]}={arg[1]}"
+                if arg[0] is not None and arg[1] is not None:
+                    url = f"{url}{symbol}{arg[0]}={arg[1]}"
         return url
 
     @staticmethod
