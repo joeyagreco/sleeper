@@ -135,16 +135,47 @@ class NFLStats(Stats):
     rec_rz_tgt: float
     rec_td: float
     rec_td_40p: float
+    rec_td_50p: float
+    rec_td_lng: float
+    rec_tgt: float
+    rec_yar: float
+    rec_yd: float
+    rec_ypr: float
+    rec_ypt: float
     rush_att: float
+    rush_btkl: float
     rush_fd: float
     rush_lng: float
+    rush_rz_att: float
+    rush_td: float
+    rush_td_lng: float
+    rush_tkl_loss: float
+    rush_tkl_loss_yd: float
     rush_yac: float
     rush_yd: float
     rush_ypa: float
+    sack: float
+    sack_yd: float
     st_snp: float
+    st_tkl_solo: float
+    td: float
+    tkl: float
+    tkl_ast: float
+    tkl_ast_misc: float
+    tkl_loss: float
+    tkl_solo: float
+    tkl_solo_misc: float
     tm_def_snp: float
     tm_off_snp: float
     tm_st_snp: float
+    xpa: float
+    xpm: float
+    xpmiss: float
+    yds_allow: float
+    yds_allow_200_299: float
+    yds_allow_300_349: float
+    yds_allow_350_399: float
+    yds_allow_400_449: float
 
     @staticmethod
     def from_dict(nfl_stats_dict: dict) -> NFLStats:
@@ -276,13 +307,44 @@ class NFLStats(Stats):
                         rec_rz_tgt=nfl_stats_dict.get("rec_rz_tgt"),
                         rec_td=nfl_stats_dict.get("rec_td"),
                         rec_td_40p=nfl_stats_dict.get("rec_td_40p"),
+                        rec_td_50p=nfl_stats_dict.get("rec_td_50p"),
+                        rec_td_lng=nfl_stats_dict.get("rec_td_lng"),
+                        rec_tgt=nfl_stats_dict.get("rec_tgt"),
+                        rec_yar=nfl_stats_dict.get("rec_yar"),
+                        rec_yd=nfl_stats_dict.get("rec_yd"),
+                        rec_ypr=nfl_stats_dict.get("rec_ypr"),
+                        rec_ypt=nfl_stats_dict.get("rec_ypt"),
                         rush_att=nfl_stats_dict.get("rush_att"),
+                        rush_btkl=nfl_stats_dict.get("rush_btkl"),
                         rush_fd=nfl_stats_dict.get("rush_fd"),
                         rush_lng=nfl_stats_dict.get("rush_lng"),
+                        rush_rz_att=nfl_stats_dict.get("rush_rz_att"),
+                        rush_td=nfl_stats_dict.get("rush_td"),
+                        rush_td_lng=nfl_stats_dict.get("rush_td_lng"),
+                        rush_tkl_loss=nfl_stats_dict.get("rush_tkl_loss"),
+                        rush_tkl_loss_yd=nfl_stats_dict.get("rush_tkl_loss_yd"),
                         rush_yac=nfl_stats_dict.get("rush_yac"),
                         rush_yd=nfl_stats_dict.get("rush_yd"),
                         rush_ypa=nfl_stats_dict.get("rush_ypa"),
+                        sack=nfl_stats_dict.get("sack"),
+                        sack_yd=nfl_stats_dict.get("sack_yd"),
                         st_snp=nfl_stats_dict.get("st_snp"),
+                        st_tkl_solo=nfl_stats_dict.get("st_tkl_solo"),
+                        td=nfl_stats_dict.get("td"),
+                        tkl=nfl_stats_dict.get("tkl"),
+                        tkl_ast=nfl_stats_dict.get("tkl_ast"),
+                        tkl_ast_misc=nfl_stats_dict.get("tkl_ast_misc"),
+                        tkl_loss=nfl_stats_dict.get("tkl_loss"),
+                        tkl_solo=nfl_stats_dict.get("tkl_solo"),
+                        tkl_solo_misc=nfl_stats_dict.get("tkl_solo_misc"),
                         tm_def_snp=nfl_stats_dict.get("tm_def_snp"),
                         tm_off_snp=nfl_stats_dict.get("tm_off_snp"),
-                        tm_st_snp=nfl_stats_dict.get("tm_st_snp"))
+                        tm_st_snp=nfl_stats_dict.get("tm_st_snp"),
+                        xpa=nfl_stats_dict.get("xpa"),
+                        xpm=nfl_stats_dict.get("xpm"),
+                        xpmiss=nfl_stats_dict.get("xpmiss"),
+                        yds_allow=nfl_stats_dict.get("yds_allow"),
+                        yds_allow_200_299=nfl_stats_dict.get("yds_allow_200_299"),
+                        yds_allow_300_349=nfl_stats_dict.get("yds_allow_300_349"),
+                        yds_allow_350_399=nfl_stats_dict.get("yds_allow_350_399"),
+                        yds_allow_400_449=nfl_stats_dict.get("yds_allow_400_449"))
