@@ -37,6 +37,7 @@ class NFLPosition(PlayerPosition, ModelEnum):
     SS = "SS"
     T = "T"
     TE = "TE"
+    TEAM = "TEAM"
     WR = "WR"
 
     @classmethod
@@ -97,6 +98,8 @@ class NFLPosition(PlayerPosition, ModelEnum):
             return NFLPosition.T
         elif s.upper() == "TE":
             return NFLPosition.TE
+        elif s.upper() == "TEAM":
+            return NFLPosition.TEAM
         elif s.upper() == "WR":
             return NFLPosition.WR
         else:
