@@ -47,7 +47,7 @@ class Transaction:
                            metadata=transaction_dict.get("metadata"))
 
     @staticmethod
-    def from_dict_list(transaction_dict_list: dict) -> list[Transaction]:
+    def from_dict_list(transaction_dict_list: list) -> list[Transaction]:
         transactions = list()
         for transaction_dict in transaction_dict_list:
             transactions.append(Transaction.from_dict(transaction_dict))

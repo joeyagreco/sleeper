@@ -46,7 +46,7 @@ class League:
                       avatar=league_dict.get("avatar"))
 
     @staticmethod
-    def from_dict_list(league_dict_list: dict) -> list[League]:
+    def from_dict_list(league_dict_list: list) -> list[League]:
         leagues = list()
         for league_dict in league_dict_list:
             leagues.append(League.from_dict(league_dict))

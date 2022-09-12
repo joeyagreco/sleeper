@@ -55,7 +55,7 @@ class User:
                     verification=user_dict.get("verification"))
 
     @staticmethod
-    def from_dict_list(user_dict_list: dict) -> list[User]:
+    def from_dict_list(user_dict_list: list) -> list[User]:
         users = list()
         for user_dict in user_dict_list:
             users.append(User.from_dict(user_dict))

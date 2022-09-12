@@ -118,7 +118,7 @@ class Player:
                       active=player_dict.get("active"))
 
     @staticmethod
-    def dict_by_id(player_dict_list: dict, sport: Sport) -> dict[str, Player]:
+    def dict_by_id(player_dict_list: list, sport: Sport) -> dict[str, Player]:
         players_by_id = dict()
         for player_id in player_dict_list:
             players_by_id[player_id] = Player.from_dict(player_dict_list[player_id], sport)

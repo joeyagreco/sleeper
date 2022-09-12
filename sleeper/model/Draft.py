@@ -51,7 +51,7 @@ class Draft:
                      created=draft_dict.get("created"))
 
     @staticmethod
-    def from_dict_list(draft_dict_list: dict) -> list[Draft]:
+    def from_dict_list(draft_dict_list: list) -> list[Draft]:
         drafts = list()
         for draft_dict in draft_dict_list:
             drafts.append(Draft.from_dict(draft_dict))

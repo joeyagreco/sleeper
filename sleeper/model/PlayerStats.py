@@ -26,6 +26,13 @@ class PlayerStats:
     week: int
 
     @staticmethod
+    def from_dict_list(player_stats_dict_list: list) -> list[PlayerStats]:
+        player_stats_list = list()
+        for player_stats_dict in player_stats_dict_list:
+            player_stats_list.append(PlayerStats.from_dict(player_stats_dict))
+        return player_stats_list
+
+    @staticmethod
     def from_dict(player_stats_dict: dict) -> PlayerStats:
         sport = Sport.from_str(player_stats_dict.get("sport"))
         date_ = None if player_stats_dict.get("date") is None else datetime.datetime.strptime(

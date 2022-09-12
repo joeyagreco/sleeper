@@ -65,7 +65,7 @@ class SleeperAPIClient(ABC):
         return url
 
     @staticmethod
-    def _get(url: str) -> Optional[dict]:
+    def _get(url: str) -> Optional[dict | list]:
         response = requests.get(url)
         response.raise_for_status()
         return response.json()
