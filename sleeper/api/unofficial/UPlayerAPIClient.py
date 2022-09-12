@@ -57,7 +57,30 @@ class UPlayerAPIClient(SleeperAPIClient):
 
         response_list = cls._get(url)
         if response_list is None:
-            error_message = f"Could not get Stats for sport: '{sport.name}', season_type: '{season_type}', season: '{season}', week: '{week}'"
+            error_message = f"Could not get PlayerStats list for sport: '{sport.name}', season_type: '{season_type}', season: '{season}', week: '{week}'"
+            if week is not None:
+                error_message += f", week: '{week}'"
+            if len(positions) > 0:
+                error_message += f", positions: '{positions}'"
+            error_message += "."
+            raise ValueError(error_message)
+        return PlayerStats.from_dict_list(response_list)
+
+    @classmethod
+    def get_all_player_projections(cls, *, sport: Sport, season: str, week: int, **kwargs) -> list[PlayerStats]:
+        season_type: SeasonType = kwargs.pop("season_type", SeasonType.REGULAR)
+        positions: list[PlayerPosition] = kwargs.pop("positions", list())
+
+        url = cls._build_route(cls._SLEEPER_APP_BASE_URL, None, cls._PROJECTIONS_ROUTE, sport.name.lower(), season,
+                               week)
+        filters: list[tuple[str, Any]] = [("season_type", season_type.name.lower())]
+        for position in positions:
+            filters.append(("position[]", position.name.upper()))
+        url = cls._add_filters(url, *filters)
+
+        response_list = cls._get(url)
+        if response_list is None:
+            error_message = f"Could not get PlayerStats list for sport: '{sport.name}', season_type: '{season_type}', season: '{season}', week: '{week}'"
             if week is not None:
                 error_message += f", week: '{week}'"
             if len(positions) > 0:
