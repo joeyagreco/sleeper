@@ -183,3 +183,63 @@ class TestUPlayerAPIClient(unittest.TestCase):
         self.assertEqual("season", response.game_id)
         self.assertEqual(Company.ROTOWIRE, response.company)
         self.assertEqual(Category.PROJ, response.category)
+
+    @mock.patch("requests.get")
+    def test_get_player_projections_week_is_given_happy_path(self, mock_requests_get):
+        mock_dict = {
+            "week": 1,
+            "team": "LAR",
+            "stats": {
+                "rush_yd": 1.0,
+                "rush_fd": 2.0,
+                "rush_att": 3.0
+            },
+            "sport": "nfl",
+            "season_type": "regular",
+            "season": "2021",
+            "opponent": "SEA",
+            "player_id": "1234",
+            "player": {
+                "years_exp": 1,
+                "team": "LAR",
+                "position": "WR",
+                "news_updated": 1234,
+                "last_name": "ln",
+                "first_name": "fn",
+                "fantasy_positions": [
+                    "WR"
+                ]
+            },
+            "game_id": "1234",
+            "company": "sportradar",
+            "category": "proj"
+        }
+        mock_response = MockResponse(mock_dict, 200)
+        mock_requests_get.return_value = mock_response
+
+        response = UPlayerAPIClient.get_player_stats(sport=Sport.NFL, player_id="1234", season="2021", week=1)
+
+        self.assertIsInstance(response, PlayerStats)
+        self.assertEqual(NFLTeam.LAR, response.team)
+        self.assertIsInstance(response.stats, NFLStats)
+        self.assertEqual(1, response.week)
+        self.assertEqual(1.0, response.stats.rush_yd)
+        self.assertEqual(2.0, response.stats.rush_fd)
+        self.assertEqual(3.0, response.stats.rush_att)
+        self.assertEqual(Sport.NFL, response.sport)
+        self.assertEqual(SeasonType.REGULAR, response.season_type)
+        self.assertEqual("2021", response.season)
+        self.assertEqual("1234", response.player_id)
+        self.assertIsInstance(response.player, Player)
+        self.assertEqual(1, response.player.years_exp)
+        self.assertEqual(NFLTeam.LAR, response.player.team)
+        self.assertEqual(NFLPosition.WR, response.player.position)
+        self.assertEqual(1234, response.player.news_updated)
+        self.assertIsNone(response.player.metadata)
+        self.assertEqual("ln", response.player.last_name)
+        self.assertEqual("fn", response.player.first_name)
+        self.assertEqual([NFLPosition.WR], response.player.fantasy_positions)
+        self.assertEqual("1234", response.game_id)
+        self.assertEqual(Company.SPORTRADAR, response.company)
+        self.assertEqual(Category.PROJ, response.category)
+        self.assertEqual(NFLTeam.SEA, response.opponent)
