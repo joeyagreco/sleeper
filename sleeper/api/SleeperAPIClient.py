@@ -30,6 +30,7 @@ class SleeperAPIClient(ABC):
     _PICKS_ROUTE = ConfigReader.get("api", "picks_route")
     _PLAYER_ROUTE = ConfigReader.get("api", "player_route")
     _PLAYERS_ROUTE = ConfigReader.get("api", "players_route")
+    _PROJECTIONS_ROUTE = ConfigReader.get("api", "projections_route")
     _ROSTERS_ROUTE = ConfigReader.get("api", "rosters_route")
     _STATE_ROUTE = ConfigReader.get("api", "state_route")
     _STATS_ROUTE = ConfigReader.get("api", "stats_route")
