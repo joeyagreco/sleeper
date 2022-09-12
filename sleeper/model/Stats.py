@@ -25,3 +25,7 @@ class Stats:
     @abstractmethod
     def from_dict(d: dict) -> Stats:
         ...
+    
+    @abstractmethod
+    def get_populated_stats(self) -> dict:
+        ...

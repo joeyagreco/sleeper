@@ -177,6 +177,9 @@ class NFLStats(Stats):
     yds_allow_350_399: float
     yds_allow_400_449: float
 
+    def get_populated_stats(self) -> dict:
+        return {k: v for (k, v) in vars(self).items() if v is not None}
+
     @staticmethod
     def from_dict(nfl_stats_dict: dict) -> NFLStats:
         return NFLStats(blk_kick=nfl_stats_dict.get("blk_kick"),
