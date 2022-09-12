@@ -4,7 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-- N/A
+### Added
+
+- API Clients for unofficial endpoints
+- Examples for new API Clients
+- Enum values
+
+### Fixed
+
+- Missing imports
 
 ## [1.2.0]
 
