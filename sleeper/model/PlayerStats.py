@@ -7,6 +7,7 @@ from datetime import date
 from sleeper.enum import SportTeam, Sport, SeasonType
 from sleeper.enum.Category import Category
 from sleeper.enum.Company import Company
+from sleeper.model import Player
 from sleeper.model.Stats import Stats
 
 
@@ -17,6 +18,7 @@ class PlayerStats:
     date: date
     game_id: str
     opponent: SportTeam
+    player: Player
     player_id: str
     season: str
     season_type: SeasonType
@@ -42,6 +44,7 @@ class PlayerStats:
                            date=date_,
                            game_id=player_stats_dict.get("game_id"),
                            opponent=SportTeam.enum(sport).from_str(player_stats_dict.get("opponent")),
+                           player=Player.from_dict(player_stats_dict.get("player"), sport),
                            player_id=player_stats_dict.get("player_id"),
                            season=player_stats_dict.get("season"),
                            season_type=SeasonType.from_str(player_stats_dict.get("season_type")),

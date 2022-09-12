@@ -73,7 +73,7 @@ class Player:
         return Player(hashtag=player_dict.get("hashtag"),
                       depth_chart_position=player_dict.get("depth_chart_position"),
                       status=PlayerStatus.enum(sport).from_str(player_dict.get("status")),
-                      sport=Sport.from_str(player_dict.get("sport")),
+                      sport=sport,
                       fantasy_positions=fantasy_positions,
                       number=player_dict.get("number"),
                       search_last_name=player_dict.get("search_last_name"),
