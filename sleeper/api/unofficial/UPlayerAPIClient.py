@@ -10,6 +10,9 @@ class UPlayerAPIClient(SleeperAPIClient):
 
     @classmethod
     def get_player_stats(cls, *, sport: Sport, player_id: str, season: str, **kwargs) -> PlayerStats:
+        """
+        Gets player stats for the given season OR just the given week.
+        """
         season_type: SeasonType = kwargs.pop("season_type", SeasonType.REGULAR)
         week: int = kwargs.pop("week", None)
 
@@ -28,6 +31,9 @@ class UPlayerAPIClient(SleeperAPIClient):
 
     @classmethod
     def get_player_projections(cls, *, sport: Sport, player_id: str, season: str, **kwargs) -> PlayerStats:
+        """
+        Gets player projections for the given season OR just the given week.
+        """
         season_type: SeasonType = kwargs.pop("season_type", SeasonType.REGULAR)
         week: int = kwargs.pop("week", None)
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 import datetime
 from dataclasses import dataclass
 from datetime import date
-from typing import Any
+from typing import Any, Optional
 
 from sleeper.enum.InjuryStatus import InjuryStatus
 from sleeper.enum.PlayerPosition import PlayerPosition
@@ -62,7 +62,9 @@ class Player:
     years_exp: int
 
     @staticmethod
-    def from_dict(player_dict: dict, sport: Sport) -> Player:
+    def from_dict(player_dict: dict, sport: Sport) -> Optional[Player]:
+        if player_dict is None:
+            return None
         given_fantasy_positions = player_dict.get("fantasy_positions")
         fantasy_positions = [PlayerPosition.enum(sport).from_str(pos) for pos in
                              given_fantasy_positions] if given_fantasy_positions is not None else None
