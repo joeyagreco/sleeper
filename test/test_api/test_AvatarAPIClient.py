@@ -59,7 +59,7 @@ class TestAvatarAPIClient(unittest.TestCase):
 
         with self.assertRaises(SleeperAPIException) as context:
             AvatarAPIClient.get_avatar(avatar_id="avatar_id", save_to_path="")
-        self.assertEqual("No avatar found.", str(context.exception))
+        self.assertEqual("No image found.", str(context.exception))
 
     @mock.patch("requests.get")
     def test_get_avatar_non_200_status_code_raises_exception(self, mock_requests_get):

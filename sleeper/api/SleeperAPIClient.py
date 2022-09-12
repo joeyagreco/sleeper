@@ -21,6 +21,7 @@ class SleeperAPIClient(ABC):
 
     # ROUTES
     _AVATARS_ROUTE = ConfigReader.get("api", "avatars_route")
+    _CONTENT_ROUTE = ConfigReader.get("api", "content_route")
     _DRAFT_ROUTE = ConfigReader.get("api", "draft_route")
     _DRAFTS_ROUTE = ConfigReader.get("api", "drafts_route")
     _LEAGUE_ROUTE = ConfigReader.get("api", "league_route")
@@ -76,6 +77,6 @@ class SleeperAPIClient(ABC):
         response.raise_for_status()
         image_bytes = response.content
         if image_bytes is None:
-            raise SleeperAPIException(f"No avatar found.")
+            raise SleeperAPIException(f"No image found.")
         image_stream = io.BytesIO(image_bytes)
         return Image.open(image_stream)

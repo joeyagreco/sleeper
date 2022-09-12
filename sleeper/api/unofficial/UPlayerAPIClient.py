@@ -88,3 +88,15 @@ class UPlayerAPIClient(SleeperAPIClient):
             error_message += "."
             raise ValueError(error_message)
         return PlayerStats.from_dict_list(response_list)
+
+    @classmethod
+    def get_player_head_shot(cls, *, sport: Sport, player_id: str, save_to_path: str) -> None:
+        """
+        save_to_path should end in ".png".
+        """
+
+        url = cls._build_route(cls._SLEEPER_CDN_BASE_URL, None, cls._CONTENT_ROUTE, sport.name.lower(),
+                               cls._PLAYERS_ROUTE, player_id)
+        url += ".jpg"
+        image_file = cls._get_image_file(url)
+        image_file.save(save_to_path)
