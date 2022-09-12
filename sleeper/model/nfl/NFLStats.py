@@ -51,29 +51,90 @@ class NFLStats(Stats):
     fgm_50p: float
     fgm_lng: float
     fgm_pct: float
+    fgm_yds: float
+    fgm_yds_over_30: float
+    fgmiss: float
+    fgmiss_50p: float
     fum: float
     fum_lost: float
+    fum_rec: float
+    fum_ret_yd: float
     gms_active: float
     gp: float
     gs: float
+    idp_blk_kick: float
+    idp_ff: float
+    idp_fum_rec: float
+    idp_fum_ret_yd: float
+    idp_int: float
+    idp_int_ret_yd: float
+    idp_pass_def: float
+    idp_qb_hit: float
+    idp_sack: float
+    idp_sack_yd: float
+    idp_tkl: float
+    idp_tkl_ast: float
+    idp_tkl_loss: float
+    idp_tkl_solo: float
+    int_: float
+    int_ret_yd: float
+    kr: float
+    kr_lng: float
+    kr_yd: float
+    kr_ypa: float
     off_snp: float
     pass_air_yd: float
     pass_att: float
     pass_cmp: float
+    pass_cmp_40p: float
     pass_fd: float
     pass_inc: float
+    pass_int: float
     pass_lng: float
     pass_rtg: float
     pass_rz_att: float
     pass_sack: float
     pass_sack_yds: float
     pass_td: float
+    pass_td_40p: float
+    pass_td_50p: float
     pass_td_lng: float
     pass_yd: float
     pass_ypa: float
+    penalty: float
+    penalty_yd: float
+    pr: float
+    pr_lng: float
+    pr_yd: float
+    pr_ypa: float
+    pts_allow: float
+    pts_allow_14_20: float
+    pts_allow_28_34: float
+    pts_allow_35p: float
+    pts_allow_7_13: float
     pts_half_ppr: float
     pts_ppr: float
     pts_std: float
+    punt_in_20: float
+    punt_net_yd: float
+    punt_tb: float
+    punt_yds: float
+    punts: float
+    qb_hit: float
+    rec: float
+    rec_0_4: float
+    rec_10_19: float
+    rec_20_29: float
+    rec_30_39: float
+    rec_40p: float
+    rec_5_9: float
+    rec_air_yd: float
+    rec_drop: float
+    rec_fd: float
+    rec_lng: float
+    rec_rz_tgt: float
+    rec_td: float
+    rec_td_40p: float
     rush_att: float
     rush_fd: float
     rush_lng: float
@@ -131,29 +192,90 @@ class NFLStats(Stats):
                         fgm_50p=nfl_stats_dict.get("fgm_50p"),
                         fgm_lng=nfl_stats_dict.get("fgm_lng"),
                         fgm_pct=nfl_stats_dict.get("fgm_pct"),
+                        fgm_yds=nfl_stats_dict.get("fgm_yds"),
+                        fgm_yds_over_30=nfl_stats_dict.get("fgm_yds_over_30"),
+                        fgmiss=nfl_stats_dict.get("fgmiss"),
+                        fgmiss_50p=nfl_stats_dict.get("fgmiss_50p"),
                         fum=nfl_stats_dict.get("fum"),
                         fum_lost=nfl_stats_dict.get("fum_lost"),
+                        fum_rec=nfl_stats_dict.get("fum_rec"),
+                        fum_ret_yd=nfl_stats_dict.get("fum_ret_yd"),
                         gms_active=nfl_stats_dict.get("gms_active"),
                         gp=nfl_stats_dict.get("gp"),
+                        idp_blk_kick=nfl_stats_dict.get("idp_blk_kick"),
+                        idp_ff=nfl_stats_dict.get("idp_ff"),
+                        idp_fum_rec=nfl_stats_dict.get("idp_fum_rec"),
+                        idp_fum_ret_yd=nfl_stats_dict.get("idp_fum_ret_yd"),
+                        idp_int=nfl_stats_dict.get("idp_int"),
+                        idp_int_ret_yd=nfl_stats_dict.get("idp_int_ret_yd"),
+                        idp_pass_def=nfl_stats_dict.get("idp_pass_def"),
+                        idp_qb_hit=nfl_stats_dict.get("idp_qb_hit"),
+                        idp_sack=nfl_stats_dict.get("idp_sack"),
+                        idp_sack_yd=nfl_stats_dict.get("idp_sack_yd"),
+                        idp_tkl=nfl_stats_dict.get("idp_tkl"),
+                        idp_tkl_ast=nfl_stats_dict.get("idp_tkl_ast"),
+                        idp_tkl_loss=nfl_stats_dict.get("idp_tkl_loss"),
+                        idp_tkl_solo=nfl_stats_dict.get("idp_tkl_solo"),
+                        int_=nfl_stats_dict.get("int"),
+                        int_ret_yd=nfl_stats_dict.get("int_ret_yd"),
+                        kr=nfl_stats_dict.get("kr"),
+                        kr_lng=nfl_stats_dict.get("kr_lng"),
+                        kr_yd=nfl_stats_dict.get("kr_yd"),
+                        kr_ypa=nfl_stats_dict.get("kr_ypa"),
                         gs=nfl_stats_dict.get("gs"),
                         off_snp=nfl_stats_dict.get("off_snp"),
                         pass_air_yd=nfl_stats_dict.get("pass_air_yd"),
                         pass_att=nfl_stats_dict.get("pass_att"),
                         pass_cmp=nfl_stats_dict.get("pass_cmp"),
+                        pass_cmp_40p=nfl_stats_dict.get("pass_cmp_40p"),
                         pass_fd=nfl_stats_dict.get("pass_fd"),
                         pass_inc=nfl_stats_dict.get("pass_inc"),
+                        pass_int=nfl_stats_dict.get("pass_int"),
                         pass_lng=nfl_stats_dict.get("pass_lng"),
                         pass_rtg=nfl_stats_dict.get("pass_rtg"),
                         pass_rz_att=nfl_stats_dict.get("pass_rz_att"),
                         pass_sack=nfl_stats_dict.get("pass_sack"),
                         pass_sack_yds=nfl_stats_dict.get("pass_sack_yds"),
                         pass_td=nfl_stats_dict.get("pass_td"),
+                        pass_td_40p=nfl_stats_dict.get("pass_td_40p"),
+                        pass_td_50p=nfl_stats_dict.get("pass_td_50p"),
                         pass_td_lng=nfl_stats_dict.get("pass_td_lng"),
                         pass_yd=nfl_stats_dict.get("pass_yd"),
                         pass_ypa=nfl_stats_dict.get("pass_ypa"),
+                        penalty=nfl_stats_dict.get("penalty"),
+                        penalty_yd=nfl_stats_dict.get("penalty_yd"),
+                        pr=nfl_stats_dict.get("pr"),
+                        pr_lng=nfl_stats_dict.get("pr_lng"),
+                        pr_yd=nfl_stats_dict.get("pr_yd"),
+                        pr_ypa=nfl_stats_dict.get("pr_ypa"),
+                        pts_allow=nfl_stats_dict.get("pts_allow"),
+                        pts_allow_14_20=nfl_stats_dict.get("pts_allow_14_20"),
+                        pts_allow_28_34=nfl_stats_dict.get("pts_allow_28_34"),
+                        pts_allow_35p=nfl_stats_dict.get("pts_allow_35p"),
+                        pts_allow_7_13=nfl_stats_dict.get("pts_allow_7_13"),
                         pts_half_ppr=nfl_stats_dict.get("pts_half_ppr"),
                         pts_ppr=nfl_stats_dict.get("pts_ppr"),
                         pts_std=nfl_stats_dict.get("pts_std"),
+                        punt_in_20=nfl_stats_dict.get("punt_in_20"),
+                        punt_net_yd=nfl_stats_dict.get("punt_net_yd"),
+                        punt_tb=nfl_stats_dict.get("punt_tb"),
+                        punt_yds=nfl_stats_dict.get("punt_yds"),
+                        punts=nfl_stats_dict.get("punts"),
+                        qb_hit=nfl_stats_dict.get("qb_hit"),
+                        rec=nfl_stats_dict.get("rec"),
+                        rec_0_4=nfl_stats_dict.get("rec_0_4"),
+                        rec_10_19=nfl_stats_dict.get("rec_10_19"),
+                        rec_20_29=nfl_stats_dict.get("rec_20_29"),
+                        rec_30_39=nfl_stats_dict.get("rec_30_39"),
+                        rec_40p=nfl_stats_dict.get("rec_40p"),
+                        rec_5_9=nfl_stats_dict.get("rec_5_9"),
+                        rec_air_yd=nfl_stats_dict.get("rec_air_yd"),
+                        rec_drop=nfl_stats_dict.get("rec_drop"),
+                        rec_fd=nfl_stats_dict.get("rec_fd"),
+                        rec_lng=nfl_stats_dict.get("rec_lng"),
+                        rec_rz_tgt=nfl_stats_dict.get("rec_rz_tgt"),
+                        rec_td=nfl_stats_dict.get("rec_td"),
+                        rec_td_40p=nfl_stats_dict.get("rec_td_40p"),
                         rush_att=nfl_stats_dict.get("rush_att"),
                         rush_fd=nfl_stats_dict.get("rush_fd"),
                         rush_lng=nfl_stats_dict.get("rush_lng"),
