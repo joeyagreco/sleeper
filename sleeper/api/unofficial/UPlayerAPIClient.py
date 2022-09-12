@@ -17,5 +17,9 @@ class UPlayerAPIClient(SleeperAPIClient):
 
         response_dict = cls._get(url)
         if response_dict is None:
-            raise ValueError(f"Could not get Players for sport: '{sport.name}'.")
+            error_message = f"Could not get PlayerStats for sport: '{sport.name}', player_id: '{player_id}', season: '{season}'"
+            if week is not None:
+                error_message += f", week: '{week}'"
+            error_message += "."
+            raise ValueError(error_message)
         return PlayerStats.from_dict(response_dict)
