@@ -1,3 +1,5 @@
+import os
+import tempfile
 import unittest
 from unittest import mock
 
@@ -11,6 +13,7 @@ from test.helper.helper_classes import MockResponse
 
 
 class TestUPlayerAPIClient(unittest.TestCase):
+    PATH_TO_TEST_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "files", "api"))
 
     @mock.patch("requests.get")
     def test_get_player_stats_no_week_given_happy_path(self, mock_requests_get):
@@ -373,3 +376,21 @@ class TestUPlayerAPIClient(unittest.TestCase):
         self.assertEqual(Company.SPORTRADAR, response.company)
         self.assertEqual(Category.PROJ, response.category)
         self.assertEqual(NFLTeam.SEA, response.opponent)
+
+    @mock.patch("requests.get")
+    def test_get_player_head_shot_happy_path(self, mock_requests_get):
+        with open(os.path.join(self.PATH_TO_TEST_DIR, "test.png"), "rb") as image:
+            f = image.read()
+            original_image_bytes = bytearray(f)
+        mock_response = MockResponse(dict(), 200, content=original_image_bytes)
+        mock_requests_get.return_value = mock_response
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            full_image_path = os.path.join(temp_dir, "tmp.png")
+            UPlayerAPIClient.get_player_head_shot(sport=Sport.NFL, player_id="1234", save_to_path=full_image_path)
+
+            with open(full_image_path, "rb") as image:
+                f = image.read()
+                saved_image_bytes = bytearray(f)
+            self.assertEqual(original_image_bytes, saved_image_bytes)
+            self.assertTrue(os.path.exists(full_image_path))
