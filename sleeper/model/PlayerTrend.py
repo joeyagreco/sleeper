@@ -14,7 +14,7 @@ class PlayerTrend:
                            count=player_trend_dict.get("count"))
 
     @staticmethod
-    def from_dict_list(player_trend_dict_list: dict) -> list[PlayerTrend]:
+    def from_dict_list(player_trend_dict_list: list) -> list[PlayerTrend]:
         player_trends = list()
         for player_trend_dict in player_trend_dict_list:
             player_trends.append(PlayerTrend.from_dict(player_trend_dict))

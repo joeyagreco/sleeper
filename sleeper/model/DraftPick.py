@@ -22,7 +22,7 @@ class DraftPick:
                          draft_id=draft_pick_dict.get("draft_id"))
 
     @classmethod
-    def from_dict_list(cls, draft_pick_dict_list: dict) -> list[DraftPick]:
+    def from_dict_list(cls, draft_pick_dict_list: list) -> list[DraftPick]:
         draft_picks = list()
         for draft_pick_dict in draft_pick_dict_list:
             draft_picks.append(DraftPick.from_dict(draft_pick_dict))

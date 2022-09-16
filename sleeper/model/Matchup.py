@@ -27,7 +27,7 @@ class Matchup:
                        starters_points=matchup_object_dict.get("starters_points"))
 
     @staticmethod
-    def from_dict_list(matchup_dict_list: dict) -> list[Matchup]:
+    def from_dict_list(matchup_dict_list: list) -> list[Matchup]:
         matchups = list()
         for matchup_dict in matchup_dict_list:
             matchups.append(Matchup.from_dict(matchup_dict))

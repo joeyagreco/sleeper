@@ -24,4 +24,4 @@ class PlayerStatus(Enum):
         if sport == Sport.NFL:
             return NFLPlayerStatus
         else:
-            raise ValueError(f"Cannot find PlayerStatus for sport: 'sport'.")
+            raise ValueError(f"Cannot find PlayerStatus for sport: '{sport.name}'.")

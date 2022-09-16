@@ -3,7 +3,7 @@ from __future__ import annotations
 import datetime
 from dataclasses import dataclass
 from datetime import date
-from typing import Any
+from typing import Any, Optional
 
 from sleeper.enum.InjuryStatus import InjuryStatus
 from sleeper.enum.PlayerPosition import PlayerPosition
@@ -62,7 +62,9 @@ class Player:
     years_exp: int
 
     @staticmethod
-    def from_dict(player_dict: dict, sport: Sport) -> Player:
+    def from_dict(player_dict: dict, sport: Sport) -> Optional[Player]:
+        if player_dict is None:
+            return None
         given_fantasy_positions = player_dict.get("fantasy_positions")
         fantasy_positions = [PlayerPosition.enum(sport).from_str(pos) for pos in
                              given_fantasy_positions] if given_fantasy_positions is not None else None
@@ -73,7 +75,7 @@ class Player:
         return Player(hashtag=player_dict.get("hashtag"),
                       depth_chart_position=player_dict.get("depth_chart_position"),
                       status=PlayerStatus.enum(sport).from_str(player_dict.get("status")),
-                      sport=Sport.from_str(player_dict.get("sport")),
+                      sport=sport,
                       fantasy_positions=fantasy_positions,
                       number=player_dict.get("number"),
                       search_last_name=player_dict.get("search_last_name"),
@@ -118,7 +120,7 @@ class Player:
                       active=player_dict.get("active"))
 
     @staticmethod
-    def dict_by_id(player_dict_list: dict, sport: Sport) -> dict[str, Player]:
+    def dict_by_id(player_dict_list: list, sport: Sport) -> dict[str, Player]:
         players_by_id = dict()
         for player_id in player_dict_list:
             players_by_id[player_id] = Player.from_dict(player_dict_list[player_id], sport)

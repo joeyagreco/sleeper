@@ -16,7 +16,7 @@ class FAABTransaction:
                                amount=faab_transaction_dict.get("amount"))
 
     @staticmethod
-    def from_dict_list(faab_transaction_dict_list: dict) -> list[FAABTransaction]:
+    def from_dict_list(faab_transaction_dict_list: list) -> list[FAABTransaction]:
         faab_transactions = list()
         for faab_transaction_dict in faab_transaction_dict_list:
             faab_transactions.append(FAABTransaction.from_dict(faab_transaction_dict))

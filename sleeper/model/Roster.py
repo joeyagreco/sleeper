@@ -35,7 +35,7 @@ class Roster:
                       taxi=roster_dict.get("taxi"))
 
     @staticmethod
-    def from_dict_list(roster_dict_list: dict) -> list[Roster]:
+    def from_dict_list(roster_dict_list: list) -> list[Roster]:
         rosters = list()
         for roster_dict in roster_dict_list:
             rosters.append(Roster.from_dict(roster_dict))

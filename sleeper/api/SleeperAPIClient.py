@@ -21,6 +21,8 @@ class SleeperAPIClient(ABC):
 
     # ROUTES
     _AVATARS_ROUTE = ConfigReader.get("api", "avatars_route")
+    _CONTENT_ROUTE = ConfigReader.get("api", "content_route")
+    _DEPTH_CHART_ROUTE = ConfigReader.get("api", "depth_chart_route")
     _DRAFT_ROUTE = ConfigReader.get("api", "draft_route")
     _DRAFTS_ROUTE = ConfigReader.get("api", "drafts_route")
     _LEAGUE_ROUTE = ConfigReader.get("api", "league_route")
@@ -28,9 +30,13 @@ class SleeperAPIClient(ABC):
     _LOSERS_BRACKET_ROUTE = ConfigReader.get("api", "losers_bracket_route")
     _MATCHUPS_ROUTE = ConfigReader.get("api", "matchups_route")
     _PICKS_ROUTE = ConfigReader.get("api", "picks_route")
+    _PLAYER_ROUTE = ConfigReader.get("api", "player_route")
     _PLAYERS_ROUTE = ConfigReader.get("api", "players_route")
+    _PROJECTIONS_ROUTE = ConfigReader.get("api", "projections_route")
     _ROSTERS_ROUTE = ConfigReader.get("api", "rosters_route")
+    _SCHEDULE_ROUTE = ConfigReader.get("api", "schedule_route")
     _STATE_ROUTE = ConfigReader.get("api", "state_route")
+    _STATS_ROUTE = ConfigReader.get("api", "stats_route")
     _THUMBS_ROUTE = ConfigReader.get("api", "thumbs_route")
     _TRADED_PICKS_ROUTE = ConfigReader.get("api", "traded_picks_route")
     _TRANSACTIONS_ROUTE = ConfigReader.get("api", "transactions_route")
@@ -57,11 +63,12 @@ class SleeperAPIClient(ABC):
             for i, arg in enumerate(args):
                 if i > 0:
                     symbol = "&"
-                url = f"{url}{symbol}{arg[0]}={arg[1]}"
+                if arg[0] is not None and arg[1] is not None:
+                    url = f"{url}{symbol}{arg[0]}={arg[1]}"
         return url
 
     @staticmethod
-    def _get(url: str) -> Optional[dict]:
+    def _get(url: str) -> Optional[dict | list]:
         response = requests.get(url)
         response.raise_for_status()
         return response.json()
@@ -72,6 +79,6 @@ class SleeperAPIClient(ABC):
         response.raise_for_status()
         image_bytes = response.content
         if image_bytes is None:
-            raise SleeperAPIException(f"No avatar found.")
+            raise SleeperAPIException(f"No image found.")
         image_stream = io.BytesIO(image_bytes)
         return Image.open(image_stream)

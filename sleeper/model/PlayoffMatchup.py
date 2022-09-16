@@ -30,7 +30,7 @@ class PlayoffMatchup:
                               p=playoff_matchup_object.get("p"))
 
     @staticmethod
-    def from_dict_str(playoff_matchup_dict_list: dict) -> list[PlayoffMatchup]:
+    def from_dict_str(playoff_matchup_dict_list: list) -> list[PlayoffMatchup]:
         playoff_matchups = list()
         for playoff_matchup_dict in playoff_matchup_dict_list:
             playoff_matchups.append(PlayoffMatchup.from_dict(playoff_matchup_dict))

@@ -10,6 +10,7 @@ class SeasonStatus(ModelEnum):
     COMPLETE = "COMPLETE"
     DRAFTING = "DRAFTING"
     IN_SEASON = "IN_SEASON"
+    POSTPONED = "POSTPONED"
     PRE_DRAFT = "PRE_DRAFT"
 
     @classmethod
@@ -20,6 +21,8 @@ class SeasonStatus(ModelEnum):
             return SeasonStatus.DRAFTING
         elif s.upper() == "IN_SEASON":
             return SeasonStatus.IN_SEASON
+        elif s.upper() == "POSTPONED":
+            return SeasonStatus.POSTPONED
         elif s.upper() == "PRE_DRAFT":
             return SeasonStatus.PRE_DRAFT
         else:

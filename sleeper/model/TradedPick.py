@@ -20,7 +20,7 @@ class TradedPick:
                           owner_id=traded_pick_dict.get("owner_id"))
 
     @staticmethod
-    def from_dict_list(traded_pick_dict_list: dict) -> list[TradedPick]:
+    def from_dict_list(traded_pick_dict_list: list) -> list[TradedPick]:
         traded_picks = list()
         for traded_pick_dict in traded_pick_dict_list:
             traded_picks.append(TradedPick.from_dict(traded_pick_dict))
