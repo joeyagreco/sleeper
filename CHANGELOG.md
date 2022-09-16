@@ -4,19 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-### Added
+- N/A
 
-- API Clients for unofficial endpoints
-- Examples for new API Clients
-- Enum values
+## [1.3.0]
 
-### Fixed
-
-- Missing imports
+- Added API Clients for unofficial endpoints
+- Added examples for new API Clients
+- Added enum values
+- Added missing imports
 
 ## [1.2.0]
-
-### Changed
 
 - Changed frequency of dependabot checks from daily to weekly
 - Updated README
@@ -24,13 +21,9 @@ All notable changes to this project will be documented in this file.
 
 ## [1.1.1]
 
-### Changed
-
 - Updated API Client error handling to simplify debugging
 
 ## [1.0.1]
-
-### Fixed
 
 - Updated bugged versioning flow
 
@@ -38,12 +31,14 @@ All notable changes to this project will be documented in this file.
 
 ### Initial Release
 
-[Unreleased]: https://github.com/joeyagreco/sleeper/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/joeyagreco/sleeper/compare/v1.3.0...HEAD
 
-[1.2.0]: https://github.com/joeyagreco/sleeper/compare/v1.1.1...v1.2.0
+[1.3.0]: https://github.com/joeyagreco/sleeper/releases/tag/v1.3.0
 
-[1.1.1]: https://github.com/joeyagreco/sleeper/compare/v1.0.1...v1.1.1
+[1.2.0]: https://github.com/joeyagreco/sleeper/releases/tag/v1.2.0
 
-[1.0.1]: https://github.com/joeyagreco/sleeper/compare/v1.0.0...v1.0.1
+[1.1.1]: https://github.com/joeyagreco/sleeper/releases/tag/v1.1.1
+
+[1.0.1]: https://github.com/joeyagreco/sleeper/releases/tag/v1.0.1
 
 [1.0.0]: https://github.com/joeyagreco/sleeper/releases/tag/v1.0.0
