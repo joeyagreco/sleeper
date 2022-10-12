@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-- N/A
+- Upgraded dependency versions
 
 ## [1.3.0]
 
