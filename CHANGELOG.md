@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 
 - N/A
 
+## [1.3.2]
+
+- Fixed bug that prevented the latest version from being installed
+
 ## [1.3.1]
 
 - Upgraded dependency versions
@@ -36,7 +40,9 @@ All notable changes to this project will be documented in this file.
 
 ### Initial Release
 
-[Unreleased]: https://github.com/joeyagreco/sleeper/compare/v1.3.1...HEAD
+[Unreleased]: https://github.com/joeyagreco/sleeper/compare/v1.3.2...HEAD
+
+[1.3.2]: https://github.com/joeyagreco/sleeper/releases/tag/v1.3.2
 
 [1.3.1]: https://github.com/joeyagreco/sleeper/releases/tag/v1.3.1
 
