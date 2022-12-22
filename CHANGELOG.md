@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+- N/A
+
+## [1.3.4]
+
 - Added SeasonStatus for post-season
 
 ## [1.3.3]
@@ -40,7 +44,9 @@ All notable changes to this project will be documented in this file.
 
 ### Initial Release
 
-[Unreleased]: https://github.com/joeyagreco/sleeper/compare/v1.3.3...HEAD
+[Unreleased]: https://github.com/joeyagreco/sleeper/compare/v1.3.4...HEAD
+
+[1.3.4]: https://github.com/joeyagreco/sleeper/releases/tag/v1.3.4
 
 [1.3.3]: https://github.com/joeyagreco/sleeper/releases/tag/v1.3.3
 
