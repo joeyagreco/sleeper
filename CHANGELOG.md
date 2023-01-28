@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-- N/A
+- Enforce strict versions on requirements
 
 ## [1.3.4]
 
