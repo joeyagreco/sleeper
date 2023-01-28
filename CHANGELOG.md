@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+- N/A
+
+## [1.4.0]
+
 - Enforce strict versions on requirements
 
 ## [1.3.4]
@@ -44,7 +48,9 @@ All notable changes to this project will be documented in this file.
 
 ### Initial Release
 
-[Unreleased]: https://github.com/joeyagreco/sleeper/compare/v1.3.4...HEAD
+[Unreleased]: https://github.com/joeyagreco/sleeper/compare/v1.4.0...HEAD
+
+[1.4.0]: https://github.com/joeyagreco/sleeper/releases/tag/v1.4.0
 
 [1.3.4]: https://github.com/joeyagreco/sleeper/releases/tag/v1.3.4
 
