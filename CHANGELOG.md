@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 
 - N/A
 
+## [1.5.0]
+
+- Rollback strict version requirements
+
 ## [1.4.0]
 
 - Enforce strict versions on requirements
@@ -48,7 +52,9 @@ All notable changes to this project will be documented in this file.
 
 ### Initial Release
 
-[Unreleased]: https://github.com/joeyagreco/sleeper/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/joeyagreco/sleeper/compare/v1.5.0...HEAD
+
+[1.5.0]: https://github.com/joeyagreco/sleeper/releases/tag/v1.5.0
 
 [1.4.0]: https://github.com/joeyagreco/sleeper/releases/tag/v1.4.0
 
