@@ -27,5 +27,5 @@ setuptools.setup(
     packages=setuptools.find_packages(exclude=("test", "docs")),
     install_requires=required_packages,
     python_requires=f">={minimum_python_version_required}",
-    keywords="nfl football sleeper sleeper-api sleeper-fantasy-football fantasy-football wrapper wrapper-api"
+    keywords="nfl football sleeper sleeper-api sleeper-fantasy-football fantasy-football wrapper wrapper-api",
 )

@@ -11,11 +11,13 @@ class DepthChart:
     """
     Parent for all DepthChart models for each sport.
     """
+
     ...
 
     @staticmethod
     def model(sport: Sport) -> DepthChart:
         from sleeper.model.nfl.NFLDepthChart import NFLDepthChart
+
         if sport == Sport.NFL:
             return NFLDepthChart
         else:

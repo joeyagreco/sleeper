@@ -17,14 +17,16 @@ class Matchup:
 
     @staticmethod
     def from_dict(matchup_object_dict: dict) -> Matchup:
-        return Matchup(starters=matchup_object_dict.get("starters"),
-                       roster_id=matchup_object_dict.get("roster_id"),
-                       players=matchup_object_dict.get("players"),
-                       matchup_id=matchup_object_dict.get("matchup_id"),
-                       points=matchup_object_dict.get("points"),
-                       custom_points=matchup_object_dict.get("custom_points"),
-                       players_points=matchup_object_dict.get("players_points"),
-                       starters_points=matchup_object_dict.get("starters_points"))
+        return Matchup(
+            starters=matchup_object_dict.get("starters"),
+            roster_id=matchup_object_dict.get("roster_id"),
+            players=matchup_object_dict.get("players"),
+            matchup_id=matchup_object_dict.get("matchup_id"),
+            points=matchup_object_dict.get("points"),
+            custom_points=matchup_object_dict.get("custom_points"),
+            players_points=matchup_object_dict.get("players_points"),
+            starters_points=matchup_object_dict.get("starters_points"),
+        )
 
     @staticmethod
     def from_dict_list(matchup_dict_list: list) -> list[Matchup]:

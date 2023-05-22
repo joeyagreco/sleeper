@@ -15,6 +15,7 @@ class SleeperAPIClient(ABC):
 
     Sleeper API Documentation: https://docs.sleeper.app/
     """
+
     _SLEEPER_APP_BASE_URL = ConfigReader.get("api", "sleeper_app_base_url")
     _SLEEPER_CDN_BASE_URL = ConfigReader.get("api", "sleeper_cdn_base_url")
     _VERSION = ConfigReader.get("api", "version")

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from sleeper.enum.PlayoffRoundType import PlayoffRoundType
 
 
 @dataclass(kw_only=True)
@@ -29,7 +28,6 @@ class LeagueMetadata:
     keeper_deadline: str
     latest_league_winner_roster_id: str
 
-
     @staticmethod
     def from_dict(metadata_dict: dict) -> LeagueMetadata:
         return LeagueMetadata(
@@ -51,5 +49,5 @@ class LeagueMetadata:
             division_8=metadata_dict.get("division_8"),
             division_8_avatar=metadata_dict.get("division_8_avatar"),
             keeper_deadline=metadata_dict.get("keeper_deadline"),
-            latest_league_winner_roster_id=metadata_dict.get("latest_league_winner_roster_id")
+            latest_league_winner_roster_id=metadata_dict.get("latest_league_winner_roster_id"),
         )

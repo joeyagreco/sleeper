@@ -53,7 +53,7 @@ class League:
             metadata=LeagueMetadata.from_dict(league_dict.get("metadata")),
             draft_id=league_dict.get("draft_id"),
             avatar=league_dict.get("avatar"),
-            bracket_id=league_dict.get("bracket_id")
+            bracket_id=league_dict.get("bracket_id"),
         )
 
     @staticmethod

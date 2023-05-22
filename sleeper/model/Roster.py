@@ -22,17 +22,19 @@ class Roster:
 
     @staticmethod
     def from_dict(roster_dict: dict) -> Roster:
-        return Roster(starters=roster_dict.get("starters"),
-                      settings=RosterSettings.from_dict(roster_dict.get("settings")),
-                      roster_id=roster_dict.get("roster_id"),
-                      reserve=roster_dict.get("reserve"),
-                      players=roster_dict.get("players"),
-                      owner_id=roster_dict.get("owner_id"),
-                      league_id=roster_dict.get("league_id"),
-                      co_owners=roster_dict.get("co_owners"),
-                      metadata=roster_dict.get("metadata"),
-                      player_map=roster_dict.get("player_map"),
-                      taxi=roster_dict.get("taxi"))
+        return Roster(
+            starters=roster_dict.get("starters"),
+            settings=RosterSettings.from_dict(roster_dict.get("settings")),
+            roster_id=roster_dict.get("roster_id"),
+            reserve=roster_dict.get("reserve"),
+            players=roster_dict.get("players"),
+            owner_id=roster_dict.get("owner_id"),
+            league_id=roster_dict.get("league_id"),
+            co_owners=roster_dict.get("co_owners"),
+            metadata=roster_dict.get("metadata"),
+            player_map=roster_dict.get("player_map"),
+            taxi=roster_dict.get("taxi"),
+        )
 
     @staticmethod
     def from_dict_list(roster_dict_list: list) -> list[Roster]:

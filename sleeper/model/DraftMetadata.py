@@ -13,6 +13,8 @@ class DraftMetadata:
 
     @staticmethod
     def from_dict(draft_metadata_dict: dict) -> DraftMetadata:
-        return DraftMetadata(scoring_type=ScoringType.from_str(draft_metadata_dict.get("scoring_type")),
-                             name=draft_metadata_dict.get("name"),
-                             description=draft_metadata_dict.get("description"))
+        return DraftMetadata(
+            scoring_type=ScoringType.from_str(draft_metadata_dict.get("scoring_type")),
+            name=draft_metadata_dict.get("name"),
+            description=draft_metadata_dict.get("description"),
+        )

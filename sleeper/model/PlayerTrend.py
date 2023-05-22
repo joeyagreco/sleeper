@@ -10,8 +10,9 @@ class PlayerTrend:
 
     @staticmethod
     def from_dict(player_trend_dict: dict) -> PlayerTrend:
-        return PlayerTrend(player_id=player_trend_dict.get("player_id"),
-                           count=player_trend_dict.get("count"))
+        return PlayerTrend(
+            player_id=player_trend_dict.get("player_id"), count=player_trend_dict.get("count")
+        )
 
     @staticmethod
     def from_dict_list(player_trend_dict_list: list) -> list[PlayerTrend]:

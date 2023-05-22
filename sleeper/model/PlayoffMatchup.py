@@ -19,15 +19,17 @@ class PlayoffMatchup:
 
     @staticmethod
     def from_dict(playoff_matchup_object: dict) -> PlayoffMatchup:
-        return PlayoffMatchup(round=playoff_matchup_object.get("r"),
-                              matchup_id=playoff_matchup_object.get("m"),
-                              team_1_roster_id=playoff_matchup_object.get("t1"),
-                              team_2_roster_id=playoff_matchup_object.get("t2"),
-                              winning_roster_id=playoff_matchup_object.get("w"),
-                              losing_roster_id=playoff_matchup_object.get("l"),
-                              team_1_from=FromPlayoffMatchup.from_dict(playoff_matchup_object.get("t1_from")),
-                              team_2_from=FromPlayoffMatchup.from_dict(playoff_matchup_object.get("t2_from")),
-                              p=playoff_matchup_object.get("p"))
+        return PlayoffMatchup(
+            round=playoff_matchup_object.get("r"),
+            matchup_id=playoff_matchup_object.get("m"),
+            team_1_roster_id=playoff_matchup_object.get("t1"),
+            team_2_roster_id=playoff_matchup_object.get("t2"),
+            winning_roster_id=playoff_matchup_object.get("w"),
+            losing_roster_id=playoff_matchup_object.get("l"),
+            team_1_from=FromPlayoffMatchup.from_dict(playoff_matchup_object.get("t1_from")),
+            team_2_from=FromPlayoffMatchup.from_dict(playoff_matchup_object.get("t2_from")),
+            p=playoff_matchup_object.get("p"),
+        )
 
     @staticmethod
     def from_dict_str(playoff_matchup_dict_list: list) -> list[PlayoffMatchup]:

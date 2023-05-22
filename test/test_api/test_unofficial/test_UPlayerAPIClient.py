@@ -13,17 +13,15 @@ from test.helper.helper_classes import MockResponse
 
 
 class TestUPlayerAPIClient(unittest.TestCase):
-    PATH_TO_TEST_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "files", "api"))
+    PATH_TO_TEST_DIR = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "..", "..", "files", "api")
+    )
 
     @mock.patch("requests.get")
     def test_get_player_stats_no_week_given_happy_path(self, mock_requests_get):
         mock_dict = {
             "team": "LAR",
-            "stats": {
-                "rush_yd": 1.0,
-                "rush_fd": 2.0,
-                "rush_att": 3.0
-            },
+            "stats": {"rush_yd": 1.0, "rush_fd": 2.0, "rush_att": 3.0},
             "sport": "nfl",
             "season_type": "regular",
             "season": "2021",
@@ -35,18 +33,18 @@ class TestUPlayerAPIClient(unittest.TestCase):
                 "news_updated": 1234,
                 "last_name": "ln",
                 "first_name": "fn",
-                "fantasy_positions": [
-                    "WR"
-                ]
+                "fantasy_positions": ["WR"],
             },
             "game_id": "season",
             "company": "rotowire",
-            "category": "stat"
+            "category": "stat",
         }
         mock_response = MockResponse(mock_dict, 200)
         mock_requests_get.return_value = mock_response
 
-        response = UPlayerAPIClient.get_player_stats(sport=Sport.NFL, player_id="1234", season="2021")
+        response = UPlayerAPIClient.get_player_stats(
+            sport=Sport.NFL, player_id="1234", season="2021"
+        )
 
         self.assertIsInstance(response, PlayerStats)
         self.assertEqual(NFLTeam.LAR, response.team)
@@ -76,11 +74,7 @@ class TestUPlayerAPIClient(unittest.TestCase):
         mock_dict = {
             "week": 1,
             "team": "LAR",
-            "stats": {
-                "rush_yd": 1.0,
-                "rush_fd": 2.0,
-                "rush_att": 3.0
-            },
+            "stats": {"rush_yd": 1.0, "rush_fd": 2.0, "rush_att": 3.0},
             "sport": "nfl",
             "season_type": "regular",
             "season": "2021",
@@ -93,18 +87,18 @@ class TestUPlayerAPIClient(unittest.TestCase):
                 "news_updated": 1234,
                 "last_name": "ln",
                 "first_name": "fn",
-                "fantasy_positions": [
-                    "WR"
-                ]
+                "fantasy_positions": ["WR"],
             },
             "game_id": "1234",
             "company": "sportradar",
-            "category": "stat"
+            "category": "stat",
         }
         mock_response = MockResponse(mock_dict, 200)
         mock_requests_get.return_value = mock_response
 
-        response = UPlayerAPIClient.get_player_stats(sport=Sport.NFL, player_id="1234", season="2021", week=1)
+        response = UPlayerAPIClient.get_player_stats(
+            sport=Sport.NFL, player_id="1234", season="2021", week=1
+        )
 
         self.assertIsInstance(response, PlayerStats)
         self.assertEqual(NFLTeam.LAR, response.team)
@@ -135,11 +129,7 @@ class TestUPlayerAPIClient(unittest.TestCase):
     def test_get_player_projections_no_week_given_happy_path(self, mock_requests_get):
         mock_dict = {
             "team": "LAR",
-            "stats": {
-                "rush_yd": 1.0,
-                "rush_fd": 2.0,
-                "rush_att": 3.0
-            },
+            "stats": {"rush_yd": 1.0, "rush_fd": 2.0, "rush_att": 3.0},
             "sport": "nfl",
             "season_type": "regular",
             "season": "2021",
@@ -151,18 +141,18 @@ class TestUPlayerAPIClient(unittest.TestCase):
                 "news_updated": 1234,
                 "last_name": "ln",
                 "first_name": "fn",
-                "fantasy_positions": [
-                    "WR"
-                ]
+                "fantasy_positions": ["WR"],
             },
             "game_id": "season",
             "company": "rotowire",
-            "category": "proj"
+            "category": "proj",
         }
         mock_response = MockResponse(mock_dict, 200)
         mock_requests_get.return_value = mock_response
 
-        response = UPlayerAPIClient.get_player_projections(sport=Sport.NFL, player_id="1234", season="2021")
+        response = UPlayerAPIClient.get_player_projections(
+            sport=Sport.NFL, player_id="1234", season="2021"
+        )
 
         self.assertIsInstance(response, PlayerStats)
         self.assertEqual(NFLTeam.LAR, response.team)
@@ -192,11 +182,7 @@ class TestUPlayerAPIClient(unittest.TestCase):
         mock_dict = {
             "week": 1,
             "team": "LAR",
-            "stats": {
-                "rush_yd": 1.0,
-                "rush_fd": 2.0,
-                "rush_att": 3.0
-            },
+            "stats": {"rush_yd": 1.0, "rush_fd": 2.0, "rush_att": 3.0},
             "sport": "nfl",
             "season_type": "regular",
             "season": "2021",
@@ -209,18 +195,18 @@ class TestUPlayerAPIClient(unittest.TestCase):
                 "news_updated": 1234,
                 "last_name": "ln",
                 "first_name": "fn",
-                "fantasy_positions": [
-                    "WR"
-                ]
+                "fantasy_positions": ["WR"],
             },
             "game_id": "1234",
             "company": "sportradar",
-            "category": "proj"
+            "category": "proj",
         }
         mock_response = MockResponse(mock_dict, 200)
         mock_requests_get.return_value = mock_response
 
-        response = UPlayerAPIClient.get_player_stats(sport=Sport.NFL, player_id="1234", season="2021", week=1)
+        response = UPlayerAPIClient.get_player_stats(
+            sport=Sport.NFL, player_id="1234", season="2021", week=1
+        )
 
         self.assertIsInstance(response, PlayerStats)
         self.assertEqual(NFLTeam.LAR, response.team)
@@ -253,11 +239,7 @@ class TestUPlayerAPIClient(unittest.TestCase):
             {
                 "week": 1,
                 "team": "LAR",
-                "stats": {
-                    "rush_yd": 1.0,
-                    "rush_fd": 2.0,
-                    "rush_att": 3.0
-                },
+                "stats": {"rush_yd": 1.0, "rush_fd": 2.0, "rush_att": 3.0},
                 "sport": "nfl",
                 "season_type": "regular",
                 "season": "2021",
@@ -270,19 +252,19 @@ class TestUPlayerAPIClient(unittest.TestCase):
                     "news_updated": 1234,
                     "last_name": "ln",
                     "first_name": "fn",
-                    "fantasy_positions": [
-                        "WR"
-                    ]
+                    "fantasy_positions": ["WR"],
                 },
                 "game_id": "1234",
                 "company": "sportradar",
-                "category": "stat"
+                "category": "stat",
             }
         ]
         mock_response = MockResponse(mock_list, 200)
         mock_requests_get.return_value = mock_response
 
-        response_list = UPlayerAPIClient.get_all_player_stats(sport=Sport.NFL, season="2021", week=1)
+        response_list = UPlayerAPIClient.get_all_player_stats(
+            sport=Sport.NFL, season="2021", week=1
+        )
         response = response_list[0]
 
         self.assertIsInstance(response_list, list)
@@ -318,11 +300,7 @@ class TestUPlayerAPIClient(unittest.TestCase):
             {
                 "week": 1,
                 "team": "LAR",
-                "stats": {
-                    "rush_yd": 1.0,
-                    "rush_fd": 2.0,
-                    "rush_att": 3.0
-                },
+                "stats": {"rush_yd": 1.0, "rush_fd": 2.0, "rush_att": 3.0},
                 "sport": "nfl",
                 "season_type": "regular",
                 "season": "2021",
@@ -335,19 +313,19 @@ class TestUPlayerAPIClient(unittest.TestCase):
                     "news_updated": 1234,
                     "last_name": "ln",
                     "first_name": "fn",
-                    "fantasy_positions": [
-                        "WR"
-                    ]
+                    "fantasy_positions": ["WR"],
                 },
                 "game_id": "1234",
                 "company": "sportradar",
-                "category": "proj"
+                "category": "proj",
             }
         ]
         mock_response = MockResponse(mock_list, 200)
         mock_requests_get.return_value = mock_response
 
-        response_list = UPlayerAPIClient.get_all_player_projections(sport=Sport.NFL, season="2021", week=1)
+        response_list = UPlayerAPIClient.get_all_player_projections(
+            sport=Sport.NFL, season="2021", week=1
+        )
         response = response_list[0]
 
         self.assertIsInstance(response_list, list)
@@ -387,7 +365,9 @@ class TestUPlayerAPIClient(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as temp_dir:
             full_image_path = os.path.join(temp_dir, "tmp.png")
-            UPlayerAPIClient.get_player_head_shot(sport=Sport.NFL, player_id="1234", save_to_path=full_image_path)
+            UPlayerAPIClient.get_player_head_shot(
+                sport=Sport.NFL, player_id="1234", save_to_path=full_image_path
+            )
 
             with open(full_image_path, "rb") as image:
                 f = image.read()

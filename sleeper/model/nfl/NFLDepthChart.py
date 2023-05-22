@@ -58,5 +58,5 @@ class NFLDepthChart(DepthChart):
             TE=nfl_depth_chart_dict.get("TE"),
             WR1=nfl_depth_chart_dict.get("WR1"),
             WR2=nfl_depth_chart_dict.get("WR2"),
-            WR3=nfl_depth_chart_dict.get("WR3")
+            WR3=nfl_depth_chart_dict.get("WR3"),
         )

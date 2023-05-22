@@ -13,11 +13,13 @@ class TradedPick:
 
     @staticmethod
     def from_dict(traded_pick_dict: dict) -> TradedPick:
-        return TradedPick(season=traded_pick_dict.get("season"),
-                          round=traded_pick_dict.get("round"),
-                          roster_id=traded_pick_dict.get("roster_id"),
-                          previous_owner_id=traded_pick_dict.get("previous_owner_id"),
-                          owner_id=traded_pick_dict.get("owner_id"))
+        return TradedPick(
+            season=traded_pick_dict.get("season"),
+            round=traded_pick_dict.get("round"),
+            roster_id=traded_pick_dict.get("roster_id"),
+            previous_owner_id=traded_pick_dict.get("previous_owner_id"),
+            owner_id=traded_pick_dict.get("owner_id"),
+        )
 
     @staticmethod
     def from_dict_list(traded_pick_dict_list: list) -> list[TradedPick]:

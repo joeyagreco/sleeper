@@ -11,6 +11,7 @@ class PlayerStatus(Enum):
     """
     Parent for all Enum statuses for each sport.
     """
+
     ...
 
     @classmethod
@@ -21,6 +22,7 @@ class PlayerStatus(Enum):
     @staticmethod
     def enum(sport: Sport) -> PlayerStatus:
         from sleeper.enum.nfl.NFLPlayerStatus import NFLPlayerStatus
+
         if sport == Sport.NFL:
             return NFLPlayerStatus
         else:

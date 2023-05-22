@@ -9,7 +9,6 @@ from test.helper.helper_classes import MockResponse
 
 
 class TestUserAPIClient(unittest.TestCase):
-
     @mock.patch("requests.get")
     def test_get_user_happy_path(self, mock_requests_get):
         mock_dict = {
@@ -32,7 +31,7 @@ class TestUserAPIClient(unittest.TestCase):
             "currencies": "currencies",
             "created": "created",
             "cookies": "cookies",
-            "avatar": "avatar"
+            "avatar": "avatar",
         }
         mock_response = MockResponse(mock_dict, 200)
         mock_requests_get.return_value = mock_response
@@ -73,7 +72,9 @@ class TestUserAPIClient(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             UserAPIClient.get_user(user_id="user_id")
-        self.assertEqual("Could not find User for username/user_id: 'user_id'.", str(context.exception))
+        self.assertEqual(
+            "Could not find User for username/user_id: 'user_id'.", str(context.exception)
+        )
 
     @mock.patch("requests.get")
     def test_get_user_non_200_status_code_raises_exception(self, mock_requests_get):

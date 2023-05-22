@@ -24,16 +24,19 @@ class PlayerDraftPickMetadata:
 
     @staticmethod
     def from_dict(player_draft_pick_metadata_dict: dict, sport: Sport) -> PlayerDraftPickMetadata:
-        return PlayerDraftPickMetadata(team=SportTeam.enum(sport).from_str(player_draft_pick_metadata_dict.get("team")),
-                                       status=PlayerStatus.enum(sport).from_str(
-                                           player_draft_pick_metadata_dict.get("status")),
-                                       sport=Sport.from_str(player_draft_pick_metadata_dict.get("sport")),
-                                       position=PlayerPosition.enum(sport).from_str(
-                                           player_draft_pick_metadata_dict.get("position")),
-                                       player_id=player_draft_pick_metadata_dict.get("player_id"),
-                                       number=player_draft_pick_metadata_dict.get("number"),
-                                       news_updated=player_draft_pick_metadata_dict.get("news_updated"),
-                                       first_name=player_draft_pick_metadata_dict.get("first_name"),
-                                       last_name=player_draft_pick_metadata_dict.get("last_name"),
-                                       injury_status=InjuryStatus.from_str(
-                                           player_draft_pick_metadata_dict.get("injury_status")))
+        return PlayerDraftPickMetadata(
+            team=SportTeam.enum(sport).from_str(player_draft_pick_metadata_dict.get("team")),
+            status=PlayerStatus.enum(sport).from_str(player_draft_pick_metadata_dict.get("status")),
+            sport=Sport.from_str(player_draft_pick_metadata_dict.get("sport")),
+            position=PlayerPosition.enum(sport).from_str(
+                player_draft_pick_metadata_dict.get("position")
+            ),
+            player_id=player_draft_pick_metadata_dict.get("player_id"),
+            number=player_draft_pick_metadata_dict.get("number"),
+            news_updated=player_draft_pick_metadata_dict.get("news_updated"),
+            first_name=player_draft_pick_metadata_dict.get("first_name"),
+            last_name=player_draft_pick_metadata_dict.get("last_name"),
+            injury_status=InjuryStatus.from_str(
+                player_draft_pick_metadata_dict.get("injury_status")
+            ),
+        )

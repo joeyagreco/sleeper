@@ -10,6 +10,7 @@ class ModelEnum(Enum):
     """
     Should be inherited by all model enums.
     """
+
     ...
 
     @staticmethod

@@ -14,12 +14,14 @@ class DraftPick:
 
     @staticmethod
     def from_dict(draft_pick_dict: dict) -> DraftPick:
-        return DraftPick(season=draft_pick_dict.get("season"),
-                         round=draft_pick_dict.get("round"),
-                         roster_id=draft_pick_dict.get("roster_id"),
-                         previous_owner_id=draft_pick_dict.get("previous_owner_id"),
-                         owner_id=draft_pick_dict.get("owner_id"),
-                         draft_id=draft_pick_dict.get("draft_id"))
+        return DraftPick(
+            season=draft_pick_dict.get("season"),
+            round=draft_pick_dict.get("round"),
+            roster_id=draft_pick_dict.get("roster_id"),
+            previous_owner_id=draft_pick_dict.get("previous_owner_id"),
+            owner_id=draft_pick_dict.get("owner_id"),
+            draft_id=draft_pick_dict.get("draft_id"),
+        )
 
     @classmethod
     def from_dict_list(cls, draft_pick_dict_list: list) -> list[DraftPick]:

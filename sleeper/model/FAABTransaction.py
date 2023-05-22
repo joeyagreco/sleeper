@@ -11,9 +11,11 @@ class FAABTransaction:
 
     @staticmethod
     def from_dict(faab_transaction_dict: dict) -> FAABTransaction:
-        return FAABTransaction(sender=faab_transaction_dict.get("sender"),
-                               receiver=faab_transaction_dict.get("receiver"),
-                               amount=faab_transaction_dict.get("amount"))
+        return FAABTransaction(
+            sender=faab_transaction_dict.get("sender"),
+            receiver=faab_transaction_dict.get("receiver"),
+            amount=faab_transaction_dict.get("amount"),
+        )
 
     @staticmethod
     def from_dict_list(faab_transaction_dict_list: list) -> list[FAABTransaction]:
