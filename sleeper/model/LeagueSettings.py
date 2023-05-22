@@ -17,6 +17,7 @@ class LeagueSettings:
     daily_waivers_last_ran: int
     disable_adds: int
     disable_trades: int
+    divisions: int
     draft_rounds: int
     last_report: int
     last_scored_leg: int
@@ -83,6 +84,7 @@ class LeagueSettings:
                               daily_waivers_last_ran=settings_dict.get("daily_waivers_last_ran"),
                               disable_adds=settings_dict.get("disable_adds"),
                               disable_trades=settings_dict.get("disable_trades"),
+                              divisions=settings_dict.get("divisions"),
                               league_average_match=settings_dict.get("league_average_match"),
                               playoff_round_type=settings_dict.get("playoff_round_type"),
                               playoff_round_type_enum=PlayoffRoundType.from_int(

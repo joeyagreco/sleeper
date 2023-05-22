@@ -5,6 +5,7 @@ from dataclasses import dataclass
 
 @dataclass(kw_only=True)
 class RosterSettings:
+    division: int
     fpts: int
     fpts_against: int
     fpts_against_decimal: int
@@ -21,7 +22,9 @@ class RosterSettings:
 
     @classmethod
     def from_dict(cls, roster_settings_dict: dict) -> RosterSettings:
-        return RosterSettings(wins=roster_settings_dict.get("wins"),
+        return RosterSettings(
+            division=roster_settings_dict.get("division"),
+            wins=roster_settings_dict.get("wins"),
                               waiver_position=roster_settings_dict.get("waiver_position"),
                               waiver_budget_used=roster_settings_dict.get("waiver_budget_used"),
                               total_moves=roster_settings_dict.get("total_moves"),
