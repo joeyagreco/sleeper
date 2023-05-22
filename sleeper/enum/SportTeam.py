@@ -11,6 +11,7 @@ class SportTeam(Enum):
     """
     Parent for all Enum teams for each sport.
     """
+
     ...
 
     @classmethod
@@ -21,6 +22,7 @@ class SportTeam(Enum):
     @staticmethod
     def enum(sport: Sport) -> SportTeam:
         from sleeper.enum.nfl.NFLTeam import NFLTeam
+
         if sport == Sport.NFL:
             return NFLTeam
         else:

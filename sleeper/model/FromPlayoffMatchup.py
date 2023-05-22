@@ -13,5 +13,7 @@ class FromPlayoffMatchup:
     def from_dict(from_playoff_matchup_object: Optional[dict]) -> Optional[FromPlayoffMatchup]:
         if from_playoff_matchup_object is None:
             return None
-        return FromPlayoffMatchup(won_matchup_id=from_playoff_matchup_object.get("w"),
-                                  lost_matchup_id=from_playoff_matchup_object.get("l"))
+        return FromPlayoffMatchup(
+            won_matchup_id=from_playoff_matchup_object.get("w"),
+            lost_matchup_id=from_playoff_matchup_object.get("l"),
+        )

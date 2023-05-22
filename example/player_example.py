@@ -7,9 +7,11 @@ if __name__ == "__main__":
     nfl_players: dict[str, Player] = PlayerAPIClient.get_all_players(sport=Sport.NFL)
 
     # get all trending players that were added for a particular sport
-    nfl_added_trending_players: list[PlayerTrend] = PlayerAPIClient.get_trending_players(sport=Sport.NFL,
-                                                                                         trend_type=TrendType.ADD)
+    nfl_added_trending_players: list[PlayerTrend] = PlayerAPIClient.get_trending_players(
+        sport=Sport.NFL, trend_type=TrendType.ADD
+    )
 
     # get all trending players that were dropped for a particular sport
-    nfl_dropped_trending_players: list[PlayerTrend] = PlayerAPIClient.get_trending_players(sport=Sport.NFL,
-                                                                                           trend_type=TrendType.DROP)
+    nfl_dropped_trending_players: list[PlayerTrend] = PlayerAPIClient.get_trending_players(
+        sport=Sport.NFL, trend_type=TrendType.DROP
+    )

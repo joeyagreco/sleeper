@@ -18,7 +18,6 @@ from test.helper.helper_classes import MockResponse
 
 
 class TestPlayerAPIClient(unittest.TestCase):
-
     @mock.patch("requests.get")
     def test_get_all_players_happy_path(self, mock_requests_get):
         mock_dict = {
@@ -38,9 +37,7 @@ class TestPlayerAPIClient(unittest.TestCase):
                 "practice_description": "practice description",
                 "last_name": "Booth",
                 "hashtag": "#codybooth-NFL-FA-60",
-                "fantasy_positions": [
-                    "OL"
-                ],
+                "fantasy_positions": ["OL"],
                 "position": "OT",
                 "stats_id": 12345,
                 "search_last_name": "booth",
@@ -70,7 +67,7 @@ class TestPlayerAPIClient(unittest.TestCase):
                 "rotoworld_id": 12345,
                 "search_rank": 9999999,
                 "search_first_name": "cody",
-                "search_full_name": "codybooth"
+                "search_full_name": "codybooth",
             }
         }
         mock_response = MockResponse(mock_dict, 200)
@@ -151,18 +148,9 @@ class TestPlayerAPIClient(unittest.TestCase):
     @mock.patch("requests.get")
     def test_get_trending_players_add_happy_path(self, mock_requests_get):
         mock_dict = [
-            {
-                "player_id": "943",
-                "count": 13750
-            },
-            {
-                "player_id": "5284",
-                "count": 8070
-            },
-            {
-                "player_id": "4863",
-                "count": 6139
-            }
+            {"player_id": "943", "count": 13750},
+            {"player_id": "5284", "count": 8070},
+            {"player_id": "4863", "count": 6139},
         ]
 
         mock_response = MockResponse(mock_dict, 200)
@@ -179,18 +167,9 @@ class TestPlayerAPIClient(unittest.TestCase):
     @mock.patch("requests.get")
     def test_get_trending_players_drop_happy_path(self, mock_requests_get):
         mock_dict = [
-            {
-                "player_id": "943",
-                "count": 13750
-            },
-            {
-                "player_id": "5284",
-                "count": 8070
-            },
-            {
-                "player_id": "4863",
-                "count": 6139
-            }
+            {"player_id": "943", "count": 13750},
+            {"player_id": "5284", "count": 8070},
+            {"player_id": "4863", "count": 6139},
         ]
 
         mock_response = MockResponse(mock_dict, 200)
@@ -207,25 +186,17 @@ class TestPlayerAPIClient(unittest.TestCase):
     @mock.patch("requests.get")
     def test_get_trending_players_filters_given(self, mock_requests_get):
         mock_dict = [
-            {
-                "player_id": "943",
-                "count": 13750
-            },
-            {
-                "player_id": "5284",
-                "count": 8070
-            },
-            {
-                "player_id": "4863",
-                "count": 6139
-            }
+            {"player_id": "943", "count": 13750},
+            {"player_id": "5284", "count": 8070},
+            {"player_id": "4863", "count": 6139},
         ]
 
         mock_response = MockResponse(mock_dict, 200)
         mock_requests_get.return_value = mock_response
 
-        response = PlayerAPIClient.get_trending_players(sport=Sport.NFL, trend_type=TrendType.ADD, lookback_hours=1,
-                                                        limit=3)
+        response = PlayerAPIClient.get_trending_players(
+            sport=Sport.NFL, trend_type=TrendType.ADD, lookback_hours=1, limit=3
+        )
 
         self.assertIsInstance(response, list)
         self.assertEqual(3, len(response))

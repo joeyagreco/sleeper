@@ -39,6 +39,13 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 Please make sure to update tests as appropriate.
 
+## Development
+
+_Run these commands from the root folder_
+- Format Code: `./main fmt`
+- Run Unit Tests: `./main test`
+- Generate Coverage Report: `./main cov`
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)

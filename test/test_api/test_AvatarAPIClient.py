@@ -11,7 +11,9 @@ from test.helper.helper_classes import MockResponse
 
 
 class TestAvatarAPIClient(unittest.TestCase):
-    PATH_TO_TEST_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "files", "api"))
+    PATH_TO_TEST_DIR = os.path.abspath(
+        os.path.join(os.path.dirname(__file__), "..", "files", "api")
+    )
 
     @mock.patch("requests.get")
     def test_get_avatar_happy_path(self, mock_requests_get):
@@ -43,7 +45,9 @@ class TestAvatarAPIClient(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as temp_dir:
             full_image_path = os.path.join(temp_dir, "tmp.png")
-            AvatarAPIClient.get_avatar(avatar_id="avatar_id", save_to_path=full_image_path, thumbnail=True)
+            AvatarAPIClient.get_avatar(
+                avatar_id="avatar_id", save_to_path=full_image_path, thumbnail=True
+            )
 
             with open(full_image_path, "rb") as image:
                 f = image.read()

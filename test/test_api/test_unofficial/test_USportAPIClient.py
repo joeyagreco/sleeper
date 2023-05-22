@@ -11,7 +11,6 @@ from test.helper.helper_classes import MockResponse
 
 
 class TestUSportAPIClient(unittest.TestCase):
-
     @mock.patch("requests.get")
     def test_get_player_stats_no_week_given_happy_path(self, mock_requests_get):
         mock_list = [
@@ -21,8 +20,9 @@ class TestUSportAPIClient(unittest.TestCase):
                 "home": "ATL",
                 "game_id": "1234",
                 "date": "2021-09-12",
-                "away": "PHI"
-            }]
+                "away": "PHI",
+            }
+        ]
         mock_response = MockResponse(mock_list, 200)
         mock_requests_get.return_value = mock_response
 

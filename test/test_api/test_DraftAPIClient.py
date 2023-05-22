@@ -23,7 +23,6 @@ from test.helper.helper_classes import MockResponse
 
 
 class TestDraftAPIClient(unittest.TestCase):
-
     @mock.patch("requests.get")
     def test_get_user_drafts_for_year_happy_path(self, mock_requests_get):
         mock_list = [
@@ -48,15 +47,11 @@ class TestDraftAPIClient(unittest.TestCase):
                     "nomination_timer": 60,
                     "enforce_position_limits": 1,
                     "cpu_autopick": 1,
-                    "alpha_sort": 0
+                    "alpha_sort": 0,
                 },
                 "season_type": "regular",
                 "season": "2021",
-                "metadata": {
-                    "scoring_type": "2qb",
-                    "name": "The Test",
-                    "description": "des"
-                },
+                "metadata": {"scoring_type": "2qb", "name": "The Test", "description": "des"},
                 "league_id": "738979251063275520",
                 "last_picked": 1630897024291,
                 "last_message_time": 1630897024793,
@@ -65,13 +60,15 @@ class TestDraftAPIClient(unittest.TestCase):
                 "draft_id": "738979252392919040",
                 "creators": ["12345", "67890"],
                 "created": 1630548892636,
-                "slot_to_roster_id": {"123": 45}
+                "slot_to_roster_id": {"123": 45},
             }
         ]
         mock_response = MockResponse(mock_list, 200)
         mock_requests_get.return_value = mock_response
 
-        response = DraftAPIClient.get_user_drafts_for_year(user_id="user_id", sport=Sport.NFL, year="2020")
+        response = DraftAPIClient.get_user_drafts_for_year(
+            user_id="user_id", sport=Sport.NFL, year="2020"
+        )
 
         self.assertIsInstance(response, list)
         self.assertIsInstance(response[0], Draft)
@@ -120,8 +117,10 @@ class TestDraftAPIClient(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             DraftAPIClient.get_user_drafts_for_year(user_id="user_id", sport=Sport.NFL, year="2020")
-        self.assertEqual("Could not get Drafts for user_id 'user_id', sport 'NFL', and year '2020'.",
-                         str(context.exception))
+        self.assertEqual(
+            "Could not get Drafts for user_id 'user_id', sport 'NFL', and year '2020'.",
+            str(context.exception),
+        )
 
     @mock.patch("requests.get")
     def test_get_user_drafts_for_year_non_200_status_code_raises_exception(self, mock_requests_get):
@@ -157,15 +156,11 @@ class TestDraftAPIClient(unittest.TestCase):
                     "nomination_timer": 60,
                     "enforce_position_limits": 1,
                     "cpu_autopick": 1,
-                    "alpha_sort": 0
+                    "alpha_sort": 0,
                 },
                 "season_type": "regular",
                 "season": "2021",
-                "metadata": {
-                    "scoring_type": "2qb",
-                    "name": "The Test",
-                    "description": "des"
-                },
+                "metadata": {"scoring_type": "2qb", "name": "The Test", "description": "des"},
                 "league_id": "738979251063275520",
                 "last_picked": 1630897024291,
                 "last_message_time": 1630897024793,
@@ -174,7 +169,7 @@ class TestDraftAPIClient(unittest.TestCase):
                 "draft_id": "738979252392919040",
                 "creators": ["12345", "67890"],
                 "created": 1630548892636,
-                "slot_to_roster_id": {"123": 45}
+                "slot_to_roster_id": {"123": 45},
             }
         ]
         mock_response = MockResponse(mock_list, 200)
@@ -264,15 +259,11 @@ class TestDraftAPIClient(unittest.TestCase):
                 "nomination_timer": 60,
                 "enforce_position_limits": 1,
                 "cpu_autopick": 1,
-                "alpha_sort": 0
+                "alpha_sort": 0,
             },
             "season_type": "regular",
             "season": "2021",
-            "metadata": {
-                "scoring_type": "2qb",
-                "name": "The Test",
-                "description": "des"
-            },
+            "metadata": {"scoring_type": "2qb", "name": "The Test", "description": "des"},
             "league_id": "738979251063275520",
             "last_picked": 1630897024291,
             "last_message_time": 1630897024793,
@@ -281,7 +272,7 @@ class TestDraftAPIClient(unittest.TestCase):
             "draft_id": "738979252392919040",
             "creators": ["12345", "67890"],
             "created": 1630548892636,
-            "slot_to_roster_id": {"123": 45}
+            "slot_to_roster_id": {"123": 45},
         }
 
         mock_response = MockResponse(mock_dict, 200)
@@ -367,10 +358,10 @@ class TestDraftAPIClient(unittest.TestCase):
                     "news_updated": "1513007102037",
                     "last_name": "Johnson",
                     "injury_status": "Out",
-                    "first_name": "David"
+                    "first_name": "David",
                 },
                 "is_keeper": True,
-                "draft_id": "257270643320426496"
+                "draft_id": "257270643320426496",
             }
         ]
 
@@ -409,8 +400,10 @@ class TestDraftAPIClient(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             DraftAPIClient.get_player_draft_picks(draft_id="12345", sport=Sport.NFL)
-        self.assertEqual("Could not get PlayerDraftPicks with draft_id '12345' and sport 'NFL'.",
-                         str(context.exception))
+        self.assertEqual(
+            "Could not get PlayerDraftPicks with draft_id '12345' and sport 'NFL'.",
+            str(context.exception),
+        )
 
     @mock.patch("requests.get")
     def test_get_player_draft_picks_non_200_status_code_raises_exception(self, mock_requests_get):
@@ -431,7 +424,7 @@ class TestDraftAPIClient(unittest.TestCase):
                 "roster_id": 1,
                 "previous_owner_id": 1,
                 "owner_id": 4,
-                "draft_id": 726312889421496320
+                "draft_id": 726312889421496320,
             }
         ]
 
@@ -457,7 +450,9 @@ class TestDraftAPIClient(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             DraftAPIClient.get_traded_draft_picks(draft_id="12345")
-        self.assertEqual("Could not get traded DraftPicks with draft_id '12345'.", str(context.exception))
+        self.assertEqual(
+            "Could not get traded DraftPicks with draft_id '12345'.", str(context.exception)
+        )
 
     @mock.patch("requests.get")
     def test_get_traded_draft_picks_non_200_status_code_raises_exception(self, mock_requests_get):

@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import datetime
 from dataclasses import dataclass
-from datetime import date
 
 from sleeper.enum import SportTeam, Sport
 from sleeper.enum.SeasonStatus import SeasonStatus
@@ -26,9 +25,11 @@ class Game:
 
     @staticmethod
     def from_dict(game_dict: dict, sport: Sport) -> Game:
-        return Game(week=game_dict.get("week"),
-                    status=SeasonStatus.from_str(game_dict.get("status")),
-                    home=SportTeam.enum(sport).from_str(game_dict.get("home")),
-                    game_id=game_dict.get("game_id"),
-                    date=datetime.datetime.strptime(game_dict.get("date"), "%Y-%m-%d").date(),
-                    away=SportTeam.enum(sport).from_str(game_dict.get("away")))
+        return Game(
+            week=game_dict.get("week"),
+            status=SeasonStatus.from_str(game_dict.get("status")),
+            home=SportTeam.enum(sport).from_str(game_dict.get("home")),
+            game_id=game_dict.get("game_id"),
+            date=datetime.datetime.strptime(game_dict.get("date"), "%Y-%m-%d").date(),
+            away=SportTeam.enum(sport).from_str(game_dict.get("away")),
+        )

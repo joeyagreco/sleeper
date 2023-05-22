@@ -30,7 +30,6 @@ from test.helper.helper_classes import MockResponse
 
 
 class TestLeagueAPIClient(unittest.TestCase):
-
     @mock.patch("requests.get")
     def test_get_league_happy_path(self, mock_requests_get):
         mock_dict = {
@@ -82,7 +81,7 @@ class TestLeagueAPIClient(unittest.TestCase):
                 "taxi_slots": 0,
                 "playoff_type": 0,
                 "last_report": 1,
-                "last_scored_leg": 3
+                "last_scored_leg": 3,
             },
             "season_type": "regular",
             "season": "2022",
@@ -185,23 +184,12 @@ class TestLeagueAPIClient(unittest.TestCase):
                 "yds_allow_400_449": 1.0,
                 "yds_allow_450_499": 1.0,
                 "yds_allow_500_549": 1.0,
-                "yds_allow_550p": 1.0
+                "yds_allow_550p": 1.0,
             },
-            "roster_positions": [
-                "QB",
-                "RB",
-                "RB",
-                "WR",
-                "TE",
-                "FLEX",
-                "BN"
-            ],
+            "roster_positions": ["QB", "RB", "RB", "WR", "TE", "FLEX", "BN"],
             "previous_league_id": "12345",
             "name": "R2 PooPoo DooDoo",
-            "metadata": {
-                "keeper_deadline": "0",
-                "auto_continue": "off"
-            },
+            "metadata": {"keeper_deadline": "0", "auto_continue": "off"},
             "loser_bracket_id": None,
             "league_id": "854528180957097984",
             "last_read_id": None,
@@ -218,7 +206,7 @@ class TestLeagueAPIClient(unittest.TestCase):
             "draft_id": "854528182030835712",
             "company_id": None,
             "bracket_id": None,
-            "avatar": "d4ed6e3ae14b56422de8029566d51234"
+            "avatar": "d4ed6e3ae14b56422de8029566d51234",
         }
         mock_response = MockResponse(mock_dict, 200)
         mock_requests_get.return_value = mock_response
@@ -369,7 +357,9 @@ class TestLeagueAPIClient(unittest.TestCase):
         self.assertEqual(1, response.settings.disable_trades)
         self.assertEqual(0, response.settings.league_average_match)
         self.assertEqual(0, response.settings.playoff_round_type)
-        self.assertEqual(PlayoffRoundType.ONE_WEEK_PER_ROUND, response.settings.playoff_round_type_enum)
+        self.assertEqual(
+            PlayoffRoundType.ONE_WEEK_PER_ROUND, response.settings.playoff_round_type_enum
+        )
         self.assertEqual(0, response.settings.playoff_seed_type)
         self.assertEqual(0, response.settings.playoff_type)
         self.assertEqual(0, response.settings.reserve_allow_cov)
@@ -456,7 +446,7 @@ class TestLeagueAPIClient(unittest.TestCase):
                     "taxi_slots": 0,
                     "playoff_type": 0,
                     "last_report": 1,
-                    "last_scored_leg": 3
+                    "last_scored_leg": 3,
                 },
                 "season_type": "regular",
                 "season": "2022",
@@ -559,23 +549,12 @@ class TestLeagueAPIClient(unittest.TestCase):
                     "yds_allow_400_449": 1.0,
                     "yds_allow_450_499": 1.0,
                     "yds_allow_500_549": 1.0,
-                    "yds_allow_550p": 1.0
+                    "yds_allow_550p": 1.0,
                 },
-                "roster_positions": [
-                    "QB",
-                    "RB",
-                    "RB",
-                    "WR",
-                    "TE",
-                    "FLEX",
-                    "BN"
-                ],
+                "roster_positions": ["QB", "RB", "RB", "WR", "TE", "FLEX", "BN"],
                 "previous_league_id": "12345",
                 "name": "R2 PooPoo DooDoo",
-                "metadata": {
-                    "keeper_deadline": "0",
-                    "auto_continue": "off"
-                },
+                "metadata": {"keeper_deadline": "0", "auto_continue": "off"},
                 "loser_bracket_id": None,
                 "league_id": "854528180957097984",
                 "last_read_id": None,
@@ -592,13 +571,15 @@ class TestLeagueAPIClient(unittest.TestCase):
                 "draft_id": "854528182030835712",
                 "company_id": None,
                 "bracket_id": None,
-                "avatar": "d4ed6e3ae14b56422de8029566d51234"
+                "avatar": "d4ed6e3ae14b56422de8029566d51234",
             }
         ]
         mock_response = MockResponse(mock_dict, 200)
         mock_requests_get.return_value = mock_response
 
-        response = LeagueAPIClient.get_user_leagues_for_year(user_id="12345", sport=Sport.NFL, year="2020")[0]
+        response = LeagueAPIClient.get_user_leagues_for_year(
+            user_id="12345", sport=Sport.NFL, year="2020"
+        )[0]
 
         self.assertIsInstance(response, League)
         self.assertEqual("d4ed6e3ae14b56422de8029566d51234", response.avatar)
@@ -744,7 +725,9 @@ class TestLeagueAPIClient(unittest.TestCase):
         self.assertEqual(1, response.settings.disable_trades)
         self.assertEqual(0, response.settings.league_average_match)
         self.assertEqual(0, response.settings.playoff_round_type)
-        self.assertEqual(PlayoffRoundType.ONE_WEEK_PER_ROUND, response.settings.playoff_round_type_enum)
+        self.assertEqual(
+            PlayoffRoundType.ONE_WEEK_PER_ROUND, response.settings.playoff_round_type_enum
+        )
         self.assertEqual(0, response.settings.playoff_seed_type)
         self.assertEqual(0, response.settings.playoff_type)
         self.assertEqual(0, response.settings.reserve_allow_cov)
@@ -767,11 +750,15 @@ class TestLeagueAPIClient(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             LeagueAPIClient.get_user_leagues_for_year(user_id="12345", sport=Sport.NFL, year="2020")
-        self.assertEqual("Could not get user Leagues for user_id '12345', sport 'NFL', and year '2020'.",
-                         str(context.exception))
+        self.assertEqual(
+            "Could not get user Leagues for user_id '12345', sport 'NFL', and year '2020'.",
+            str(context.exception),
+        )
 
     @mock.patch("requests.get")
-    def test_get_user_leagues_for_year_non_200_status_code_raises_exception(self, mock_requests_get):
+    def test_get_user_leagues_for_year_non_200_status_code_raises_exception(
+        self, mock_requests_get
+    ):
         mock_dict = {}
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
@@ -785,10 +772,7 @@ class TestLeagueAPIClient(unittest.TestCase):
         mock_dict = [
             {
                 "taxi": 1,
-                "starters": [
-                    "3163",
-                    "CHI"
-                ],
+                "starters": ["3163", "CHI"],
                 "settings": {
                     "wins": 10,
                     "waiver_position": 10,
@@ -802,21 +786,16 @@ class TestLeagueAPIClient(unittest.TestCase):
                     "fpts_decimal": 8,
                     "fpts_against_decimal": 4,
                     "fpts_against": 1101,
-                    "fpts": 1611
+                    "fpts": 1611,
                 },
                 "roster_id": 1,
                 "reserve": ["test"],
-                "players": [
-                    "1833",
-                    "CHI"
-                ],
+                "players": ["1833", "CHI"],
                 "player_map": {"test": "t"},
                 "owner_id": "66947650880421888",
-                "metadata": {
-                    "test": "t"
-                },
+                "metadata": {"test": "t"},
                 "league_id": "308857914418823168",
-                "co_owners": 1
+                "co_owners": 1,
             }
         ]
         mock_response = MockResponse(mock_dict, 200)
@@ -893,7 +872,7 @@ class TestLeagueAPIClient(unittest.TestCase):
                 "currencies": "currencies",
                 "created": "created",
                 "cookies": "cookies",
-                "avatar": "avatar"
+                "avatar": "avatar",
             }
         ]
         mock_response = MockResponse(mock_list, 200)
@@ -946,26 +925,14 @@ class TestLeagueAPIClient(unittest.TestCase):
     def test_get_matchups_for_week_happy_path(self, mock_requests_get):
         mock_list = [
             {
-                "starters_points": [
-                    10.04,
-                    20.7
-                ],
-                "starters": [
-                    "421",
-                    "2315"
-                ],
+                "starters_points": [10.04, 20.7],
+                "starters": ["421", "2315"],
                 "roster_id": 1,
                 "points": 74.04,
-                "players_points": {
-                    "NO": -9.0,
-                    "830": 11.2
-                },
-                "players": [
-                    "NO",
-                    "830"
-                ],
+                "players_points": {"NO": -9.0, "830": 11.2},
+                "players": ["NO", "830"],
                 "matchup_id": 5,
-                "custom_points": "cp"
+                "custom_points": "cp",
             }
         ]
         mock_response = MockResponse(mock_list, 200)
@@ -991,7 +958,9 @@ class TestLeagueAPIClient(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             LeagueAPIClient.get_matchups_for_week(league_id="12345", week=1)
-        self.assertEqual("Could not get Matchups for league_id '12345' and week '1'.", str(context.exception))
+        self.assertEqual(
+            "Could not get Matchups for league_id '12345' and week '1'.", str(context.exception)
+        )
 
     @mock.patch("requests.get")
     def test_get_matchups_for_week_non_200_status_code_raises_exception(self, mock_requests_get):
@@ -1008,20 +977,14 @@ class TestLeagueAPIClient(unittest.TestCase):
         mock_list = [
             {
                 "w": 8,
-                "t2_from": {
-                    "l": 5,
-                    "w": 6
-                },
+                "t2_from": {"l": 5, "w": 6},
                 "t2": 4,
-                "t1_from": {
-                    "l": 6,
-                    "w": 5
-                },
+                "t1_from": {"l": 6, "w": 5},
                 "t1": 8,
                 "r": 3,
                 "p": 1,
                 "m": 9,
-                "l": 4
+                "l": 4,
             }
         ]
         mock_response = MockResponse(mock_list, 200)
@@ -1052,7 +1015,9 @@ class TestLeagueAPIClient(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             LeagueAPIClient.get_winners_bracket(league_id="12345")
-        self.assertEqual("Could not get PlayoffMatchups for league_id '12345'.", str(context.exception))
+        self.assertEqual(
+            "Could not get PlayoffMatchups for league_id '12345'.", str(context.exception)
+        )
 
     @mock.patch("requests.get")
     def test_get_winners_bracket_non_200_status_code_raises_exception(self, mock_requests_get):
@@ -1069,20 +1034,14 @@ class TestLeagueAPIClient(unittest.TestCase):
         mock_list = [
             {
                 "w": 8,
-                "t2_from": {
-                    "l": 5,
-                    "w": 6
-                },
+                "t2_from": {"l": 5, "w": 6},
                 "t2": 4,
-                "t1_from": {
-                    "l": 6,
-                    "w": 5
-                },
+                "t1_from": {"l": 6, "w": 5},
                 "t1": 8,
                 "r": 3,
                 "p": 1,
                 "m": 9,
-                "l": 4
+                "l": 4,
             }
         ]
         mock_response = MockResponse(mock_list, 200)
@@ -1113,7 +1072,9 @@ class TestLeagueAPIClient(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             LeagueAPIClient.get_losers_bracket(league_id="12345")
-        self.assertEqual("Could not get PlayoffMatchups for league_id '12345'.", str(context.exception))
+        self.assertEqual(
+            "Could not get PlayoffMatchups for league_id '12345'.", str(context.exception)
+        )
 
     @mock.patch("requests.get")
     def test_get_losers_bracket_non_200_status_code_raises_exception(self, mock_requests_get):
@@ -1129,29 +1090,16 @@ class TestLeagueAPIClient(unittest.TestCase):
     def test_get_transactions_happy_path(self, mock_requests_get):
         mock_list = [
             {
-                "waiver_budget": [
-                    {
-                        "sender": 2,
-                        "receiver": 3,
-                        "amount": 55
-                    }
-                ],
+                "waiver_budget": [{"sender": 2, "receiver": 3, "amount": 55}],
                 "type": "free_agent",
                 "transaction_id": "852289191705423872",
                 "status_updated": 1657564087371,
                 "status": "complete",
-                "settings": {
-                    "seq": 1,
-                    "waiver_bid": 1
-                },
-                "roster_ids": [
-                    1
-                ],
+                "settings": {"seq": 1, "waiver_bid": 1},
+                "roster_ids": [1],
                 "metadata": {"test": "t"},
                 "leg": 1,
-                "drops": {
-                    "1234": 1
-                },
+                "drops": {"1234": 1},
                 "draft_picks": [
                     {
                         "season": "2019",
@@ -1159,17 +1107,13 @@ class TestLeagueAPIClient(unittest.TestCase):
                         "roster_id": 1,
                         "previous_owner_id": 1,
                         "owner_id": 2,
-                        "draft_id": "12345"
+                        "draft_id": "12345",
                     }
                 ],
                 "creator": "342404703486779392",
                 "created": 1657564087371,
-                "consenter_ids": [
-                    1
-                ],
-                "adds": {
-                    "5880": 1
-                }
+                "consenter_ids": [1],
+                "adds": {"5880": 1},
             }
         ]
         mock_response = MockResponse(mock_list, 200)
@@ -1215,7 +1159,9 @@ class TestLeagueAPIClient(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             LeagueAPIClient.get_transactions(league_id="12345", week=1)
-        self.assertEqual("Could not get Transactions for league_id '12345' and week '1'.", str(context.exception))
+        self.assertEqual(
+            "Could not get Transactions for league_id '12345' and week '1'.", str(context.exception)
+        )
 
     @mock.patch("requests.get")
     def test_get_transactions_non_200_status_code_raises_exception(self, mock_requests_get):
@@ -1230,12 +1176,7 @@ class TestLeagueAPIClient(unittest.TestCase):
     @mock.patch("requests.get")
     def test_get_traded_picks_happy_path(self, mock_requests_get):
         mock_list = [
-            {
-                "season": "2019",
-                "round": 5,
-                "roster_id": 1,
-                "previous_owner_id": 1,
-                "owner_id": 2}
+            {"season": "2019", "round": 5, "roster_id": 1, "previous_owner_id": 1, "owner_id": 2}
         ]
         mock_response = MockResponse(mock_list, 200)
         mock_requests_get.return_value = mock_response
@@ -1280,7 +1221,7 @@ class TestLeagueAPIClient(unittest.TestCase):
             "leg": 0,
             "league_season": "2022",
             "league_create_season": "2022",
-            "display_week": 0
+            "display_week": 0,
         }
         mock_response = MockResponse(mock_dict, 200)
         mock_requests_get.return_value = mock_response

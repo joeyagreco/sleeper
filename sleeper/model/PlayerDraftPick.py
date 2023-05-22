@@ -20,16 +20,19 @@ class PlayerDraftPick:
 
     @staticmethod
     def from_dict(player_draft_pick_dict: dict, sport: Sport) -> PlayerDraftPick:
-        return PlayerDraftPick(player_id=player_draft_pick_dict.get("player_id"),
-                               picked_by=player_draft_pick_dict.get("picked_by"),
-                               roster_id=player_draft_pick_dict.get("roster_id"),
-                               round=player_draft_pick_dict.get("round"),
-                               draft_slot=player_draft_pick_dict.get("draft_slot"),
-                               pick_no=player_draft_pick_dict.get("pick_no"),
-                               metadata=PlayerDraftPickMetadata.from_dict(player_draft_pick_dict.get("metadata"),
-                                                                          sport),
-                               is_keeper=player_draft_pick_dict.get("is_keeper", False),
-                               draft_id=player_draft_pick_dict.get("draft_id"))
+        return PlayerDraftPick(
+            player_id=player_draft_pick_dict.get("player_id"),
+            picked_by=player_draft_pick_dict.get("picked_by"),
+            roster_id=player_draft_pick_dict.get("roster_id"),
+            round=player_draft_pick_dict.get("round"),
+            draft_slot=player_draft_pick_dict.get("draft_slot"),
+            pick_no=player_draft_pick_dict.get("pick_no"),
+            metadata=PlayerDraftPickMetadata.from_dict(
+                player_draft_pick_dict.get("metadata"), sport
+            ),
+            is_keeper=player_draft_pick_dict.get("is_keeper", False),
+            draft_id=player_draft_pick_dict.get("draft_id"),
+        )
 
     @staticmethod
     def from_dict_list(player_draft_pick_dict_list: list, sport: Sport) -> list[PlayerDraftPick]:

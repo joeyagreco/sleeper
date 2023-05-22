@@ -12,6 +12,7 @@ class RosterPosition(Enum):
     """
     Parent for all Enum roster positions for each sport.
     """
+
     ...
 
     @classmethod

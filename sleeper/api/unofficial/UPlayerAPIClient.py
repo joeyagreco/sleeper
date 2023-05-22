@@ -7,18 +7,27 @@ from sleeper.model.PlayerStats import PlayerStats
 
 
 class UPlayerAPIClient(SleeperAPIClient):
-
     @classmethod
-    def get_player_stats(cls, *, sport: Sport, player_id: str, season: str, **kwargs) -> PlayerStats:
+    def get_player_stats(
+        cls, *, sport: Sport, player_id: str, season: str, **kwargs
+    ) -> PlayerStats:
         """
         Gets player stats for the given season OR just the given week.
         """
         season_type: SeasonType = kwargs.pop("season_type", SeasonType.REGULAR)
         week: int = kwargs.pop("week", None)
 
-        url = cls._build_route(cls._SLEEPER_APP_BASE_URL, None, cls._STATS_ROUTE, sport.name.lower(), cls._PLAYER_ROUTE,
-                               player_id)
-        url = cls._add_filters(url, ("season_type", season_type.name.lower()), ("season", season), ("week", week))
+        url = cls._build_route(
+            cls._SLEEPER_APP_BASE_URL,
+            None,
+            cls._STATS_ROUTE,
+            sport.name.lower(),
+            cls._PLAYER_ROUTE,
+            player_id,
+        )
+        url = cls._add_filters(
+            url, ("season_type", season_type.name.lower()), ("season", season), ("week", week)
+        )
 
         response_dict = cls._get(url)
         if response_dict is None:
@@ -30,16 +39,26 @@ class UPlayerAPIClient(SleeperAPIClient):
         return PlayerStats.from_dict(response_dict)
 
     @classmethod
-    def get_player_projections(cls, *, sport: Sport, player_id: str, season: str, **kwargs) -> PlayerStats:
+    def get_player_projections(
+        cls, *, sport: Sport, player_id: str, season: str, **kwargs
+    ) -> PlayerStats:
         """
         Gets player projections for the given season OR just the given week.
         """
         season_type: SeasonType = kwargs.pop("season_type", SeasonType.REGULAR)
         week: int = kwargs.pop("week", None)
 
-        url = cls._build_route(cls._SLEEPER_APP_BASE_URL, None, cls._PROJECTIONS_ROUTE, sport.name.lower(),
-                               cls._PLAYER_ROUTE, player_id)
-        url = cls._add_filters(url, ("season_type", season_type.name.lower()), ("season", season), ("week", week))
+        url = cls._build_route(
+            cls._SLEEPER_APP_BASE_URL,
+            None,
+            cls._PROJECTIONS_ROUTE,
+            sport.name.lower(),
+            cls._PLAYER_ROUTE,
+            player_id,
+        )
+        url = cls._add_filters(
+            url, ("season_type", season_type.name.lower()), ("season", season), ("week", week)
+        )
 
         response_dict = cls._get(url)
         if response_dict is None:
@@ -51,11 +70,15 @@ class UPlayerAPIClient(SleeperAPIClient):
         return PlayerStats.from_dict(response_dict)
 
     @classmethod
-    def get_all_player_stats(cls, *, sport: Sport, season: str, week: int, **kwargs) -> list[PlayerStats]:
+    def get_all_player_stats(
+        cls, *, sport: Sport, season: str, week: int, **kwargs
+    ) -> list[PlayerStats]:
         season_type: SeasonType = kwargs.pop("season_type", SeasonType.REGULAR)
         positions: list[PlayerPosition] = kwargs.pop("positions", list())
 
-        url = cls._build_route(cls._SLEEPER_APP_BASE_URL, None, cls._STATS_ROUTE, sport.name.lower(), season, week)
+        url = cls._build_route(
+            cls._SLEEPER_APP_BASE_URL, None, cls._STATS_ROUTE, sport.name.lower(), season, week
+        )
         filters: list[tuple[str, Any]] = [("season_type", season_type.name.lower())]
         for position in positions:
             filters.append(("position[]", position.name.upper()))
@@ -73,12 +96,20 @@ class UPlayerAPIClient(SleeperAPIClient):
         return PlayerStats.from_dict_list(response_list)
 
     @classmethod
-    def get_all_player_projections(cls, *, sport: Sport, season: str, week: int, **kwargs) -> list[PlayerStats]:
+    def get_all_player_projections(
+        cls, *, sport: Sport, season: str, week: int, **kwargs
+    ) -> list[PlayerStats]:
         season_type: SeasonType = kwargs.pop("season_type", SeasonType.REGULAR)
         positions: list[PlayerPosition] = kwargs.pop("positions", list())
 
-        url = cls._build_route(cls._SLEEPER_APP_BASE_URL, None, cls._PROJECTIONS_ROUTE, sport.name.lower(), season,
-                               week)
+        url = cls._build_route(
+            cls._SLEEPER_APP_BASE_URL,
+            None,
+            cls._PROJECTIONS_ROUTE,
+            sport.name.lower(),
+            season,
+            week,
+        )
         filters: list[tuple[str, Any]] = [("season_type", season_type.name.lower())]
         for position in positions:
             filters.append(("position[]", position.name.upper()))
@@ -101,8 +132,14 @@ class UPlayerAPIClient(SleeperAPIClient):
         save_to_path should end in ".png".
         """
 
-        url = cls._build_route(cls._SLEEPER_CDN_BASE_URL, None, cls._CONTENT_ROUTE, sport.name.lower(),
-                               cls._PLAYERS_ROUTE, player_id)
+        url = cls._build_route(
+            cls._SLEEPER_CDN_BASE_URL,
+            None,
+            cls._CONTENT_ROUTE,
+            sport.name.lower(),
+            cls._PLAYERS_ROUTE,
+            player_id,
+        )
         url += ".jpg"
         image_file = cls._get_image_file(url)
         image_file.save(save_to_path)
