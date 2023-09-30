@@ -54,6 +54,14 @@ class LeagueSettings:
 
     @staticmethod
     def from_dict(settings_dict: dict) -> LeagueSettings:
+        # NOTE: it seems older sleeper leagues use "playoff_type" instead of "playoff_round_type".
+        # if "playoff_round_type" is not present, we can use "playoff_type" to populate the enum.
+        playff_round_type = settings_dict.get("playoff_round_type")
+        playoff_type = settings_dict.get("playoff_type")
+        raw_playoff_round_type = (
+            playff_round_type if playff_round_type is not None else playoff_type
+        )
+        playoff_round_type_enum = PlayoffRoundType.from_int(raw_playoff_round_type)
         return LeagueSettings(
             waiver_type=settings_dict.get("waiver_type"),
             waiver_day_of_week=settings_dict.get("waiver_day_of_week"),
@@ -87,12 +95,10 @@ class LeagueSettings:
             disable_trades=settings_dict.get("disable_trades"),
             divisions=settings_dict.get("divisions"),
             league_average_match=settings_dict.get("league_average_match"),
-            playoff_round_type=settings_dict.get("playoff_round_type"),
-            playoff_round_type_enum=PlayoffRoundType.from_int(
-                settings_dict.get("playoff_round_type")
-            ),
+            playoff_round_type=playff_round_type,
+            playoff_round_type_enum=playoff_round_type_enum,
             playoff_seed_type=settings_dict.get("playoff_seed_type"),
-            playoff_type=settings_dict.get("playoff_type"),
+            playoff_type=playoff_type,
             reserve_allow_cov=settings_dict.get("reserve_allow_cov"),
             reserve_allow_dnr=settings_dict.get("reserve_allow_dnr"),
             reserve_allow_na=settings_dict.get("reserve_allow_na"),

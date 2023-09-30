@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 
 - N/A
 
+## [1.7.0]
+
+- Now populate `playoff_round_type_enum` for older leagues
+
 ## [1.6.0]
 
 - Added more fields to response objects
@@ -56,7 +60,9 @@ All notable changes to this project will be documented in this file.
 
 ### Initial Release
 
-[Unreleased]: https://github.com/joeyagreco/sleeper/compare/v1.6.0...HEAD
+[Unreleased]: https://github.com/joeyagreco/sleeper/compare/v1.7.0...HEAD
+
+[1.7.0]: https://github.com/joeyagreco/sleeper/releases/tag/v1.7.0
 
 [1.6.0]: https://github.com/joeyagreco/sleeper/releases/tag/v1.6.0
 
