@@ -1,11 +1,21 @@
 @echo off
 
 IF "%1"=="fmt" (
-    call batch\format.bat
+    :: Format the code using Black and Autoflake
+    black --config=pyproject.toml .
+    autoflake --config=pyproject.toml .
 ) ELSE IF "%1" == "test" (
-    call batch\test.bat
+    :: Run tests using pytest
+    cd test
+    pytest
+    cd ..
 ) ELSE IF "%1"=="cov" (
-    call batch\coverage.bat
+    :: Generate code coverage
+    cd test
+    coverage run -m pytest
+    coverage xml -o coverage.xml
+    coverage html
+    cd ..
 ) ELSE (
     echo Invalid flag. Please specify a valid flag.
 )
