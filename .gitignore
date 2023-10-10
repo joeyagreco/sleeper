@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# all files with "_dnm." in them like foo_dnm.py (dnm = do not merge)
+*_dnm.*
+
