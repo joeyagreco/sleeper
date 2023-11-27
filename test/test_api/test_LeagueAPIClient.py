@@ -1,17 +1,18 @@
 import datetime
 import unittest
+from test.helper.helper_classes import MockResponse
 from unittest import mock
 
 from requests import HTTPError
 
 from sleeper.api import LeagueAPIClient
+from sleeper.enum.nfl.NFLRosterPosition import NFLRosterPosition
 from sleeper.enum.PlayoffRoundType import PlayoffRoundType
 from sleeper.enum.SeasonStatus import SeasonStatus
 from sleeper.enum.SeasonType import SeasonType
 from sleeper.enum.Sport import Sport
 from sleeper.enum.TransactionStatus import TransactionStatus
 from sleeper.enum.TransactionType import TransactionType
-from sleeper.enum.nfl.NFLRosterPosition import NFLRosterPosition
 from sleeper.model.FAABTransaction import FAABTransaction
 from sleeper.model.FromPlayoffMatchup import FromPlayoffMatchup
 from sleeper.model.League import League
@@ -26,7 +27,6 @@ from sleeper.model.TradedPick import TradedPick
 from sleeper.model.Transaction import Transaction
 from sleeper.model.TransactionSettings import TransactionSettings
 from sleeper.model.User import User
-from test.helper.helper_classes import MockResponse
 
 
 class TestLeagueAPIClient(unittest.TestCase):

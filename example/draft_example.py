@@ -1,8 +1,6 @@
 from sleeper.api import DraftAPIClient
 from sleeper.enum import Sport
-from sleeper.model import Draft
-from sleeper.model import DraftPick
-from sleeper.model import PlayerDraftPick
+from sleeper.model import Draft, DraftPick, PlayerDraftPick
 
 if __name__ == "__main__":
     # get all drafts that a user was in for a particular year

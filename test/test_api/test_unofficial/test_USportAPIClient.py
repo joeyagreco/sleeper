@@ -1,13 +1,13 @@
 import datetime
 import unittest
+from test.helper.helper_classes import MockResponse
 from unittest import mock
 
 from sleeper.api.unofficial import USportAPIClient
 from sleeper.enum import SeasonStatus
-from sleeper.enum.Sport import Sport
 from sleeper.enum.nfl import NFLTeam
+from sleeper.enum.Sport import Sport
 from sleeper.model import Game
-from test.helper.helper_classes import MockResponse
 
 
 class TestUSportAPIClient(unittest.TestCase):
