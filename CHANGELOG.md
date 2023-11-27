@@ -6,6 +6,10 @@ All notable changes to this project will be documented in this file.
 
 - N/A
 
+## [1.7.2]
+
+- Updated package requirements
+
 ## [1.7.1]
 
 - Updated package requirements

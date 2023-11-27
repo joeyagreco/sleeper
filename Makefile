@@ -21,10 +21,12 @@ test:
 
 .PHONY: up-reqs
 up-reqs:
-	@pipreqs --force
+	@pipreqs --force --mode compat
 
 .PHONY: pkg-build
 pkg-build:
+	@rm -rf build
+	@rm -rf dist
 	@python3 setup.py sdist bdist_wheel
 
 .PHONY: pkg-test
