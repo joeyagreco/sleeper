@@ -21,7 +21,7 @@ test:
 
 .PHONY: up-reqs
 up-reqs:
-	@pipreqs --force --mode compat
+	@pipreqs --force --mode no-pin
 
 .PHONY: pkg-build
 pkg-build:
