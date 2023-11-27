@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+- N/A
+
+## [1.7.1]
+
 - Updated package requirements
 
 ## [1.7.0]
@@ -60,7 +64,9 @@ All notable changes to this project will be documented in this file.
 
 ### Initial Release
 
-[Unreleased]: https://github.com/joeyagreco/sleeper/compare/v1.7.0...HEAD
+[Unreleased]: https://github.com/joeyagreco/sleeper/compare/v1.7.1...HEAD
+
+[1.7.1]: https://github.com/joeyagreco/sleeper/releases/tag/v1.7.1
 
 [1.7.0]: https://github.com/joeyagreco/sleeper/releases/tag/v1.7.0
 

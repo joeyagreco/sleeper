@@ -22,3 +22,15 @@ test:
 .PHONY: up-reqs
 up-reqs:
 	@pipreqs --force
+
+.PHONY: pkg-build
+pkg-build:
+	@python3 setup.py sdist bdist_wheel
+
+.PHONY: pkg-test
+pkg-test:
+	@python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
+.PHONY: pkg-prod
+pkg-prod:
+	@python3 -m twine upload dist/*
