@@ -1,20 +1,20 @@
 import datetime
 import unittest
+from test.helper.helper_classes import MockResponse
 from unittest import mock
 
 from requests import HTTPError
 
 from sleeper.api.PlayerAPIClient import PlayerAPIClient
 from sleeper.enum.InjuryStatus import InjuryStatus
-from sleeper.enum.PracticeParticipation import PracticeParticipation
-from sleeper.enum.Sport import Sport
-from sleeper.enum.TrendType import TrendType
 from sleeper.enum.nfl.NFLPlayerStatus import NFLPlayerStatus
 from sleeper.enum.nfl.NFLPosition import NFLPosition
 from sleeper.enum.nfl.NFLTeam import NFLTeam
+from sleeper.enum.PracticeParticipation import PracticeParticipation
+from sleeper.enum.Sport import Sport
+from sleeper.enum.TrendType import TrendType
 from sleeper.model.Player import Player
 from sleeper.model.PlayerTrend import PlayerTrend
-from test.helper.helper_classes import MockResponse
 
 
 class TestPlayerAPIClient(unittest.TestCase):

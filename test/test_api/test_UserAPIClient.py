@@ -1,11 +1,11 @@
 import unittest
+from test.helper.helper_classes import MockResponse
 from unittest import mock
 
 from requests import HTTPError
 
 from sleeper.api.UserAPIClient import UserAPIClient
 from sleeper.model.User import User
-from test.helper.helper_classes import MockResponse
 
 
 class TestUserAPIClient(unittest.TestCase):

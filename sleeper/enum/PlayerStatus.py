@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from abc import abstractmethod
-from enum import unique, Enum
+from enum import Enum, unique
 
 from sleeper.enum.Sport import Sport
 

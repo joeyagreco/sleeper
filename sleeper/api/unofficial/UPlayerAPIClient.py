@@ -1,7 +1,7 @@
 from typing import Any
 
 from sleeper.api.SleeperAPIClient import SleeperAPIClient
-from sleeper.enum import SeasonType, PlayerPosition
+from sleeper.enum import PlayerPosition, SeasonType
 from sleeper.enum.Sport import Sport
 from sleeper.model.PlayerStats import PlayerStats
 

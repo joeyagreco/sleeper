@@ -3,7 +3,7 @@ from __future__ import annotations
 import datetime
 from dataclasses import dataclass
 
-from sleeper.enum import SportTeam, Sport, SeasonType
+from sleeper.enum import SeasonType, Sport, SportTeam
 from sleeper.enum.Category import Category
 from sleeper.enum.Company import Company
 from sleeper.model import Player

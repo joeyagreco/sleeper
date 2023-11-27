@@ -1,13 +1,13 @@
 import os
 import tempfile
 import unittest
+from test.helper.helper_classes import MockResponse
 from unittest import mock
 
 from requests import HTTPError
 
 from sleeper.api.AvatarAPIClient import AvatarAPIClient
 from sleeper.exception.SleeperAPIException import SleeperAPIException
-from test.helper.helper_classes import MockResponse
 
 
 class TestAvatarAPIClient(unittest.TestCase):

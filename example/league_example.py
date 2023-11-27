@@ -2,13 +2,13 @@ from sleeper.api import LeagueAPIClient
 from sleeper.enum import Sport
 from sleeper.model import (
     League,
-    Roster,
-    User,
     Matchup,
     PlayoffMatchup,
-    Transaction,
-    TradedPick,
+    Roster,
     SportState,
+    TradedPick,
+    Transaction,
+    User,
 )
 
 if __name__ == "__main__":

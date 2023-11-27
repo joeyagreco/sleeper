@@ -1,11 +1,11 @@
 import unittest
+from test.helper.helper_classes import MockResponse
 from unittest import mock
 
 from sleeper.api.unofficial import UTeamAPIClient
-from sleeper.enum.Sport import Sport
 from sleeper.enum.nfl import NFLTeam
+from sleeper.enum.Sport import Sport
 from sleeper.model.nfl import NFLDepthChart
-from test.helper.helper_classes import MockResponse
 
 
 class TestUSTeamAPIClient(unittest.TestCase):
