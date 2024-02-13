@@ -21,10 +21,12 @@ class PlayerAPIClient(SleeperAPIClient):
 
     @classmethod
     def get_trending_players(
-        cls, *, sport: Sport, trend_type: TrendType, **kwargs
+        cls, *, sport: Sport, trend_type: TrendType, lookback_hours: int = None, limit: int = None
     ) -> list[PlayerTrend]:
-        lookback_hours = kwargs.pop("lookback_hours", cls.__DEFAULT_TRENDING_PLAYERS_LOOKBACK_HOURS)
-        limit = kwargs.pop("limit", cls.__DEFAULT_TRENDING_PLAYERS_LIMIT)
+        if lookback_hours is None:
+            lookback_hours = cls.__DEFAULT_TRENDING_PLAYERS_LOOKBACK_HOURS
+        if limit is None:
+            limit = cls.__DEFAULT_TRENDING_PLAYERS_LIMIT
         url = cls._build_route(
             cls._SLEEPER_APP_BASE_URL,
             cls._VERSION,

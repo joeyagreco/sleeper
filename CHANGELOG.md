@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-- N/A
+- Replaced kwargs with optional, named keyword arguments
 
 ## [1.7.3]
 

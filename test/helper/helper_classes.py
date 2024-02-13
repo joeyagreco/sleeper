@@ -2,9 +2,9 @@ from requests import HTTPError
 
 
 class MockResponse:
-    def __init__(self, data: dict | list, status_code: int, **kwargs):
+    def __init__(self, data: dict | list, status_code: int, content: any = None):
         self.__data = data
-        self.content = kwargs.pop("content", None)
+        self.content = content
         self.status_code = status_code
 
     def json(self):

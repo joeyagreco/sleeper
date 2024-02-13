@@ -6,8 +6,9 @@ from sleeper.model.Game import Game
 
 class USportAPIClient(SleeperAPIClient):
     @classmethod
-    def get_regular_season_schedule(cls, *, sport: Sport, season: str, **kwargs) -> list[Game]:
-        season_type: SeasonType = kwargs.pop("season_type", SeasonType.REGULAR)
+    def get_regular_season_schedule(
+        cls, *, sport: Sport, season: str, season_type: SeasonType = SeasonType.REGULAR
+    ) -> list[Game]:
         url = cls._build_route(
             cls._SLEEPER_APP_BASE_URL,
             None,

@@ -1,7 +1,7 @@
-from typing import Any
+from typing import Any, Optional
 
 from sleeper.api.SleeperAPIClient import SleeperAPIClient
-from sleeper.enum import PlayerPosition, SeasonType
+from sleeper.enum import SeasonType
 from sleeper.enum.Sport import Sport
 from sleeper.model.PlayerStats import PlayerStats
 
@@ -9,13 +9,17 @@ from sleeper.model.PlayerStats import PlayerStats
 class UPlayerAPIClient(SleeperAPIClient):
     @classmethod
     def get_player_stats(
-        cls, *, sport: Sport, player_id: str, season: str, **kwargs
+        cls,
+        *,
+        sport: Sport,
+        player_id: str,
+        season: str,
+        season_type: SeasonType = SeasonType.REGULAR,
+        week: Optional[int] = None,
     ) -> PlayerStats:
         """
         Gets player stats for the given season OR just the given week.
         """
-        season_type: SeasonType = kwargs.pop("season_type", SeasonType.REGULAR)
-        week: int = kwargs.pop("week", None)
 
         url = cls._build_route(
             cls._SLEEPER_APP_BASE_URL,
@@ -40,13 +44,17 @@ class UPlayerAPIClient(SleeperAPIClient):
 
     @classmethod
     def get_player_projections(
-        cls, *, sport: Sport, player_id: str, season: str, **kwargs
+        cls,
+        *,
+        sport: Sport,
+        player_id: str,
+        season: str,
+        season_type: SeasonType = SeasonType.REGULAR,
+        week: Optional[int] = None,
     ) -> PlayerStats:
         """
         Gets player projections for the given season OR just the given week.
         """
-        season_type: SeasonType = kwargs.pop("season_type", SeasonType.REGULAR)
-        week: int = kwargs.pop("week", None)
 
         url = cls._build_route(
             cls._SLEEPER_APP_BASE_URL,
@@ -71,10 +79,16 @@ class UPlayerAPIClient(SleeperAPIClient):
 
     @classmethod
     def get_all_player_stats(
-        cls, *, sport: Sport, season: str, week: int, **kwargs
+        cls,
+        *,
+        sport: Sport,
+        season: str,
+        week: int,
+        season_type: SeasonType = SeasonType.REGULAR,
+        positions: list[str] = None,
     ) -> list[PlayerStats]:
-        season_type: SeasonType = kwargs.pop("season_type", SeasonType.REGULAR)
-        positions: list[PlayerPosition] = kwargs.pop("positions", list())
+        if positions == None:
+            positions = []
 
         url = cls._build_route(
             cls._SLEEPER_APP_BASE_URL, None, cls._STATS_ROUTE, sport.name.lower(), season, week
@@ -97,10 +111,16 @@ class UPlayerAPIClient(SleeperAPIClient):
 
     @classmethod
     def get_all_player_projections(
-        cls, *, sport: Sport, season: str, week: int, **kwargs
+        cls,
+        *,
+        sport: Sport,
+        season: str,
+        week: int,
+        season_type: SeasonType = SeasonType.REGULAR,
+        positions: list[str] = None,
     ) -> list[PlayerStats]:
-        season_type: SeasonType = kwargs.pop("season_type", SeasonType.REGULAR)
-        positions: list[PlayerPosition] = kwargs.pop("positions", list())
+        if positions == None:
+            positions = []
 
         url = cls._build_route(
             cls._SLEEPER_APP_BASE_URL,
