@@ -7,6 +7,8 @@ A Python wrapper for the Sleeper API.
 [Sleeper Website](https://sleeper.com/)\
 [Sleeper API Documentation](https://docs.sleeper.app/)
 
+[![PyPi Version](https://img.shields.io/pypi/v/sleeper)](https://pypi.org/project/sleeper/)
+<br>
 <a target="_blank" href="https://www.python.org/downloads/" title="Python version"><img src="https://img.shields.io/badge/python-%3E=_3.10-teal.svg"></a>
 ![Main Build](https://github.com/joeyagreco/sleeper/actions/workflows/main-build.yml/badge.svg)
 ![Last Commit](https://img.shields.io/github/last-commit/joeyagreco/sleeper)
