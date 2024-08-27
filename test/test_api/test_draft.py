@@ -16,5 +16,4 @@ class TestDraftAPIClient(unittest.TestCase):
             user_id="user_id", sport=Sport.NFL, year="2020"
         )
 
-        self.assertIsInstance(response, list)
-        self.assertEqual(len(response), 1)
+        self.assertEqual(mock_list, response)
