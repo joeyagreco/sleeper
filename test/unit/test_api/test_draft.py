@@ -5,7 +5,7 @@ from sleeper.enum.Sport import Sport
 from test.unit.helper.helper_classes import MockResponse
 
 
-class TestDraftAPIClient(unittest.TestCase):
+class TestDraft(unittest.TestCase):
     @unittest.mock.patch("requests.get")
     def test_get_user_drafts_for_year_happy_path(self, mock_requests_get):
         mock_list = [{"foo": "bar"}]
