@@ -24,7 +24,9 @@ if __name__ == "__main__":
     league_rosters: list[Roster] = LeagueAPIClient.get_rosters(league_id="my_league_id")
 
     # get all users in a particular league
-    league_users: list[User] = LeagueAPIClient.get_users_in_league(league_id="my_league_id")
+    league_users: list[User] = LeagueAPIClient.get_users_in_league(
+        league_id="my_league_id"
+    )
 
     # get all matchups in a week for a particular league
     week_1_matchups: list[Matchup] = LeagueAPIClient.get_matchups_for_week(
@@ -47,7 +49,9 @@ if __name__ == "__main__":
     )
 
     # get all traded picks for a particular league
-    traded_picks: list[TradedPick] = LeagueAPIClient.get_traded_picks(league_id="my_league_id")
+    traded_picks: list[TradedPick] = LeagueAPIClient.get_traded_picks(
+        league_id="my_league_id"
+    )
 
     # get the state of a particular sport
     nfl_state: SportState = LeagueAPIClient.get_sport_state(sport=Sport.NFL)

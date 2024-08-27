@@ -10,7 +10,9 @@ class TransactionSettings:
     waiver_bid: int
 
     @classmethod
-    def from_dict(cls, transaction_settings_dict: Optional[dict]) -> Optional[TransactionSettings]:
+    def from_dict(
+        cls, transaction_settings_dict: Optional[dict]
+    ) -> Optional[TransactionSettings]:
         if transaction_settings_dict is None:
             return None
         return TransactionSettings(

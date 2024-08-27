@@ -16,7 +16,8 @@ class ConfigReader:
         )
         propertiesFilePath = os.path.abspath(
             os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), f"../{cls.__propertiesFileName}"
+                os.path.dirname(os.path.realpath(__file__)),
+                f"../{cls.__propertiesFileName}",
             )
         )
         configParser.read(propertiesFilePath)

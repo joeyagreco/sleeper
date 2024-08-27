@@ -26,8 +26,12 @@ class PlayoffMatchup:
             team_2_roster_id=playoff_matchup_object.get("t2"),
             winning_roster_id=playoff_matchup_object.get("w"),
             losing_roster_id=playoff_matchup_object.get("l"),
-            team_1_from=FromPlayoffMatchup.from_dict(playoff_matchup_object.get("t1_from")),
-            team_2_from=FromPlayoffMatchup.from_dict(playoff_matchup_object.get("t2_from")),
+            team_1_from=FromPlayoffMatchup.from_dict(
+                playoff_matchup_object.get("t1_from")
+            ),
+            team_2_from=FromPlayoffMatchup.from_dict(
+                playoff_matchup_object.get("t2_from")
+            ),
             p=playoff_matchup_object.get("p"),
         )
 

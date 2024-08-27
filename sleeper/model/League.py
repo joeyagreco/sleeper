@@ -42,7 +42,9 @@ class League:
             shard=league_dict.get("shard"),
             season_type=SeasonType.from_str(league_dict.get("season_type")),
             season=league_dict.get("season"),
-            scoring_settings=ScoringSettings.from_dict(league_dict.get("scoring_settings")),
+            scoring_settings=ScoringSettings.from_dict(
+                league_dict.get("scoring_settings")
+            ),
             roster_positions=[
                 RosterPosition.enum(sport).from_str(roster_position)
                 for roster_position in league_dict.get("roster_positions")

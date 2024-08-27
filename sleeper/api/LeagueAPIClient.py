@@ -22,7 +22,9 @@ class LeagueAPIClient(SleeperAPIClient):
         return League.from_dict(response_dict)
 
     @classmethod
-    def get_user_leagues_for_year(cls, *, user_id: str, sport: Sport, year: str) -> list[League]:
+    def get_user_leagues_for_year(
+        cls, *, user_id: str, sport: Sport, year: str
+    ) -> list[League]:
         url = cls._build_route(
             cls._SLEEPER_APP_BASE_URL,
             cls._VERSION,
@@ -56,7 +58,11 @@ class LeagueAPIClient(SleeperAPIClient):
     @classmethod
     def get_users_in_league(cls, *, league_id: str) -> list[User]:
         url = cls._build_route(
-            cls._SLEEPER_APP_BASE_URL, cls._VERSION, cls._LEAGUE_ROUTE, league_id, cls._USERS_ROUTE
+            cls._SLEEPER_APP_BASE_URL,
+            cls._VERSION,
+            cls._LEAGUE_ROUTE,
+            league_id,
+            cls._USERS_ROUTE,
         )
         response_list = cls._get(url)
         if response_list is None:
@@ -91,7 +97,9 @@ class LeagueAPIClient(SleeperAPIClient):
         )
         response_list = cls._get(url)
         if response_list is None:
-            raise ValueError(f"Could not get PlayoffMatchups for league_id '{league_id}'.")
+            raise ValueError(
+                f"Could not get PlayoffMatchups for league_id '{league_id}'."
+            )
         return PlayoffMatchup.from_dict_str(response_list)
 
     @classmethod
@@ -105,7 +113,9 @@ class LeagueAPIClient(SleeperAPIClient):
         )
         response_list = cls._get(url)
         if response_list is None:
-            raise ValueError(f"Could not get PlayoffMatchups for league_id '{league_id}'.")
+            raise ValueError(
+                f"Could not get PlayoffMatchups for league_id '{league_id}'."
+            )
         return PlayoffMatchup.from_dict_str(response_list)
 
     @classmethod
@@ -142,7 +152,10 @@ class LeagueAPIClient(SleeperAPIClient):
     @classmethod
     def get_sport_state(cls, *, sport: Sport) -> SportState:
         url = cls._build_route(
-            cls._SLEEPER_APP_BASE_URL, cls._VERSION, cls._STATE_ROUTE, sport.value.lower()
+            cls._SLEEPER_APP_BASE_URL,
+            cls._VERSION,
+            cls._STATE_ROUTE,
+            sport.value.lower(),
         )
         response_dict = cls._get(url)
         if response_dict is None:

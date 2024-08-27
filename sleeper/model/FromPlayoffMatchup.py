@@ -10,7 +10,9 @@ class FromPlayoffMatchup:
     won_matchup_id: int
 
     @staticmethod
-    def from_dict(from_playoff_matchup_object: Optional[dict]) -> Optional[FromPlayoffMatchup]:
+    def from_dict(
+        from_playoff_matchup_object: Optional[dict],
+    ) -> Optional[FromPlayoffMatchup]:
         if from_playoff_matchup_object is None:
             return None
         return FromPlayoffMatchup(

@@ -25,5 +25,4 @@ class DepthChart:
 
     @staticmethod
     @abstractmethod
-    def from_dict(d: dict) -> DepthChart:
-        ...
+    def from_dict(d: dict) -> DepthChart: ...

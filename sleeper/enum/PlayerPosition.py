@@ -16,8 +16,7 @@ class PlayerPosition(Enum):
 
     @classmethod
     @abstractmethod
-    def from_str(cls, s: str) -> PlayerPosition:
-        ...
+    def from_str(cls, s: str) -> PlayerPosition: ...
 
     @staticmethod
     def enum(sport: Sport) -> PlayerPosition:

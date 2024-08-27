@@ -7,7 +7,9 @@ from sleeper.model.PlayerDraftPick import PlayerDraftPick
 
 class DraftAPIClient(SleeperAPIClient):
     @classmethod
-    def get_user_drafts_for_year(cls, *, user_id: str, sport: Sport, year: str) -> list[Draft]:
+    def get_user_drafts_for_year(
+        cls, *, user_id: str, sport: Sport, year: str
+    ) -> list[Draft]:
         url = cls._build_route(
             cls._SLEEPER_APP_BASE_URL,
             cls._VERSION,
@@ -27,7 +29,11 @@ class DraftAPIClient(SleeperAPIClient):
     @classmethod
     def get_drafts_in_league(cls, *, league_id: str) -> list[Draft]:
         url = cls._build_route(
-            cls._SLEEPER_APP_BASE_URL, cls._VERSION, cls._LEAGUE_ROUTE, league_id, cls._DRAFTS_ROUTE
+            cls._SLEEPER_APP_BASE_URL,
+            cls._VERSION,
+            cls._LEAGUE_ROUTE,
+            league_id,
+            cls._DRAFTS_ROUTE,
         )
         response_list = cls._get(url)
         if response_list is None:
@@ -36,16 +42,24 @@ class DraftAPIClient(SleeperAPIClient):
 
     @classmethod
     def get_draft(cls, *, draft_id: str) -> Draft:
-        url = cls._build_route(cls._SLEEPER_APP_BASE_URL, cls._VERSION, cls._DRAFT_ROUTE, draft_id)
+        url = cls._build_route(
+            cls._SLEEPER_APP_BASE_URL, cls._VERSION, cls._DRAFT_ROUTE, draft_id
+        )
         response_dict = cls._get(url)
         if response_dict is None:
             raise ValueError(f"Could not get Draft with draft_id '{draft_id}'.")
         return Draft.from_dict(cls._get(url))
 
     @classmethod
-    def get_player_draft_picks(cls, *, draft_id: str, sport: Sport) -> list[PlayerDraftPick]:
+    def get_player_draft_picks(
+        cls, *, draft_id: str, sport: Sport
+    ) -> list[PlayerDraftPick]:
         url = cls._build_route(
-            cls._SLEEPER_APP_BASE_URL, cls._VERSION, cls._DRAFT_ROUTE, draft_id, cls._PICKS_ROUTE
+            cls._SLEEPER_APP_BASE_URL,
+            cls._VERSION,
+            cls._DRAFT_ROUTE,
+            draft_id,
+            cls._PICKS_ROUTE,
         )
         response_list = cls._get(url)
         if response_list is None:
@@ -65,5 +79,7 @@ class DraftAPIClient(SleeperAPIClient):
         )
         response_list = cls._get(url)
         if response_list is None:
-            raise ValueError(f"Could not get traded DraftPicks with draft_id '{draft_id}'.")
+            raise ValueError(
+                f"Could not get traded DraftPicks with draft_id '{draft_id}'."
+            )
         return DraftPick.from_dict_list(cls._get(url))

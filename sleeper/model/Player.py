@@ -67,7 +67,10 @@ class Player:
             return None
         given_fantasy_positions = player_dict.get("fantasy_positions")
         fantasy_positions = (
-            [PlayerPosition.enum(sport).from_str(pos) for pos in given_fantasy_positions]
+            [
+                PlayerPosition.enum(sport).from_str(pos)
+                for pos in given_fantasy_positions
+            ]
             if given_fantasy_positions is not None
             else None
         )
@@ -75,7 +78,9 @@ class Player:
         birth_date = (
             None
             if player_dict.get("birth_date") is None
-            else datetime.datetime.strptime(player_dict.get("birth_date"), "%Y-%m-%d").date()
+            else datetime.datetime.strptime(
+                player_dict.get("birth_date"), "%Y-%m-%d"
+            ).date()
         )
 
         return Player(
@@ -132,5 +137,7 @@ class Player:
     def dict_by_id(player_dict_list: list, sport: Sport) -> dict[str, Player]:
         players_by_id = dict()
         for player_id in player_dict_list:
-            players_by_id[player_id] = Player.from_dict(player_dict_list[player_id], sport)
+            players_by_id[player_id] = Player.from_dict(
+                player_dict_list[player_id], sport
+            )
         return players_by_id

@@ -39,7 +39,9 @@ class PlayerStats:
         date_ = (
             None
             if player_stats_dict.get("date") is None
-            else datetime.datetime.strptime(player_stats_dict.get("date"), "%Y-%m-%d").date()
+            else datetime.datetime.strptime(
+                player_stats_dict.get("date"), "%Y-%m-%d"
+            ).date()
         )
         return PlayerStats(
             category=Category.from_str(player_stats_dict.get("category")),

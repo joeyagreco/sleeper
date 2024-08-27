@@ -8,5 +8,7 @@ if __name__ == "__main__":
 
     # can pass in the "thumbnail" parameter to get a smaller-sized avatar
     AvatarAPIClient.get_avatar(
-        avatar_id="my_avatar_id", save_to_path="C:\\Desktop\\avatar\\my_avatar.png", thumbnail=True
+        avatar_id="my_avatar_id",
+        save_to_path="C:\\Desktop\\avatar\\my_avatar.png",
+        thumbnail=True,
     )

@@ -15,4 +15,6 @@ class ModelEnum(Enum):
 
     @staticmethod
     def _handle_unknown_value(enum_class: ModelEnum, value: str) -> None:
-        CustomLogger.getLogger().warning(f"Unknown value for {enum_class.__name__}: '{value}'.")
+        CustomLogger.getLogger().warning(
+            f"Unknown value for {enum_class.__name__}: '{value}'."
+        )

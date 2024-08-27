@@ -1,43 +1,36 @@
 .PHONY: deps
 deps:
-	@python3 -m pip install -r requirements.dev.txt
-	@python3 -m pip install -r requirements.txt
+	@python -m pip install -r requirements.dev.txt
+	@python -m pip install -r requirements.txt
 
 .PHONY: fmt
 fmt:
-	@black --config=pyproject.toml .
-	@autoflake --config=pyproject.toml .
-	@isort .
+	@ruff check --fix
+	@ruff format
 
 .PHONY: fmt-check
 fmt-check:
-	@black --config=pyproject.toml --check .
-	@autoflake --config=pyproject.toml --check .
-	@isort --check-only .
+	@ruff check
+	@ruff format --check
 
 .PHONY: test-unit
 test-unit:
 	@pytest test/unit
 
-
 .PHONY: test-integration
 test-integration:
 	@pytest test/integration
-
-.PHONY: up-reqs
-up-reqs:
-	@pipreqs --force --mode no-pin
 
 .PHONY: pkg-build
 pkg-build:
 	@rm -rf build
 	@rm -rf dist
-	@python3 setup.py sdist bdist_wheel
+	@python setup.py sdist bdist_wheel
 
 .PHONY: pkg-test
 pkg-test:
-	@python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+	@python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 
 .PHONY: pkg-prod
 pkg-prod:
-	@python3 -m twine upload dist/*
+	@python -m twine upload dist/*

@@ -44,7 +44,9 @@ class Transaction:
             creator=transaction_dict.get("creator"),
             created=transaction_dict.get("created"),
             consenter_ids=transaction_dict.get("consenter_ids"),
-            waiver_budget=FAABTransaction.from_dict_list(transaction_dict.get("waiver_budget")),
+            waiver_budget=FAABTransaction.from_dict_list(
+                transaction_dict.get("waiver_budget")
+            ),
             metadata=transaction_dict.get("metadata"),
         )
 

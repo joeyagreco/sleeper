@@ -30,7 +30,10 @@ class UPlayerAPIClient(SleeperAPIClient):
             player_id,
         )
         url = cls._add_filters(
-            url, ("season_type", season_type.name.lower()), ("season", season), ("week", week)
+            url,
+            ("season_type", season_type.name.lower()),
+            ("season", season),
+            ("week", week),
         )
 
         response_dict = cls._get(url)
@@ -65,7 +68,10 @@ class UPlayerAPIClient(SleeperAPIClient):
             player_id,
         )
         url = cls._add_filters(
-            url, ("season_type", season_type.name.lower()), ("season", season), ("week", week)
+            url,
+            ("season_type", season_type.name.lower()),
+            ("season", season),
+            ("week", week),
         )
 
         response_dict = cls._get(url)
@@ -91,7 +97,12 @@ class UPlayerAPIClient(SleeperAPIClient):
             positions = []
 
         url = cls._build_route(
-            cls._SLEEPER_APP_BASE_URL, None, cls._STATS_ROUTE, sport.name.lower(), season, week
+            cls._SLEEPER_APP_BASE_URL,
+            None,
+            cls._STATS_ROUTE,
+            sport.name.lower(),
+            season,
+            week,
         )
         filters: list[tuple[str, Any]] = [("season_type", season_type.name.lower())]
         for position in positions:
@@ -147,7 +158,9 @@ class UPlayerAPIClient(SleeperAPIClient):
         return PlayerStats.from_dict_list(response_list)
 
     @classmethod
-    def get_player_head_shot(cls, *, sport: Sport, player_id: str, save_to_path: str) -> None:
+    def get_player_head_shot(
+        cls, *, sport: Sport, player_id: str, save_to_path: str
+    ) -> None:
         """
         save_to_path should end in ".png".
         """

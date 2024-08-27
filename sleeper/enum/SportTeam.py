@@ -16,8 +16,7 @@ class SportTeam(Enum):
 
     @classmethod
     @abstractmethod
-    def from_str(cls, s: str) -> SportTeam:
-        ...
+    def from_str(cls, s: str) -> SportTeam: ...
 
     @staticmethod
     def enum(sport: Sport) -> SportTeam:

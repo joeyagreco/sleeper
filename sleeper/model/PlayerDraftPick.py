@@ -35,8 +35,12 @@ class PlayerDraftPick:
         )
 
     @staticmethod
-    def from_dict_list(player_draft_pick_dict_list: list, sport: Sport) -> list[PlayerDraftPick]:
+    def from_dict_list(
+        player_draft_pick_dict_list: list, sport: Sport
+    ) -> list[PlayerDraftPick]:
         player_draft_picks = list()
         for player_draft_pick in player_draft_pick_dict_list:
-            player_draft_picks.append(PlayerDraftPick.from_dict(player_draft_pick, sport))
+            player_draft_picks.append(
+                PlayerDraftPick.from_dict(player_draft_pick, sport)
+            )
         return player_draft_picks

@@ -9,7 +9,9 @@ if __name__ == "__main__":
     )
 
     # get all drafts for a particular league
-    league_drafts: list[Draft] = DraftAPIClient.get_drafts_in_league(league_id="my_league_id")
+    league_drafts: list[Draft] = DraftAPIClient.get_drafts_in_league(
+        league_id="my_league_id"
+    )
 
     # get a draft by its ID
     draft: Draft = DraftAPIClient.get_draft(draft_id="my_draft_id")
