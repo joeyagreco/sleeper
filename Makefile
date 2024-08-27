@@ -15,9 +15,14 @@ fmt-check:
 	@autoflake --config=pyproject.toml --check .
 	@isort --check-only .
 
-.PHONY: test
-test:
-	@pytest test/
+.PHONY: test-unit
+test-unit:
+	@pytest test/unit
+
+
+.PHONY: test-integration
+test-integration:
+	@pytest test/integration
 
 .PHONY: up-reqs
 up-reqs:
