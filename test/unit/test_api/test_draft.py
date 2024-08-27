@@ -2,7 +2,7 @@ import unittest
 
 from sleeper.api.draft import get_user_drafts_for_year
 from sleeper.enum.Sport import Sport
-from test.helper.helper_classes import MockResponse
+from test.unit.helper.helper_classes import MockResponse
 
 
 class TestDraftAPIClient(unittest.TestCase):

@@ -1,11 +1,11 @@
 import unittest
-from test.helper.helper_classes import MockResponse
 from unittest import mock
 
 from requests import HTTPError
 
 from sleeper.api.UserAPIClient import UserAPIClient
 from sleeper.model.User import User
+from test.unit.helper.helper_classes import MockResponse
 
 
 class TestUserAPIClient(unittest.TestCase):
@@ -62,10 +62,14 @@ class TestUserAPIClient(unittest.TestCase):
     def test_get_user_username_and_user_id_not_given_raises_exception(self):
         with self.assertRaises(ValueError) as context:
             UserAPIClient.get_user()
-        self.assertEqual("'username' and 'user_id' cannot both be None.", str(context.exception))
+        self.assertEqual(
+            "'username' and 'user_id' cannot both be None.", str(context.exception)
+        )
 
     @mock.patch("requests.get")
-    def test_get_user_username_or_user_id_not_found_raises_exception(self, mock_requests_get):
+    def test_get_user_username_or_user_id_not_found_raises_exception(
+        self, mock_requests_get
+    ):
         mock_dict = None
         mock_response = MockResponse(mock_dict, 200)
         mock_requests_get.return_value = mock_response
@@ -73,7 +77,8 @@ class TestUserAPIClient(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             UserAPIClient.get_user(user_id="user_id")
         self.assertEqual(
-            "Could not find User for username/user_id: 'user_id'.", str(context.exception)
+            "Could not find User for username/user_id: 'user_id'.",
+            str(context.exception),
         )
 
     @mock.patch("requests.get")

@@ -1,6 +1,5 @@
 import datetime
 import unittest
-from test.helper.helper_classes import MockResponse
 from unittest import mock
 
 from requests import HTTPError
@@ -15,6 +14,7 @@ from sleeper.enum.Sport import Sport
 from sleeper.enum.TrendType import TrendType
 from sleeper.model.Player import Player
 from sleeper.model.PlayerTrend import PlayerTrend
+from test.unit.helper.helper_classes import MockResponse
 
 
 class TestPlayerAPIClient(unittest.TestCase):
@@ -96,7 +96,9 @@ class TestPlayerAPIClient(unittest.TestCase):
         self.assertEqual(60, response["2103"].number)
         self.assertEqual("2103", response["2103"].player_id)
         self.assertEqual(NFLPosition.OT, response["2103"].position)
-        self.assertEqual(PracticeParticipation.NA, response["2103"].practice_participation)
+        self.assertEqual(
+            PracticeParticipation.NA, response["2103"].practice_participation
+        )
         self.assertEqual(9866, response["2103"].rotowire_id)
         self.assertEqual(12345, response["2103"].rotoworld_id)
         self.assertEqual("cody", response["2103"].search_first_name)
@@ -104,7 +106,9 @@ class TestPlayerAPIClient(unittest.TestCase):
         self.assertEqual("booth", response["2103"].search_last_name)
         self.assertEqual(9999999, response["2103"].search_rank)
         self.assertEqual(Sport.NFL, response["2103"].sport)
-        self.assertEqual("4cd4976e-e230-4935-ad3f-c12876a41350", response["2103"].sportradar_id)
+        self.assertEqual(
+            "4cd4976e-e230-4935-ad3f-c12876a41350", response["2103"].sportradar_id
+        )
         self.assertEqual(12345, response["2103"].stats_id)
         self.assertEqual(NFLPlayerStatus.INACTIVE, response["2103"].status)
         self.assertEqual(NFLTeam.GB, response["2103"].team)
@@ -133,10 +137,14 @@ class TestPlayerAPIClient(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             PlayerAPIClient.get_all_players(sport=Sport.NFL)
-        self.assertEqual("Could not get Players for sport: 'NFL'.", str(context.exception))
+        self.assertEqual(
+            "Could not get Players for sport: 'NFL'.", str(context.exception)
+        )
 
     @mock.patch("requests.get")
-    def test_get_all_players_non_200_status_code_raises_exception(self, mock_requests_get):
+    def test_get_all_players_non_200_status_code_raises_exception(
+        self, mock_requests_get
+    ):
         mock_dict = {}
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
@@ -156,7 +164,9 @@ class TestPlayerAPIClient(unittest.TestCase):
         mock_response = MockResponse(mock_dict, 200)
         mock_requests_get.return_value = mock_response
 
-        response = PlayerAPIClient.get_trending_players(sport=Sport.NFL, trend_type=TrendType.ADD)
+        response = PlayerAPIClient.get_trending_players(
+            sport=Sport.NFL, trend_type=TrendType.ADD
+        )
 
         self.assertIsInstance(response, list)
         self.assertEqual(3, len(response))
@@ -175,7 +185,9 @@ class TestPlayerAPIClient(unittest.TestCase):
         mock_response = MockResponse(mock_dict, 200)
         mock_requests_get.return_value = mock_response
 
-        response = PlayerAPIClient.get_trending_players(sport=Sport.NFL, trend_type=TrendType.DROP)
+        response = PlayerAPIClient.get_trending_players(
+            sport=Sport.NFL, trend_type=TrendType.DROP
+        )
 
         self.assertIsInstance(response, list)
         self.assertEqual(3, len(response))
@@ -211,15 +223,21 @@ class TestPlayerAPIClient(unittest.TestCase):
         mock_requests_get.return_value = mock_response
 
         with self.assertRaises(ValueError) as context:
-            PlayerAPIClient.get_trending_players(sport=Sport.NFL, trend_type=TrendType.ADD)
+            PlayerAPIClient.get_trending_players(
+                sport=Sport.NFL, trend_type=TrendType.ADD
+            )
         self.assertEqual("Could not get PlayerTrends.", str(context.exception))
 
     @mock.patch("requests.get")
-    def test_get_trending_players_non_200_status_code_raises_exception(self, mock_requests_get):
+    def test_get_trending_players_non_200_status_code_raises_exception(
+        self, mock_requests_get
+    ):
         mock_dict = {}
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
 
         with self.assertRaises(HTTPError) as context:
-            PlayerAPIClient.get_trending_players(sport=Sport.NFL, trend_type=TrendType.ADD)
+            PlayerAPIClient.get_trending_players(
+                sport=Sport.NFL, trend_type=TrendType.ADD
+            )
         self.assertEqual("404 Client Error", str(context.exception))

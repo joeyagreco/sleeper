@@ -1,6 +1,5 @@
 import datetime
 import unittest
-from test.helper.helper_classes import MockResponse
 from unittest import mock
 
 from sleeper.api.unofficial import USportAPIClient
@@ -8,6 +7,7 @@ from sleeper.enum import SeasonStatus
 from sleeper.enum.nfl import NFLTeam
 from sleeper.enum.Sport import Sport
 from sleeper.model import Game
+from test.unit.helper.helper_classes import MockResponse
 
 
 class TestUSportAPIClient(unittest.TestCase):
@@ -26,7 +26,9 @@ class TestUSportAPIClient(unittest.TestCase):
         mock_response = MockResponse(mock_list, 200)
         mock_requests_get.return_value = mock_response
 
-        response = USportAPIClient.get_regular_season_schedule(sport=Sport.NFL, season="2021")
+        response = USportAPIClient.get_regular_season_schedule(
+            sport=Sport.NFL, season="2021"
+        )
 
         self.assertIsInstance(response, list)
         self.assertEqual(1, len(response))

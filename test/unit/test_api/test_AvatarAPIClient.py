@@ -1,13 +1,13 @@
 import os
 import tempfile
 import unittest
-from test.helper.helper_classes import MockResponse
 from unittest import mock
 
 from requests import HTTPError
 
 from sleeper.api.AvatarAPIClient import AvatarAPIClient
 from sleeper.exception.SleeperAPIException import SleeperAPIException
+from test.unit.helper.helper_classes import MockResponse
 
 
 class TestAvatarAPIClient(unittest.TestCase):
@@ -26,7 +26,9 @@ class TestAvatarAPIClient(unittest.TestCase):
 
         with tempfile.TemporaryDirectory() as temp_dir:
             full_image_path = os.path.join(temp_dir, "tmp.png")
-            AvatarAPIClient.get_avatar(avatar_id="avatar_id", save_to_path=full_image_path)
+            AvatarAPIClient.get_avatar(
+                avatar_id="avatar_id", save_to_path=full_image_path
+            )
 
             with open(full_image_path, "rb") as image:
                 f = image.read()

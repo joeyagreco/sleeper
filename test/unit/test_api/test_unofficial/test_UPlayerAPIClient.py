@@ -1,7 +1,6 @@
 import os
 import tempfile
 import unittest
-from test.helper.helper_classes import MockResponse
 from unittest import mock
 
 from sleeper.api.unofficial import UPlayerAPIClient
@@ -10,6 +9,7 @@ from sleeper.enum.nfl import NFLPosition, NFLTeam
 from sleeper.enum.Sport import Sport
 from sleeper.model import Player, PlayerStats
 from sleeper.model.nfl import NFLStats
+from test.unit.helper.helper_classes import MockResponse
 
 
 class TestUPlayerAPIClient(unittest.TestCase):

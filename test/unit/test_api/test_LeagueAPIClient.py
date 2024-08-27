@@ -1,6 +1,5 @@
 import datetime
 import unittest
-from test.helper.helper_classes import MockResponse
 from unittest import mock
 
 from requests import HTTPError
@@ -27,6 +26,7 @@ from sleeper.model.TradedPick import TradedPick
 from sleeper.model.Transaction import Transaction
 from sleeper.model.TransactionSettings import TransactionSettings
 from sleeper.model.User import User
+from test.unit.helper.helper_classes import MockResponse
 
 
 class TestLeagueAPIClient(unittest.TestCase):
@@ -358,7 +358,8 @@ class TestLeagueAPIClient(unittest.TestCase):
         self.assertEqual(0, response.settings.league_average_match)
         self.assertEqual(0, response.settings.playoff_round_type)
         self.assertEqual(
-            PlayoffRoundType.ONE_WEEK_PER_ROUND, response.settings.playoff_round_type_enum
+            PlayoffRoundType.ONE_WEEK_PER_ROUND,
+            response.settings.playoff_round_type_enum,
         )
         self.assertEqual(0, response.settings.playoff_seed_type)
         self.assertEqual(0, response.settings.playoff_type)
@@ -382,7 +383,9 @@ class TestLeagueAPIClient(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             LeagueAPIClient.get_league(league_id="12345")
-        self.assertEqual("Could not get League with league_id '12345'.", str(context.exception))
+        self.assertEqual(
+            "Could not get League with league_id '12345'.", str(context.exception)
+        )
 
     @mock.patch("requests.get")
     def test_get_league_non_200_status_code_raises_exception(self, mock_requests_get):
@@ -726,7 +729,8 @@ class TestLeagueAPIClient(unittest.TestCase):
         self.assertEqual(0, response.settings.league_average_match)
         self.assertEqual(0, response.settings.playoff_round_type)
         self.assertEqual(
-            PlayoffRoundType.ONE_WEEK_PER_ROUND, response.settings.playoff_round_type_enum
+            PlayoffRoundType.ONE_WEEK_PER_ROUND,
+            response.settings.playoff_round_type_enum,
         )
         self.assertEqual(0, response.settings.playoff_seed_type)
         self.assertEqual(0, response.settings.playoff_type)
@@ -743,13 +747,17 @@ class TestLeagueAPIClient(unittest.TestCase):
         self.assertEqual(12, response.total_rosters)
 
     @mock.patch("requests.get")
-    def test_get_user_leagues_for_year_not_found_raises_exception(self, mock_requests_get):
+    def test_get_user_leagues_for_year_not_found_raises_exception(
+        self, mock_requests_get
+    ):
         mock_dict = None
         mock_response = MockResponse(mock_dict, 200)
         mock_requests_get.return_value = mock_response
 
         with self.assertRaises(ValueError) as context:
-            LeagueAPIClient.get_user_leagues_for_year(user_id="12345", sport=Sport.NFL, year="2020")
+            LeagueAPIClient.get_user_leagues_for_year(
+                user_id="12345", sport=Sport.NFL, year="2020"
+            )
         self.assertEqual(
             "Could not get user Leagues for user_id '12345', sport 'NFL', and year '2020'.",
             str(context.exception),
@@ -764,7 +772,9 @@ class TestLeagueAPIClient(unittest.TestCase):
         mock_requests_get.return_value = mock_response
 
         with self.assertRaises(HTTPError) as context:
-            LeagueAPIClient.get_user_leagues_for_year(user_id="12345", sport=Sport.NFL, year="2020")
+            LeagueAPIClient.get_user_leagues_for_year(
+                user_id="12345", sport=Sport.NFL, year="2020"
+            )
         self.assertEqual("404 Client Error", str(context.exception))
 
     @mock.patch("requests.get")
@@ -837,7 +847,9 @@ class TestLeagueAPIClient(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             LeagueAPIClient.get_rosters(league_id="12345")
-        self.assertEqual("Could not get Rosters for league_id '12345'.", str(context.exception))
+        self.assertEqual(
+            "Could not get Rosters for league_id '12345'.", str(context.exception)
+        )
 
     @mock.patch("requests.get")
     def test_get_rosters_non_200_status_code_raises_exception(self, mock_requests_get):
@@ -909,10 +921,14 @@ class TestLeagueAPIClient(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             LeagueAPIClient.get_users_in_league(league_id="12345")
-        self.assertEqual("Could not get Users for league_id '12345'.", str(context.exception))
+        self.assertEqual(
+            "Could not get Users for league_id '12345'.", str(context.exception)
+        )
 
     @mock.patch("requests.get")
-    def test_get_users_in_league_non_200_status_code_raises_exception(self, mock_requests_get):
+    def test_get_users_in_league_non_200_status_code_raises_exception(
+        self, mock_requests_get
+    ):
         mock_dict = {}
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
@@ -959,11 +975,14 @@ class TestLeagueAPIClient(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             LeagueAPIClient.get_matchups_for_week(league_id="12345", week=1)
         self.assertEqual(
-            "Could not get Matchups for league_id '12345' and week '1'.", str(context.exception)
+            "Could not get Matchups for league_id '12345' and week '1'.",
+            str(context.exception),
         )
 
     @mock.patch("requests.get")
-    def test_get_matchups_for_week_non_200_status_code_raises_exception(self, mock_requests_get):
+    def test_get_matchups_for_week_non_200_status_code_raises_exception(
+        self, mock_requests_get
+    ):
         mock_dict = {}
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
@@ -1016,11 +1035,14 @@ class TestLeagueAPIClient(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             LeagueAPIClient.get_winners_bracket(league_id="12345")
         self.assertEqual(
-            "Could not get PlayoffMatchups for league_id '12345'.", str(context.exception)
+            "Could not get PlayoffMatchups for league_id '12345'.",
+            str(context.exception),
         )
 
     @mock.patch("requests.get")
-    def test_get_winners_bracket_non_200_status_code_raises_exception(self, mock_requests_get):
+    def test_get_winners_bracket_non_200_status_code_raises_exception(
+        self, mock_requests_get
+    ):
         mock_dict = {}
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
@@ -1073,11 +1095,14 @@ class TestLeagueAPIClient(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             LeagueAPIClient.get_losers_bracket(league_id="12345")
         self.assertEqual(
-            "Could not get PlayoffMatchups for league_id '12345'.", str(context.exception)
+            "Could not get PlayoffMatchups for league_id '12345'.",
+            str(context.exception),
         )
 
     @mock.patch("requests.get")
-    def test_get_losers_bracket_non_200_status_code_raises_exception(self, mock_requests_get):
+    def test_get_losers_bracket_non_200_status_code_raises_exception(
+        self, mock_requests_get
+    ):
         mock_dict = {}
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
@@ -1160,11 +1185,14 @@ class TestLeagueAPIClient(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             LeagueAPIClient.get_transactions(league_id="12345", week=1)
         self.assertEqual(
-            "Could not get Transactions for league_id '12345' and week '1'.", str(context.exception)
+            "Could not get Transactions for league_id '12345' and week '1'.",
+            str(context.exception),
         )
 
     @mock.patch("requests.get")
-    def test_get_transactions_non_200_status_code_raises_exception(self, mock_requests_get):
+    def test_get_transactions_non_200_status_code_raises_exception(
+        self, mock_requests_get
+    ):
         mock_dict = {}
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
@@ -1176,7 +1204,13 @@ class TestLeagueAPIClient(unittest.TestCase):
     @mock.patch("requests.get")
     def test_get_traded_picks_happy_path(self, mock_requests_get):
         mock_list = [
-            {"season": "2019", "round": 5, "roster_id": 1, "previous_owner_id": 1, "owner_id": 2}
+            {
+                "season": "2019",
+                "round": 5,
+                "roster_id": 1,
+                "previous_owner_id": 1,
+                "owner_id": 2,
+            }
         ]
         mock_response = MockResponse(mock_list, 200)
         mock_requests_get.return_value = mock_response
@@ -1198,10 +1232,14 @@ class TestLeagueAPIClient(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             LeagueAPIClient.get_traded_picks(league_id="12345")
-        self.assertEqual("Could not get TradedPicks for league_id '12345'.", str(context.exception))
+        self.assertEqual(
+            "Could not get TradedPicks for league_id '12345'.", str(context.exception)
+        )
 
     @mock.patch("requests.get")
-    def test_get_traded_picks_non_200_status_code_raises_exception(self, mock_requests_get):
+    def test_get_traded_picks_non_200_status_code_raises_exception(
+        self, mock_requests_get
+    ):
         mock_dict = {}
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
@@ -1247,10 +1285,14 @@ class TestLeagueAPIClient(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             LeagueAPIClient.get_sport_state(sport=Sport.NFL)
-        self.assertEqual("Could not get SportState for sport 'NFL'.", str(context.exception))
+        self.assertEqual(
+            "Could not get SportState for sport 'NFL'.", str(context.exception)
+        )
 
     @mock.patch("requests.get")
-    def test_get_sport_state_non_200_status_code_raises_exception(self, mock_requests_get):
+    def test_get_sport_state_non_200_status_code_raises_exception(
+        self, mock_requests_get
+    ):
         mock_dict = {}
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response

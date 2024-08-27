@@ -1,5 +1,4 @@
 import unittest
-from test.helper.helper_classes import MockResponse
 from unittest import mock
 
 from requests import HTTPError
@@ -20,6 +19,7 @@ from sleeper.model.DraftPick import DraftPick
 from sleeper.model.DraftSettings import DraftSettings
 from sleeper.model.PlayerDraftPick import PlayerDraftPick
 from sleeper.model.PlayerDraftPickMetadata import PlayerDraftPickMetadata
+from test.unit.helper.helper_classes import MockResponse
 
 
 class TestDraftAPIClient(unittest.TestCase):
@@ -51,7 +51,11 @@ class TestDraftAPIClient(unittest.TestCase):
                 },
                 "season_type": "regular",
                 "season": "2021",
-                "metadata": {"scoring_type": "2qb", "name": "The Test", "description": "des"},
+                "metadata": {
+                    "scoring_type": "2qb",
+                    "name": "The Test",
+                    "description": "des",
+                },
                 "league_id": "738979251063275520",
                 "last_picked": 1630897024291,
                 "last_message_time": 1630897024793,
@@ -110,26 +114,34 @@ class TestDraftAPIClient(unittest.TestCase):
         self.assertEqual(DraftType.SNAKE, response[0].type)
 
     @mock.patch("requests.get")
-    def test_get_user_drafts_for_year_not_found_raises_exception(self, mock_requests_get):
+    def test_get_user_drafts_for_year_not_found_raises_exception(
+        self, mock_requests_get
+    ):
         mock_dict = None
         mock_response = MockResponse(mock_dict, 200)
         mock_requests_get.return_value = mock_response
 
         with self.assertRaises(ValueError) as context:
-            DraftAPIClient.get_user_drafts_for_year(user_id="user_id", sport=Sport.NFL, year="2020")
+            DraftAPIClient.get_user_drafts_for_year(
+                user_id="user_id", sport=Sport.NFL, year="2020"
+            )
         self.assertEqual(
             "Could not get Drafts for user_id 'user_id', sport 'NFL', and year '2020'.",
             str(context.exception),
         )
 
     @mock.patch("requests.get")
-    def test_get_user_drafts_for_year_non_200_status_code_raises_exception(self, mock_requests_get):
+    def test_get_user_drafts_for_year_non_200_status_code_raises_exception(
+        self, mock_requests_get
+    ):
         mock_dict = {}
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
 
         with self.assertRaises(HTTPError) as context:
-            DraftAPIClient.get_user_drafts_for_year(user_id="user_id", sport=Sport.NFL, year="2020")
+            DraftAPIClient.get_user_drafts_for_year(
+                user_id="user_id", sport=Sport.NFL, year="2020"
+            )
         self.assertEqual("404 Client Error", str(context.exception))
 
     @mock.patch("requests.get")
@@ -160,7 +172,11 @@ class TestDraftAPIClient(unittest.TestCase):
                 },
                 "season_type": "regular",
                 "season": "2021",
-                "metadata": {"scoring_type": "2qb", "name": "The Test", "description": "des"},
+                "metadata": {
+                    "scoring_type": "2qb",
+                    "name": "The Test",
+                    "description": "des",
+                },
                 "league_id": "738979251063275520",
                 "last_picked": 1630897024291,
                 "last_message_time": 1630897024793,
@@ -224,10 +240,14 @@ class TestDraftAPIClient(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             DraftAPIClient.get_drafts_in_league(league_id="12345")
-        self.assertEqual("Could not get Drafts for league_id '12345'.", str(context.exception))
+        self.assertEqual(
+            "Could not get Drafts for league_id '12345'.", str(context.exception)
+        )
 
     @mock.patch("requests.get")
-    def test_get_drafts_in_league_non_200_status_code_raises_exception(self, mock_requests_get):
+    def test_get_drafts_in_league_non_200_status_code_raises_exception(
+        self, mock_requests_get
+    ):
         mock_dict = {}
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
@@ -263,7 +283,11 @@ class TestDraftAPIClient(unittest.TestCase):
             },
             "season_type": "regular",
             "season": "2021",
-            "metadata": {"scoring_type": "2qb", "name": "The Test", "description": "des"},
+            "metadata": {
+                "scoring_type": "2qb",
+                "name": "The Test",
+                "description": "des",
+            },
             "league_id": "738979251063275520",
             "last_picked": 1630897024291,
             "last_message_time": 1630897024793,
@@ -326,7 +350,9 @@ class TestDraftAPIClient(unittest.TestCase):
 
         with self.assertRaises(ValueError) as context:
             DraftAPIClient.get_draft(draft_id="12345")
-        self.assertEqual("Could not get Draft with draft_id '12345'.", str(context.exception))
+        self.assertEqual(
+            "Could not get Draft with draft_id '12345'.", str(context.exception)
+        )
 
     @mock.patch("requests.get")
     def test_get_draft_non_200_status_code_raises_exception(self, mock_requests_get):
@@ -368,7 +394,9 @@ class TestDraftAPIClient(unittest.TestCase):
         mock_response = MockResponse(mock_list, 200)
         mock_requests_get.return_value = mock_response
 
-        response = DraftAPIClient.get_player_draft_picks(draft_id="12345", sport=Sport.NFL)
+        response = DraftAPIClient.get_player_draft_picks(
+            draft_id="12345", sport=Sport.NFL
+        )
 
         self.assertIsInstance(response, list)
         self.assertIsInstance(response[0], PlayerDraftPick)
@@ -406,7 +434,9 @@ class TestDraftAPIClient(unittest.TestCase):
         )
 
     @mock.patch("requests.get")
-    def test_get_player_draft_picks_non_200_status_code_raises_exception(self, mock_requests_get):
+    def test_get_player_draft_picks_non_200_status_code_raises_exception(
+        self, mock_requests_get
+    ):
         mock_dict = {}
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
@@ -451,11 +481,14 @@ class TestDraftAPIClient(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             DraftAPIClient.get_traded_draft_picks(draft_id="12345")
         self.assertEqual(
-            "Could not get traded DraftPicks with draft_id '12345'.", str(context.exception)
+            "Could not get traded DraftPicks with draft_id '12345'.",
+            str(context.exception),
         )
 
     @mock.patch("requests.get")
-    def test_get_traded_draft_picks_non_200_status_code_raises_exception(self, mock_requests_get):
+    def test_get_traded_draft_picks_non_200_status_code_raises_exception(
+        self, mock_requests_get
+    ):
         mock_dict = {}
         mock_response = MockResponse(mock_dict, 404)
         mock_requests_get.return_value = mock_response
