@@ -17,3 +17,6 @@ class TestDraftAPIClient(unittest.TestCase):
         )
 
         self.assertEqual(mock_list, response)
+        mock_requests_get.assert_called_once_with(
+            "https://api.sleeper.app/v1/user/user_id/drafts/nfl/2020"
+        )
