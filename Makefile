@@ -1,3 +1,5 @@
+PYTEST_ARGS=
+
 .PHONY: deps
 deps:
 	@python -m pip install -r requirements.dev.txt
@@ -15,16 +17,16 @@ fmt-check:
 
 .PHONY: test-all
 test-all:
-	@make test-unit
-	@make test-integration
+	@make test-unit $(PYTEST_ARGS)
+	@make test-integration $(PYTEST_ARGS)
 
 .PHONY: test-unit
 test-unit:
-	@pytest test/unit
+	@pytest test/unit $(PYTEST_ARGS)
 
 .PHONY: test-integration
 test-integration:
-	@pytest test/integration
+	@pytest test/integration $(PYTEST_ARGS)
 
 .PHONY: pkg-build
 pkg-build:
