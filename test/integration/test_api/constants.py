@@ -1,6 +1,6 @@
 # USER A
-TEST_USER_ID_FOR_USER_A = "852776903310966784"
-TEST_DRAFTS_FOR_USER_A = [
+USER_A_USER_ID = "852776903310966784"
+USER_A_DRAFTS = [
     {
         "created": 1693364455045,
         "creators": None,
@@ -173,8 +173,8 @@ TEST_DRAFTS_FOR_USER_A = [
 ]
 
 # LEAGUE A
-TEST_LEAGUE_ID_FOR_LEAGUE_A = "874771854727471104"
-TEST_LEAGUE_OBJECT_FOR_LEAGUE_A = {
+LEAGUE_A_LEAGUE_ID_1 = "874771854727471104"
+LEAGUE_A_LEAGUE_1 = {
     "name": "Kick Picks",
     "status": "complete",
     "metadata": {
@@ -307,7 +307,49 @@ TEST_LEAGUE_OBJECT_FOR_LEAGUE_A = {
     "loser_bracket_id": 913710415374983168,
     "total_rosters": 6,
 }
-TEST_DRAFTS_FOR_LEAGUE_A = [
+LEAGUE_A_DRAFT_1 = {
+    "created": 1662924372208,
+    "creators": ["852776903310966784"],
+    "draft_id": "874771855859945472",
+    "draft_order": {
+        "729138469988884480": 1,
+        "852776903310966784": 6,
+        "861082899649261568": 4,
+        "862555482408194048": 2,
+        "862871829390409728": 5,
+        "869382250104578048": 3,
+    },
+    "last_message_id": "876156180051845120",
+    "last_message_time": 1663254420820,
+    "last_picked": 1663254420543,
+    "league_id": "874771854727471104",
+    "metadata": {"description": "", "name": "Kick Picks", "scoring_type": "ppr"},
+    "season": "2022",
+    "season_type": "regular",
+    "settings": {
+        "alpha_sort": 0,
+        "autopause_enabled": 1,
+        "autopause_end_time": 900,
+        "autopause_start_time": 180,
+        "autostart": 0,
+        "cpu_autopick": 0,
+        "enforce_position_limits": 1,
+        "nomination_timer": 60,
+        "pick_timer": 28800,
+        "player_type": 0,
+        "reversal_round": 0,
+        "rounds": 4,
+        "slots_bn": 1,
+        "slots_k": 3,
+        "teams": 6,
+    },
+    "slot_to_roster_id": {"1": 3, "2": 6, "3": 5, "4": 2, "5": 4, "6": 1},
+    "sport": "nfl",
+    "start_time": 1662927345674,
+    "status": "complete",
+    "type": "snake",
+}
+LEAGUE_A_DRAFTS = [
     {
         "created": 1662924372208,
         "creators": ["852776903310966784"],
@@ -350,3 +392,4 @@ TEST_DRAFTS_FOR_LEAGUE_A = [
         "type": "snake",
     }
 ]
+LEAGUE_A_DRAFT_ID_1 = "874771855859945472"

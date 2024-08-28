@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any, Optional
 
 import requests
 
@@ -11,7 +11,7 @@ def build_route(base_url: str, version: Optional[str], *args) -> str:
         return f"{base_url}/{'/'.join(args)}"
 
 
-def get(url: str) -> Optional[dict | list]:
+def get(url: str) -> Optional[dict[Any, Any] | list[Any]]:
     response = requests.get(url)
     response.raise_for_status()
     return response.json()
