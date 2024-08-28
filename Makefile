@@ -13,6 +13,11 @@ fmt-check:
 	@ruff check
 	@ruff format --check
 
+.PHONY: test-all
+test-all:
+	@make test-unit
+	@make test-integration
+
 .PHONY: test-unit
 test-unit:
 	@pytest test/unit
