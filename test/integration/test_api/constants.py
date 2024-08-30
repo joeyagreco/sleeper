@@ -971,3 +971,46 @@ LEAGUE_A_DRAFTS = [
     }
 ]
 LEAGUE_A_DRAFT_ID_1 = "874771855859945472"
+LEAGUE_A_DRAFT_ID_2 = "1121675041713864705"
+LEAGUE_A_DRAFT_ID_2_TRADED_PICKS = [
+    {
+        "round": 8,
+        "season": "2024",
+        "draft_id": 1121675041713864705,
+        "roster_id": 1,
+        "owner_id": 4,
+        "previous_owner_id": 1,
+    },
+    {
+        "round": 5,
+        "season": "2024",
+        "draft_id": 1121675041713864705,
+        "roster_id": 2,
+        "owner_id": 1,
+        "previous_owner_id": 2,
+    },
+    {
+        "round": 2,
+        "season": "2024",
+        "draft_id": 1121675041713864705,
+        "roster_id": 5,
+        "owner_id": 3,
+        "previous_owner_id": 5,
+    },
+    {
+        "round": 5,
+        "season": "2024",
+        "draft_id": 1121675041713864705,
+        "roster_id": 5,
+        "owner_id": 2,
+        "previous_owner_id": 5,
+    },
+    {
+        "round": 2,
+        "season": "2024",
+        "draft_id": 1121675041713864705,
+        "roster_id": 6,
+        "owner_id": 3,
+        "previous_owner_id": 6,
+    },
+]

@@ -4,12 +4,15 @@ from sleeper.api.draft import (
     get_draft,
     get_drafts_in_league,
     get_player_draft_picks,
+    get_traded_draft_picks,
     get_user_drafts_for_year,
 )
 from sleeper.enum.Sport import Sport
 from test.integration.test_api.constants import (
     LEAGUE_A_DRAFT_1,
     LEAGUE_A_DRAFT_ID_1,
+    LEAGUE_A_DRAFT_ID_2,
+    LEAGUE_A_DRAFT_ID_2_TRADED_PICKS,
     LEAGUE_A_DRAFTS,
     LEAGUE_A_LEAGUE_ID_1,
     USER_A_DRAFT_PICKS_DRAFT_ID_1_2023,
@@ -36,3 +39,7 @@ class TestDraft(unittest.TestCase):
     def test_get_player_draft_picks(self):
         response = get_player_draft_picks(draft_id=LEAGUE_A_DRAFT_ID_1, sport=Sport.NFL)
         self.assertEqual(USER_A_DRAFT_PICKS_DRAFT_ID_1_2023, response)
+
+    def test_get_traded_draft_picks(self):
+        response = get_traded_draft_picks(draft_id=LEAGUE_A_DRAFT_ID_2)
+        self.assertEqual(LEAGUE_A_DRAFT_ID_2_TRADED_PICKS, response)

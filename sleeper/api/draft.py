@@ -4,6 +4,7 @@ from sleeper.api.constants import (
     LEAGUE_ROUTE,
     PICKS_ROUTE,
     SLEEPER_APP_BASE_URL,
+    TRADED_PICKS_ROUTE,
     USER_ROUTE,
     VERSION,
 )
@@ -64,4 +65,18 @@ def get_player_draft_picks(*, draft_id: str, sport: Sport) -> list[dict]:
         raise ValueError(
             f"Could not get PlayerDraftPicks with draft_id '{draft_id}' and sport '{sport.name}'."
         )
+    return response_list
+
+
+def get_traded_draft_picks(*, draft_id: str) -> list[dict]:
+    url = build_route(
+        SLEEPER_APP_BASE_URL,
+        VERSION,
+        DRAFT_ROUTE,
+        draft_id,
+        TRADED_PICKS_ROUTE,
+    )
+    response_list = get(url)
+    if response_list is None:
+        raise ValueError(f"Could not get traded DraftPicks with draft_id '{draft_id}'.")
     return response_list
