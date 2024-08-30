@@ -1,6 +1,6 @@
 # USER A
 USER_A_USER_ID = "852776903310966784"
-USER_A_DRAFTS = [
+USER_A_DRAFTS_2023 = [
     {
         "created": 1693364455045,
         "creators": None,
