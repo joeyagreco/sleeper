@@ -29,3 +29,8 @@ TRENDING_ROUTE = ConfigReader.get("api", "trending_route")
 USER_ROUTE = ConfigReader.get("api", "user_route")
 USERS_ROUTE = ConfigReader.get("api", "users_route")
 WINNERS_BRACKET_ROUTE = ConfigReader.get("api", "winners_bracket_route")
+
+
+# DEFAULTS
+DEFAULT_TRENDING_PLAYERS_LOOKBACK_HOURS = 24
+DEFAULT_TRENDING_PLAYERS_LIMIT = 25
