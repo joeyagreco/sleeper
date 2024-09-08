@@ -19,15 +19,17 @@ def get(url: str) -> Optional[dict | list]:
     return response.json()
 
 
-def add_filters(url: str, *args) -> str:
+def add_filters(url: str, *args: list[tuple[str, any]]) -> str:
     """
     Adds filters to the given url.
     """
-    if len(args) > 0:
-        symbol = "?"
-        for i, arg in enumerate(args):
-            if i > 0:
-                symbol = "&"
-            if arg[0] is not None and arg[1] is not None:
-                url = f"{url}{symbol}{arg[0]}={arg[1]}"
+    symbol = "?"
+    if "?" in url:
+        symbol = "&"
+    for arg in args:
+        if arg[0] is not None and arg[1] is not None:
+            url = f"{url}{symbol}{arg[0]}={arg[1]}"
+        else:
+            raise ValueError("filters not formatted correctly")
+        symbol = "&"
     return url

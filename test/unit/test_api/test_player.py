@@ -30,7 +30,7 @@ class TestPlayer(unittest.TestCase):
 
         self.assertEqual(mock_list, response)
         mock_requests_get.assert_called_once_with(
-            "https://api.sleeper.app/v1/players/nfl/trending/add?lookback_hours=24&limit=25"
+            "https://api.sleeper.app/v1/players/nfl/trending/add"
         )
 
     @unittest.mock.patch("requests.get")

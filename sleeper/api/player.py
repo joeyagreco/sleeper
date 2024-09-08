@@ -1,8 +1,6 @@
 from typing import Optional
 
 from sleeper.api.constants import (
-    DEFAULT_TRENDING_PLAYERS_LIMIT,
-    DEFAULT_TRENDING_PLAYERS_LOOKBACK_HOURS,
     PLAYERS_ROUTE,
     SLEEPER_APP_BASE_URL,
     TRENDING_ROUTE,
@@ -33,10 +31,6 @@ def get_trending_players(
     lookback_hours: Optional[int] = None,
     limit: Optional[int] = None,
 ) -> list[dict]:
-    if lookback_hours is None:
-        lookback_hours = DEFAULT_TRENDING_PLAYERS_LOOKBACK_HOURS
-    if limit is None:
-        limit = DEFAULT_TRENDING_PLAYERS_LIMIT
     url = build_route(
         SLEEPER_APP_BASE_URL,
         VERSION,
@@ -45,7 +39,10 @@ def get_trending_players(
         TRENDING_ROUTE,
         trend_type.name.lower(),
     )
-    url = add_filters(url, ("lookback_hours", lookback_hours), ("limit", limit))
+    if lookback_hours is not None:
+        url = add_filters(url, ("lookback_hours", lookback_hours))
+    if limit is not None:
+        url = add_filters(url, ("limit", limit))
     response_dict = get(url)
     if response_dict is None:
         raise ValueError(f"Could not get PlayerTrends.")
