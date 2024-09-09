@@ -127,4 +127,8 @@ dmypy.json
 
 # all files with "_dnm." in them like foo_dnm.py (dnm = do not merge)
 *_dnm.*
+*_dnc.*
+
+.DS_Store
+
 
