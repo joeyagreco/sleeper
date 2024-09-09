@@ -13,7 +13,15 @@ class TestAvatar(unittest.TestCase):
     with open(os.path.join(_PATH_TO_TEST_DIR, "sleeper.bin"), "rb") as image:
         SLEEPER_AVATAR_BYTES = image.read()
 
-    def test_get_avatar(self):
+    with open(os.path.join(_PATH_TO_TEST_DIR, "sleeper_thumb.bin"), "rb") as image:
+        SLEEPER_THUMBNAIL_AVATAR_BYTES = image.read()
+
+    def test_get_avatar_defaults(self):
         response = get_avatar(avatar_id=USER_B_AVATAR_ID)
 
         self.assertEqual(self.SLEEPER_AVATAR_BYTES, response)
+
+    def test_get_avatar_as_thumbnail(self):
+        response = get_avatar(avatar_id=USER_B_AVATAR_ID, as_thumbnail=True)
+
+        self.assertEqual(self.SLEEPER_THUMBNAIL_AVATAR_BYTES, response)
