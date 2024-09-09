@@ -750,6 +750,33 @@ USER_A_DRAFT_PICKS_DRAFT_ID_1_2023 = [
     },
 ]
 
+# USER B
+USER_B_USER_ID = "589073650351644672"
+USER_B_USERNAME = "sleeper"
+USER_B_USER = {
+    "avatar": "d9a0519df672516d2b6fce037f374456",
+    "cookies": None,
+    "created": None,
+    "currencies": None,
+    "data_updated": None,
+    "deleted": None,
+    "display_name": "Sleeper",
+    "email": None,
+    "is_bot": True,
+    "metadata": None,
+    "notifications": None,
+    "pending": None,
+    "phone": None,
+    "real_name": None,
+    "solicitable": None,
+    "summoner_name": None,
+    "summoner_region": None,
+    "token": None,
+    "user_id": "589073650351644672",
+    "username": "sleeper",
+    "verification": None,
+}
+
 # LEAGUE A
 LEAGUE_A_LEAGUE_ID_1 = "874771854727471104"
 LEAGUE_A_LEAGUE_1 = {
