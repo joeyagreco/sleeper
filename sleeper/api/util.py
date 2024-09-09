@@ -19,6 +19,12 @@ def get(url: str) -> Optional[dict | list]:
     return response.json()
 
 
+def get_content(url: str) -> bytes:
+    response = requests.get(url)
+    response.raise_for_status()
+    return response.content
+
+
 def add_filters(url: str, *args: list[tuple[str, any]]) -> str:
     """
     Adds filters to the given url.
