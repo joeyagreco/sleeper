@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+- Removed all custom modeling
 - Replaced kwargs with optional, named keyword arguments
 
 ## [1.7.3]
@@ -73,33 +74,18 @@ All notable changes to this project will be documented in this file.
 ### Initial Release
 
 [Unreleased]: https://github.com/joeyagreco/sleeper/compare/v1.7.3...HEAD
-
 [1.7.3]: https://github.com/joeyagreco/sleeper/releases/tag/v1.7.3
-
 [1.7.2]: https://github.com/joeyagreco/sleeper/releases/tag/v1.7.2
-
 [1.7.1]: https://github.com/joeyagreco/sleeper/releases/tag/v1.7.1
-
 [1.7.0]: https://github.com/joeyagreco/sleeper/releases/tag/v1.7.0
-
 [1.6.0]: https://github.com/joeyagreco/sleeper/releases/tag/v1.6.0
-
 [1.5.0]: https://github.com/joeyagreco/sleeper/releases/tag/v1.5.0
-
 [1.4.0]: https://github.com/joeyagreco/sleeper/releases/tag/v1.4.0
-
 [1.3.4]: https://github.com/joeyagreco/sleeper/releases/tag/v1.3.4
-
 [1.3.3]: https://github.com/joeyagreco/sleeper/releases/tag/v1.3.3
-
 [1.3.1]: https://github.com/joeyagreco/sleeper/releases/tag/v1.3.1
-
 [1.3.0]: https://github.com/joeyagreco/sleeper/releases/tag/v1.3.0
-
 [1.2.0]: https://github.com/joeyagreco/sleeper/releases/tag/v1.2.0
-
 [1.1.1]: https://github.com/joeyagreco/sleeper/releases/tag/v1.1.1
-
 [1.0.1]: https://github.com/joeyagreco/sleeper/releases/tag/v1.0.1
-
 [1.0.0]: https://github.com/joeyagreco/sleeper/releases/tag/v1.0.0
