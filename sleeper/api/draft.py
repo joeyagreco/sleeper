@@ -22,12 +22,7 @@ def get_user_drafts_for_year(*, user_id: str, sport: Sport, year: str) -> list[d
         sport.name.lower(),
         year,
     )
-    response_list = get(url)
-    if response_list is None:
-        raise ValueError(
-            f"Could not get Drafts for user_id '{user_id}', sport '{sport.name}', and year '{year}'."
-        )
-    return response_list
+    return get(url)
 
 
 def get_drafts_in_league(*, league_id: str) -> list[dict]:
@@ -38,18 +33,12 @@ def get_drafts_in_league(*, league_id: str) -> list[dict]:
         league_id,
         DRAFTS_ROUTE,
     )
-    response_list = get(url)
-    if response_list is None:
-        raise ValueError(f"Could not get Drafts for league_id '{league_id}'.")
-    return response_list
+    return get(url)
 
 
 def get_draft(*, draft_id: str) -> dict:
     url = build_route(SLEEPER_APP_BASE_URL, VERSION, DRAFT_ROUTE, draft_id)
-    response_dict = get(url)
-    if response_dict is None:
-        raise ValueError(f"Could not get Draft with draft_id '{draft_id}'.")
-    return response_dict
+    return get(url)
 
 
 def get_player_draft_picks(*, draft_id: str, sport: Sport) -> list[dict]:
@@ -60,12 +49,7 @@ def get_player_draft_picks(*, draft_id: str, sport: Sport) -> list[dict]:
         draft_id,
         PICKS_ROUTE,
     )
-    response_list = get(url)
-    if response_list is None:
-        raise ValueError(
-            f"Could not get PlayerDraftPicks with draft_id '{draft_id}' and sport '{sport.name}'."
-        )
-    return response_list
+    return get(url)
 
 
 def get_traded_draft_picks(*, draft_id: str) -> list[dict]:
@@ -76,7 +60,4 @@ def get_traded_draft_picks(*, draft_id: str) -> list[dict]:
         draft_id,
         TRADED_PICKS_ROUTE,
     )
-    response_list = get(url)
-    if response_list is None:
-        raise ValueError(f"Could not get traded DraftPicks with draft_id '{draft_id}'.")
-    return response_list
+    return get(url)

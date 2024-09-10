@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 
 from sleeper.api.player import get_all_players, get_trending_players
 from sleeper.enum.Sport import Sport
@@ -7,7 +8,7 @@ from test.unit.helper.helper_classes import MockResponse
 
 
 class TestPlayer(unittest.TestCase):
-    @unittest.mock.patch("requests.get")
+    @patch("requests.get")
     def test_get_all_players(self, mock_requests_get):
         mock_dict = {"foo": {"bar": "baz"}}
         mock_response = MockResponse(mock_dict, 200)
@@ -20,7 +21,7 @@ class TestPlayer(unittest.TestCase):
             "https://api.sleeper.app/v1/players/nfl"
         )
 
-    @unittest.mock.patch("requests.get")
+    @patch("requests.get")
     def test_get_trending_players_with_defaults(self, mock_requests_get):
         mock_list = [{"foo": "bar"}]
         mock_response = MockResponse(mock_list, 200)
@@ -33,7 +34,7 @@ class TestPlayer(unittest.TestCase):
             "https://api.sleeper.app/v1/players/nfl/trending/add"
         )
 
-    @unittest.mock.patch("requests.get")
+    @patch("requests.get")
     def test_get_trending_players_with_optional_params_given(self, mock_requests_get):
         mock_list = [{"foo": "bar"}]
         mock_response = MockResponse(mock_list, 200)

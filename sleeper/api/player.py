@@ -18,10 +18,7 @@ def get_all_players(*, sport: Sport) -> dict[str, dict]:
         PLAYERS_ROUTE,
         sport.name.lower(),
     )
-    response_dict = get(url)
-    if response_dict is None:
-        raise ValueError(f"Could not get Players for sport: '{sport.name}'.")
-    return response_dict
+    return get(url)
 
 
 def get_trending_players(
@@ -43,7 +40,4 @@ def get_trending_players(
         url = add_filters(url, ("lookback_hours", lookback_hours))
     if limit is not None:
         url = add_filters(url, ("limit", limit))
-    response_dict = get(url)
-    if response_dict is None:
-        raise ValueError(f"Could not get PlayerTrends.")
-    return response_dict
+    return get(url)

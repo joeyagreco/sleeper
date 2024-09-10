@@ -1,11 +1,12 @@
 import unittest
+from unittest.mock import patch
 
 from sleeper.api.user import get_user
 from test.unit.helper.helper_classes import MockResponse
 
 
 class TestUser(unittest.TestCase):
-    @unittest.mock.patch("requests.get")
+    @patch("requests.get")
     def test_get_user(self, mock_requests_get):
         mock_dict = {"foo": "bar"}
         mock_response = MockResponse(mock_dict, 200)
