@@ -20,7 +20,7 @@ class TestDraft(unittest.TestCase):
         mock_requests_get.return_value = mock_response
 
         response = get_user_drafts_for_year(
-            user_id="user_id", sport=Sport.NFL, year="2020"
+            user_id="user_id", sport=Sport.NFL, year=2020
         )
 
         self.assertEqual(mock_list, response)

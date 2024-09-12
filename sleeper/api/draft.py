@@ -12,7 +12,7 @@ from sleeper.api.util import build_route, get
 from sleeper.enum.Sport import Sport
 
 
-def get_user_drafts_for_year(*, user_id: str, sport: Sport, year: str) -> list[dict]:
+def get_user_drafts_for_year(*, user_id: str, sport: Sport, year: int) -> list[dict]:
     url = build_route(
         SLEEPER_APP_BASE_URL,
         VERSION,

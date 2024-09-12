@@ -10,7 +10,7 @@ from sleeper.enum import Sport
 if __name__ == "__main__":
     # get all drafts that a user was in for a particular year
     user_drafts = get_user_drafts_for_year(
-        user_id="my_user_id", sport=Sport.NFL, year="2020"
+        user_id="my_user_id", sport=Sport.NFL, year=2020
     )
 
     # get all drafts for a particular league
