@@ -27,5 +27,6 @@ class TestLeague(unittest.TestCase):
         # this response will constantly change, so just assert some general things
         self.assertIsInstance(response, list)
         self.assertEqual(6, len(response))
+        # test
         for item in response:
             self.assertIsInstance(item, dict)
