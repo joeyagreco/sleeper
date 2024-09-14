@@ -21,7 +21,6 @@ class TestLeague(unittest.TestCase):
         )
         self.assertEqual(USER_A_LEAGUES_2022, response)
 
-
     def test_get_rosters(self):
         response = get_rosters(league_id=LEAGUE_A_LEAGUE_ID_1)
         # this response will constantly change, so just assert some general things
