@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 
-from sleeper.api.league import get_league, get_user_leagues_for_year
+from sleeper.api.league import get_league, get_rosters, get_user_leagues_for_year
 from sleeper.enum import Sport
 from test.unit.helper.helper_classes import MockResponse
 
@@ -33,4 +33,20 @@ class TestLeague(unittest.TestCase):
         self.assertEqual(mock_list, response)
         mock_requests_get.assert_called_once_with(
             "https://api.sleeper.app/v1/user/12345/leagues/nfl/2024"
+        )
+
+
+    @patch("requests.get")
+    def test_get_rosters(self, mock_requests_get):
+        mock_list = [{"foo": "bar"}]
+        mock_response = MockResponse(mock_list, 200)
+        mock_requests_get.return_value = mock_response
+
+        response = get_rosters(
+            league_id="12345"
+        )
+
+        self.assertEqual(mock_list, response)
+        mock_requests_get.assert_called_once_with(
+            "https://api.sleeper.app/v1/league/12345/rosters"
         )
