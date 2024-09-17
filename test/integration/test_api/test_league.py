@@ -1,10 +1,17 @@
 import unittest
 
-from sleeper.api.league import get_league, get_rosters, get_user_leagues_for_year
+from sleeper.api.league import (
+    get_league,
+    get_rosters,
+    get_user_leagues_for_year,
+    get_users_in_league,
+)
 from sleeper.enum import Sport
 from test.integration.test_api.constants import (
     LEAGUE_A_LEAGUE_1,
     LEAGUE_A_LEAGUE_ID_1,
+    LEAGUE_B_LEAGUE_ID,
+    LEAGUE_B_USERS,
     USER_A_LEAGUES_2022,
     USER_A_USER_ID,
 )
@@ -28,3 +35,7 @@ class TestLeague(unittest.TestCase):
         self.assertEqual(6, len(response))
         for item in response:
             self.assertIsInstance(item, dict)
+
+    def test_get_users_in_league(self):
+        response = get_users_in_league(league_id=LEAGUE_B_LEAGUE_ID)
+        self.assertEqual(LEAGUE_B_USERS, response)
