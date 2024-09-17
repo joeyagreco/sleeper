@@ -1825,3 +1825,4 @@ LEAGUE_B_WINNERS_BRACKET = [
         "t1_from": {"l": 1},
     },
 ]
+LEAGUE_B_LOSERS_BRACKET = [{"p": 1, "m": 1, "r": 1, "l": 4, "w": 6, "t1": 4, "t2": 6}]
