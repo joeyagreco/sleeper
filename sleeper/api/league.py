@@ -7,6 +7,7 @@ from sleeper.api.constants import (
     USER_ROUTE,
     USERS_ROUTE,
     VERSION,
+    WINNERS_BRACKET_ROUTE,
 )
 from sleeper.api.util import build_route, get
 from sleeper.enum import Sport
@@ -60,5 +61,16 @@ def get_matchups_for_week(*, league_id: str, week: int) -> list[dict]:
         league_id,
         MATCHUPS_ROUTE,
         week,
+    )
+    return get(url)
+
+
+def get_winners_bracket(*, league_id: str) -> list[dict]:
+    url = build_route(
+        SLEEPER_APP_BASE_URL,
+        VERSION,
+        LEAGUE_ROUTE,
+        league_id,
+        WINNERS_BRACKET_ROUTE,
     )
     return get(url)

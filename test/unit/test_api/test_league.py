@@ -7,6 +7,7 @@ from sleeper.api.league import (
     get_rosters,
     get_user_leagues_for_year,
     get_users_in_league,
+    get_winners_bracket,
 )
 from sleeper.enum import Sport
 from test.unit.helper.helper_classes import MockResponse
@@ -78,4 +79,17 @@ class TestLeague(unittest.TestCase):
         self.assertEqual(mock_list, response)
         mock_requests_get.assert_called_once_with(
             "https://api.sleeper.app/v1/league/12345/matchups/1"
+        )
+
+    @patch("requests.get")
+    def test_get_winners_bracket(self, mock_requests_get):
+        mock_list = [{"foo": "bar"}]
+        mock_response = MockResponse(mock_list, 200)
+        mock_requests_get.return_value = mock_response
+
+        response = get_winners_bracket(league_id="12345")
+
+        self.assertEqual(mock_list, response)
+        mock_requests_get.assert_called_once_with(
+            "https://api.sleeper.app/v1/league/12345/winners_bracket"
         )
