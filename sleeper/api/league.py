@@ -1,6 +1,7 @@
 from sleeper.api.constants import (
     LEAGUE_ROUTE,
     LEAGUES_ROUTE,
+    MATCHUPS_ROUTE,
     ROSTERS_ROUTE,
     SLEEPER_APP_BASE_URL,
     USER_ROUTE,
@@ -47,5 +48,17 @@ def get_users_in_league(*, league_id: str) -> list[dict]:
         LEAGUE_ROUTE,
         league_id,
         USERS_ROUTE,
+    )
+    return get(url)
+
+
+def get_matchups_for_week(*, league_id: str, week: int) -> list[dict]:
+    url = build_route(
+        SLEEPER_APP_BASE_URL,
+        VERSION,
+        LEAGUE_ROUTE,
+        league_id,
+        MATCHUPS_ROUTE,
+        week,
     )
     return get(url)
