@@ -6,6 +6,7 @@ from sleeper.api.league import (
     get_rosters,
     get_user_leagues_for_year,
     get_users_in_league,
+    get_winners_bracket,
 )
 from sleeper.enum import Sport
 from test.integration.test_api.constants import (
@@ -14,6 +15,7 @@ from test.integration.test_api.constants import (
     LEAGUE_B_LEAGUE_ID,
     LEAGUE_B_USERS,
     LEAGUE_B_WEEK_1_MATCHUPS,
+    LEAGUE_B_WINNERS_BRACKET,
     USER_A_LEAGUES_2022,
     USER_A_USER_ID,
 )
@@ -45,3 +47,7 @@ class TestLeague(unittest.TestCase):
     def test_get_matchups_for_week(self):
         response = get_matchups_for_week(league_id=LEAGUE_B_LEAGUE_ID, week=1)
         self.assertEqual(LEAGUE_B_WEEK_1_MATCHUPS, response)
+
+    def test_get_winners_bracket(self):
+        response = get_winners_bracket(league_id=LEAGUE_B_LEAGUE_ID)
+        self.assertEqual(LEAGUE_B_WINNERS_BRACKET, response)
