@@ -1,6 +1,7 @@
 from sleeper.api.constants import (
     LEAGUE_ROUTE,
     LEAGUES_ROUTE,
+    LOSERS_BRACKET_ROUTE,
     MATCHUPS_ROUTE,
     ROSTERS_ROUTE,
     SLEEPER_APP_BASE_URL,
@@ -72,5 +73,16 @@ def get_winners_bracket(*, league_id: str) -> list[dict]:
         LEAGUE_ROUTE,
         league_id,
         WINNERS_BRACKET_ROUTE,
+    )
+    return get(url)
+
+
+def get_losers_bracket(*, league_id: str) -> list[dict]:
+    url = build_route(
+        SLEEPER_APP_BASE_URL,
+        VERSION,
+        LEAGUE_ROUTE,
+        league_id,
+        LOSERS_BRACKET_ROUTE,
     )
     return get(url)
