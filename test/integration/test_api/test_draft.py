@@ -14,7 +14,7 @@ from test.integration.test_api.constants import (
     LEAGUE_A_DRAFT_ID_2,
     LEAGUE_A_DRAFT_ID_2_TRADED_PICKS,
     LEAGUE_A_DRAFTS,
-    LEAGUE_A_LEAGUE_ID_1,
+    LEAGUE_A_LEAGUE_ID,
     USER_A_DRAFT_PICKS_DRAFT_ID_1_2023,
     USER_A_DRAFTS_2023,
     USER_A_USER_ID,
@@ -29,7 +29,7 @@ class TestDraft(unittest.TestCase):
         self.assertEqual(USER_A_DRAFTS_2023, response)
 
     def test_get_drafts_in_league(self):
-        response = get_drafts_in_league(league_id=LEAGUE_A_LEAGUE_ID_1)
+        response = get_drafts_in_league(league_id=LEAGUE_A_LEAGUE_ID)
         self.assertEqual(LEAGUE_A_DRAFTS, response)
 
     def test_get_draft(self):

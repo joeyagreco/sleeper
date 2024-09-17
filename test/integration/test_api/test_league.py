@@ -8,8 +8,8 @@ from sleeper.api.league import (
 )
 from sleeper.enum import Sport
 from test.integration.test_api.constants import (
-    LEAGUE_A_LEAGUE_1,
-    LEAGUE_A_LEAGUE_ID_1,
+    LEAGUE_A_LEAGUE,
+    LEAGUE_A_LEAGUE_ID,
     LEAGUE_B_LEAGUE_ID,
     LEAGUE_B_USERS,
     USER_A_LEAGUES_2022,
@@ -19,8 +19,8 @@ from test.integration.test_api.constants import (
 
 class TestLeague(unittest.TestCase):
     def test_get_league(self):
-        response = get_league(league_id=LEAGUE_A_LEAGUE_ID_1)
-        self.assertEqual(LEAGUE_A_LEAGUE_1, response)
+        response = get_league(league_id=LEAGUE_A_LEAGUE_ID)
+        self.assertEqual(LEAGUE_A_LEAGUE, response)
 
     def test_get_user_leagues_for_year(self):
         response = get_user_leagues_for_year(
@@ -29,7 +29,7 @@ class TestLeague(unittest.TestCase):
         self.assertEqual(USER_A_LEAGUES_2022, response)
 
     def test_get_rosters(self):
-        response = get_rosters(league_id=LEAGUE_A_LEAGUE_ID_1)
+        response = get_rosters(league_id=LEAGUE_A_LEAGUE_ID)
         # this response will constantly change, so just assert some general things
         self.assertIsInstance(response, list)
         self.assertEqual(6, len(response))

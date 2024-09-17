@@ -1381,8 +1381,8 @@ USER_B_USER = {
 }
 
 # LEAGUE A
-LEAGUE_A_LEAGUE_ID_1 = "874771854727471104"
-LEAGUE_A_LEAGUE_1 = {
+LEAGUE_A_LEAGUE_ID = "874771854727471104"
+LEAGUE_A_LEAGUE = {
     "name": "Kick Picks",
     "status": "complete",
     "metadata": {
