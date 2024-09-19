@@ -1896,3 +1896,78 @@ LEAGUE_B_WEEK_1_TRANSACTIONS = [
         "waiver_budget": [],
     },
 ]
+
+# LEAGUE C
+LEAGUE_C_LEAGUE_ID = "917112471750574080"
+LEAGUE_C_TRADED_PICKS = [
+    {
+        "round": 2,
+        "season": "2023",
+        "roster_id": 1,
+        "owner_id": 6,
+        "previous_owner_id": 1,
+    },
+    {
+        "round": 4,
+        "season": "2024",
+        "roster_id": 2,
+        "owner_id": 1,
+        "previous_owner_id": 2,
+    },
+    {
+        "round": 2,
+        "season": "2024",
+        "roster_id": 3,
+        "owner_id": 6,
+        "previous_owner_id": 3,
+    },
+    {
+        "round": 1,
+        "season": "2023",
+        "roster_id": 4,
+        "owner_id": 1,
+        "previous_owner_id": 4,
+    },
+    {
+        "round": 10,
+        "season": "2023",
+        "roster_id": 4,
+        "owner_id": 5,
+        "previous_owner_id": 4,
+    },
+    {
+        "round": 6,
+        "season": "2023",
+        "roster_id": 5,
+        "owner_id": 4,
+        "previous_owner_id": 5,
+    },
+    {
+        "round": 8,
+        "season": "2023",
+        "roster_id": 5,
+        "owner_id": 6,
+        "previous_owner_id": 5,
+    },
+    {
+        "round": 8,
+        "season": "2023",
+        "roster_id": 6,
+        "owner_id": 3,
+        "previous_owner_id": 6,
+    },
+    {
+        "round": 3,
+        "season": "2024",
+        "roster_id": 6,
+        "owner_id": 3,
+        "previous_owner_id": 6,
+    },
+    {
+        "round": 5,
+        "season": "2024",
+        "roster_id": 6,
+        "owner_id": 1,
+        "previous_owner_id": 6,
+    },
+]
