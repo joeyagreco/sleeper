@@ -5,6 +5,7 @@ from sleeper.api.league import (
     get_losers_bracket,
     get_matchups_for_week,
     get_rosters,
+    get_transactions,
     get_user_leagues_for_year,
     get_users_in_league,
     get_winners_bracket,
@@ -17,6 +18,7 @@ from test.integration.test_api.constants import (
     LEAGUE_B_LOSERS_BRACKET,
     LEAGUE_B_USERS,
     LEAGUE_B_WEEK_1_MATCHUPS,
+    LEAGUE_B_WEEK_1_TRANSACTIONS,
     LEAGUE_B_WINNERS_BRACKET,
     USER_A_LEAGUES_2022,
     USER_A_USER_ID,
@@ -57,3 +59,7 @@ class TestLeague(unittest.TestCase):
     def test_get_losers_bracket(self):
         response = get_losers_bracket(league_id=LEAGUE_B_LEAGUE_ID)
         self.assertEqual(LEAGUE_B_LOSERS_BRACKET, response)
+
+    def test_get_transactions(self):
+        response = get_transactions(league_id=LEAGUE_B_LEAGUE_ID, week=1)
+        self.assertEqual(LEAGUE_B_WEEK_1_TRANSACTIONS, response)
