@@ -5,6 +5,7 @@ from sleeper.api.constants import (
     MATCHUPS_ROUTE,
     ROSTERS_ROUTE,
     SLEEPER_APP_BASE_URL,
+    TRANSACTIONS_ROUTE,
     USER_ROUTE,
     USERS_ROUTE,
     VERSION,
@@ -84,5 +85,17 @@ def get_losers_bracket(*, league_id: str) -> list[dict]:
         LEAGUE_ROUTE,
         league_id,
         LOSERS_BRACKET_ROUTE,
+    )
+    return get(url)
+
+
+def get_transactions(*, league_id: str, week: int) -> list[dict]:
+    url = build_route(
+        SLEEPER_APP_BASE_URL,
+        VERSION,
+        LEAGUE_ROUTE,
+        league_id,
+        TRANSACTIONS_ROUTE,
+        week,
     )
     return get(url)
