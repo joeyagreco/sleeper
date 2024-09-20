@@ -1,5 +1,5 @@
-from sleeper.api.constants import SLEEPER_APP_BASE_URL, USER_ROUTE, VERSION
-from sleeper.api.util import build_route, get
+from sleeper.api._constants import SLEEPER_APP_BASE_URL, USER_ROUTE, VERSION
+from sleeper.api._utils import build_route, get
 
 
 def get_user(*, user_identifier: str) -> dict:

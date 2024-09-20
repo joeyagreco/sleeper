@@ -8,7 +8,6 @@ from sleeper.api.draft import (
     get_traded_draft_picks,
     get_user_drafts_for_year,
 )
-from sleeper.enum.Sport import Sport
 from test.unit.helper.helper_classes import MockResponse
 
 
@@ -19,9 +18,7 @@ class TestDraft(unittest.TestCase):
         mock_response = MockResponse(mock_list, 200)
         mock_requests_get.return_value = mock_response
 
-        response = get_user_drafts_for_year(
-            user_id="user_id", sport=Sport.NFL, year=2020
-        )
+        response = get_user_drafts_for_year(user_id="user_id", sport="nfl", year=2020)
 
         self.assertEqual(mock_list, response)
         mock_requests_get.assert_called_once_with(
@@ -60,7 +57,7 @@ class TestDraft(unittest.TestCase):
         mock_response = MockResponse(mock_dict, 200)
         mock_requests_get.return_value = mock_response
 
-        response = get_player_draft_picks(draft_id="12345", sport=Sport.NFL)
+        response = get_player_draft_picks(draft_id="12345")
 
         self.assertEqual(mock_dict, response)
         mock_requests_get.assert_called_once_with(

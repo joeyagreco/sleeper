@@ -1,4 +1,4 @@
-from sleeper.api.constants import (
+from sleeper.api._constants import (
     LEAGUE_ROUTE,
     LEAGUES_ROUTE,
     LOSERS_BRACKET_ROUTE,
@@ -13,8 +13,8 @@ from sleeper.api.constants import (
     VERSION,
     WINNERS_BRACKET_ROUTE,
 )
-from sleeper.api.util import build_route, get
-from sleeper.enum import Sport
+from sleeper.api._types import Sport
+from sleeper.api._utils import build_route, get
 
 
 def get_league(*, league_id: str) -> dict:
@@ -29,7 +29,7 @@ def get_user_leagues_for_year(*, user_id: str, sport: Sport, year: int) -> list[
         USER_ROUTE,
         user_id,
         LEAGUES_ROUTE,
-        sport.value.lower(),
+        sport,
         year,
     )
     return get(url)
@@ -115,5 +115,5 @@ def get_traded_picks(*, league_id: str) -> list[dict]:
 
 
 def get_sport_state(sport: Sport) -> dict:
-    url = build_route(SLEEPER_APP_BASE_URL, VERSION, STATE_ROUTE, sport.value.lower())
+    url = build_route(SLEEPER_APP_BASE_URL, VERSION, STATE_ROUTE, sport)
     return get(url)

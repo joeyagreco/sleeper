@@ -13,7 +13,6 @@ from sleeper.api.league import (
     get_users_in_league,
     get_winners_bracket,
 )
-from sleeper.enum import Sport
 from test.unit.helper.helper_classes import MockResponse
 
 
@@ -37,9 +36,7 @@ class TestLeague(unittest.TestCase):
         mock_response = MockResponse(mock_list, 200)
         mock_requests_get.return_value = mock_response
 
-        response = get_user_leagues_for_year(
-            user_id="12345", sport=Sport.NFL, year=2024
-        )
+        response = get_user_leagues_for_year(user_id="12345", sport="nfl", year=2024)
 
         self.assertEqual(mock_list, response)
         mock_requests_get.assert_called_once_with(
@@ -143,7 +140,7 @@ class TestLeague(unittest.TestCase):
         mock_response = MockResponse(mock_dict, 200)
         mock_requests_get.return_value = mock_response
 
-        response = get_sport_state(sport=Sport.NFL)
+        response = get_sport_state(sport="nfl")
 
         self.assertEqual(mock_dict, response)
         mock_requests_get.assert_called_once_with(

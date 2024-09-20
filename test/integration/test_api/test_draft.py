@@ -7,7 +7,6 @@ from sleeper.api.draft import (
     get_traded_draft_picks,
     get_user_drafts_for_year,
 )
-from sleeper.enum.Sport import Sport
 from test.integration.test_api.constants import (
     LEAGUE_A_DRAFT_1,
     LEAGUE_A_DRAFT_ID_1,
@@ -24,7 +23,7 @@ from test.integration.test_api.constants import (
 class TestDraft(unittest.TestCase):
     def test_get_user_drafts_for_year_happy_path(self):
         response = get_user_drafts_for_year(
-            user_id=USER_A_USER_ID, sport=Sport.NFL, year=2023
+            user_id=USER_A_USER_ID, sport="nfl", year=2023
         )
         self.assertEqual(USER_A_DRAFTS_2023, response)
 
@@ -37,7 +36,9 @@ class TestDraft(unittest.TestCase):
         self.assertEqual(LEAGUE_A_DRAFT_1, response)
 
     def test_get_player_draft_picks(self):
-        response = get_player_draft_picks(draft_id=LEAGUE_A_DRAFT_ID_1, sport=Sport.NFL)
+        response = get_player_draft_picks(
+            draft_id=LEAGUE_A_DRAFT_ID_1,
+        )
         self.assertEqual(USER_A_DRAFT_PICKS_DRAFT_ID_1_2023, response)
 
     def test_get_traded_draft_picks(self):

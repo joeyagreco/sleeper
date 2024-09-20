@@ -1,5 +1,5 @@
-from sleeper.api.constants import AVATARS_ROUTE, SLEEPER_CDN_BASE_URL, THUMBS_ROUTE
-from sleeper.api.util import build_route, get_content
+from sleeper.api._constants import AVATARS_ROUTE, SLEEPER_CDN_BASE_URL, THUMBS_ROUTE
+from sleeper.api._utils import build_route, get_content
 
 
 def get_avatar(*, avatar_id: str, as_thumbnail: bool = False) -> bytes:

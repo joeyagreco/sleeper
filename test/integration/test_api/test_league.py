@@ -12,7 +12,6 @@ from sleeper.api.league import (
     get_users_in_league,
     get_winners_bracket,
 )
-from sleeper.enum import Sport
 from test.integration.test_api.constants import (
     LEAGUE_A_LEAGUE,
     LEAGUE_A_LEAGUE_ID,
@@ -36,7 +35,7 @@ class TestLeague(unittest.TestCase):
 
     def test_get_user_leagues_for_year(self):
         response = get_user_leagues_for_year(
-            user_id=USER_A_USER_ID, sport=Sport.NFL, year=2022
+            user_id=USER_A_USER_ID, sport="nfl", year=2022
         )
         self.assertEqual(USER_A_LEAGUES_2022, response)
 
@@ -73,7 +72,7 @@ class TestLeague(unittest.TestCase):
         self.assertEqual(LEAGUE_C_TRADED_PICKS, response)
 
     def test_get_sport_state(self):
-        response = get_sport_state(sport=Sport.NFL)
+        response = get_sport_state(sport="nfl")
         # this response will constantly change, so just assert some general things
         self.assertIsInstance(response, dict)
         for k in response.keys():
