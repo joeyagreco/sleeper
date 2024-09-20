@@ -5,6 +5,7 @@ from sleeper.api.constants import (
     MATCHUPS_ROUTE,
     ROSTERS_ROUTE,
     SLEEPER_APP_BASE_URL,
+    STATE_ROUTE,
     TRADED_PICKS_ROUTE,
     TRANSACTIONS_ROUTE,
     USER_ROUTE,
@@ -110,4 +111,9 @@ def get_traded_picks(*, league_id: str) -> list[dict]:
         league_id,
         TRADED_PICKS_ROUTE,
     )
+    return get(url)
+
+
+def get_sport_state(sport: Sport) -> dict:
+    url = build_route(SLEEPER_APP_BASE_URL, VERSION, STATE_ROUTE, sport.value.lower())
     return get(url)

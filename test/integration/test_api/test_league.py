@@ -5,6 +5,7 @@ from sleeper.api.league import (
     get_losers_bracket,
     get_matchups_for_week,
     get_rosters,
+    get_sport_state,
     get_traded_picks,
     get_transactions,
     get_user_leagues_for_year,
@@ -70,3 +71,10 @@ class TestLeague(unittest.TestCase):
     def test_get_traded_picks(self):
         response = get_traded_picks(league_id=LEAGUE_C_LEAGUE_ID)
         self.assertEqual(LEAGUE_C_TRADED_PICKS, response)
+
+    def test_get_sport_state(self):
+        response = get_sport_state(sport=Sport.NFL)
+        # this response will constantly change, so just assert some general things
+        self.assertIsInstance(response, dict)
+        for k in response.keys():
+            self.assertIsInstance(k, str)
