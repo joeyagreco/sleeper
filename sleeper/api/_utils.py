@@ -1,16 +1,17 @@
-from typing import Any, Optional
+from typing import Any
 
 import requests
 
 # TODO: add tests for these
 
 
-def build_route(base_url: str, version: Optional[str], *args) -> str:
-    args = (str(arg).replace("/", "") for arg in args)
-    if version is not None:
-        return f"{base_url}/{version}/{'/'.join(args)}"
-    else:
-        return f"{base_url}/{'/'.join(args)}"
+def build_route(base_url: str, *paths: str | int) -> str:
+    if base_url.endswith("/"):
+        base_url = base_url[:-1]
+
+    paths = tuple(str(p).strip("/") for p in paths)
+    url = f"{base_url}/{'/'.join(paths)}"
+    return url.strip("/")
 
 
 def get(url: str) -> Any:
