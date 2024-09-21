@@ -11,13 +11,14 @@ from sleeper.api._utils import add_filters, build_route, get
 
 
 def get_all_players(*, sport: Sport) -> dict[str, dict]:
-    url = build_route(
-        SLEEPER_APP_BASE_URL,
-        VERSION,
-        PLAYERS_ROUTE,
-        sport,
+    return get(
+        build_route(
+            SLEEPER_APP_BASE_URL,
+            VERSION,
+            PLAYERS_ROUTE,
+            sport,
+        )
     )
-    return get(url)
 
 
 def get_trending_players(
