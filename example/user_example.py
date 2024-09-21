@@ -1,9 +1,8 @@
-from sleeper.api import UserAPIClient
-from sleeper.model import User
+from sleeper.api.user import get_user
 
 if __name__ == "__main__":
     # get a user by username
-    user_1: User = UserAPIClient.get_user(username="my_username")
+    user_1 = get_user(identifier="my_username")
 
     # get a user by ID
-    user_2: User = UserAPIClient.get_user(user_id="my_user_id")
+    user_2 = get_user(identifier="my_user_id")

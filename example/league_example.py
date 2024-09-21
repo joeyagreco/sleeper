@@ -1,5 +1,15 @@
-from sleeper.api.league import get_league, get_rosters, get_user_leagues_for_year
-from sleeper.enum import Sport
+from sleeper.api.league import (
+    get_league,
+    get_losers_bracket,
+    get_matchups_for_week,
+    get_rosters,
+    get_sport_state,
+    get_traded_picks,
+    get_transactions,
+    get_user_leagues_for_year,
+    get_users_in_league,
+    get_winners_bracket,
+)
 
 if __name__ == "__main__":
     # get a league by its ID
@@ -7,7 +17,7 @@ if __name__ == "__main__":
 
     # get all leagues for a user by its ID in a particular year
     user_leagues = get_user_leagues_for_year(
-        user_id="my_user_id", sport=Sport.NFL, year="2020"
+        user_id="my_user_id", sport="nfl", year=2020
     )
 
     # get all rosters in a particular league
@@ -32,4 +42,4 @@ if __name__ == "__main__":
     traded_picks = get_traded_picks(league_id="my_league_id")
 
     # get the state of a particular sport
-    nfl_state = get_sport_state(sport=Sport.NFL)
+    nfl_state = get_sport_state(sport="nfl")
