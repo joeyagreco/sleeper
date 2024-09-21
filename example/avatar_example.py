@@ -1,12 +1,18 @@
-from sleeper.api import AvatarAPIClient
+from sleeper.api import get_avatar
 
 if __name__ == "__main__":
-    # get avatar by ID and save locally
-    AvatarAPIClient.get_avatar(
-        avatar_id="my_avatar_id", save_to_path="C:\\Desktop\\avatar\\my_avatar.png"
-    )
+    # get avatar by ID
+    avatar_bytes = get_avatar(avatar_id="my_avatar_id")
+
+    # save locally
+    with open(
+        "my_avatar.png",
+        "wb",
+    ) as file:
+        file.write(avatar_bytes)
 
     # can pass in the "thumbnail" parameter to get a smaller-sized avatar
-    AvatarAPIClient.get_avatar(
-        avatar_id="my_avatar_id", save_to_path="C:\\Desktop\\avatar\\my_avatar.png", thumbnail=True
+    get_avatar(
+        avatar_id="my_avatar_id",
+        as_thumbnail=True,
     )

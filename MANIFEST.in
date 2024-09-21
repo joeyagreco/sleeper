@@ -1,2 +1,1 @@
-include sleeper/app.properties
 include requirements.txt

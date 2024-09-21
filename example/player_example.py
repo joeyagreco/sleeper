@@ -1,17 +1,11 @@
-from sleeper.api import PlayerAPIClient
-from sleeper.enum import Sport, TrendType
-from sleeper.model import Player, PlayerTrend
+from sleeper.api import get_all_players, get_trending_players
 
 if __name__ == "__main__":
-    # get all players in a particular sport
-    nfl_players: dict[str, Player] = PlayerAPIClient.get_all_players(sport=Sport.NFL)
+    # get all players in a sport
+    nfl_players = get_all_players(sport="nfl")
 
-    # get all trending players that were added for a particular sport
-    nfl_added_trending_players: list[PlayerTrend] = PlayerAPIClient.get_trending_players(
-        sport=Sport.NFL, trend_type=TrendType.ADD
-    )
+    # get players that are trending up in a sport
+    nfl_trending_up_players = get_trending_players(sport="nfl", trend_type="add")
 
-    # get all trending players that were dropped for a particular sport
-    nfl_dropped_trending_players: list[PlayerTrend] = PlayerAPIClient.get_trending_players(
-        sport=Sport.NFL, trend_type=TrendType.DROP
-    )
+    # get players that are trending down in a sport
+    nfl_trending_down_players = get_trending_players(sport="nfl", trend_type="drop")

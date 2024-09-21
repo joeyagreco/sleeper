@@ -1,5 +1,5 @@
-from .AvatarAPIClient import AvatarAPIClient
-from .DraftAPIClient import DraftAPIClient
-from .LeagueAPIClient import LeagueAPIClient
-from .PlayerAPIClient import PlayerAPIClient
-from .UserAPIClient import UserAPIClient
+from sleeper.api.avatar import *  # noqa
+from sleeper.api.draft import *  # noqa
+from sleeper.api.league import *  # noqa
+from sleeper.api.player import *  # noqa
+from sleeper.api.user import *  # noqa
