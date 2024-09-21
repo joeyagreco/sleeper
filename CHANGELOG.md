@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+- N/A
+
+## [2.0.0]
+
 - Removed all custom modeling
 - Removed all enums
 - All functions are available via import from `sleeper.api`
@@ -76,7 +80,8 @@ All notable changes to this project will be documented in this file.
 
 ### Initial Release
 
-[Unreleased]: https://github.com/joeyagreco/sleeper/compare/v1.7.3...HEAD
+[Unreleased]: https://github.com/joeyagreco/sleeper/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/joeyagreco/sleeper/releases/tag/v2.0.0
 [1.7.3]: https://github.com/joeyagreco/sleeper/releases/tag/v1.7.3
 [1.7.2]: https://github.com/joeyagreco/sleeper/releases/tag/v1.7.2
 [1.7.1]: https://github.com/joeyagreco/sleeper/releases/tag/v1.7.1
