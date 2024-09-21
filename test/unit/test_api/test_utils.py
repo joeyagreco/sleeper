@@ -27,3 +27,10 @@ class TestUtils(unittest.TestCase):
     def test_add_filters_filters_given(self):
         resp = add_filters("https://foo", ("bar", "baz"), ("qux", 1))
         self.assertEqual("https://foo?bar=baz&qux=1", resp)
+
+    def test_add_filters_url_already_has_filters(self):
+        resp = add_filters(
+            "https://foo?bar=baz",
+            ("qux", 1),
+        )
+        self.assertEqual("https://foo?bar=baz&qux=1", resp)
