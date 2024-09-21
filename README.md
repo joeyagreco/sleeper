@@ -38,7 +38,9 @@ Please make sure to update tests as appropriate.
 _Run these commands from the root folder_
 - Install Dependencies: `make deps`
 - Format Code: `make fmt`
-- Run Unit Tests: `make test`
+- Run Unit Tests: `make test-unit`
+- Run Integration Tests: `make test-integration`
+- Run All Tests: `make test-all`
 
 ## License
 
