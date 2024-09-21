@@ -35,9 +35,9 @@ pkg-build:
 	@python setup.py sdist bdist_wheel
 
 .PHONY: pkg-test
-pkg-test:
-	@python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+pkg-test: pkg-build
+	@python -m twine upload --repository testpypi dist/*
 
 .PHONY: pkg-prod
-pkg-prod:
+pkg-prod: pkg-build
 	@python -m twine upload dist/*
