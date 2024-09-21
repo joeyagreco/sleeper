@@ -5,7 +5,10 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 - Removed all custom modeling
+- Removed all enums
+- All functions are available via import from `sleeper.api`
 - Replaced kwargs with optional, named keyword arguments
+- Updated package requirements
 
 ## [1.7.3]
 
