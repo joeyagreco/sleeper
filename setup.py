@@ -24,7 +24,7 @@ setuptools.setup(
     license="MIT",
     url="https://github.com/joeyagreco/sleeper",
     include_package_data=True,
-    packages=setuptools.find_packages(exclude=("test", "docs")),
+    packages=setuptools.find_packages(exclude=("test",)),
     install_requires=required_packages,
     python_requires=f">={minimum_python_version_required}",
     keywords="nfl football sleeper sleeper-api sleeper-fantasy-football fantasy-football wrapper wrapper-api",
