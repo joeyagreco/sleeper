@@ -10,9 +10,9 @@ from test.integration.test_api.constants import (
 
 class TestUser(unittest.TestCase):
     def test_get_user_with_user_id_as_identifier(self):
-        response = get_user(user_identifier=USER_B_USER_ID)
+        response = get_user(identifier=USER_B_USER_ID)
         self.assertEqual(response, USER_B_USER)
 
     def test_get_user_with_username_as_identifier(self):
-        response = get_user(user_identifier=USER_B_USERNAME)
+        response = get_user(identifier=USER_B_USERNAME)
         self.assertEqual(response, USER_B_USER)
