@@ -1,6 +1,6 @@
 import unittest
 
-from sleeper.api.league import (
+from sleeper.api import (
     get_league,
     get_losers_bracket,
     get_matchups_for_week,

@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 
-from sleeper.api.player import get_all_players, get_trending_players
+from sleeper.api import get_all_players, get_trending_players
 from test.unit.helper.helper_classes import MockResponse
 
 

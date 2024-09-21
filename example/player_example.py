@@ -1,4 +1,4 @@
-from sleeper.api.player import get_all_players, get_trending_players
+from sleeper.api import get_all_players, get_trending_players
 
 if __name__ == "__main__":
     # get all players in a particular sport

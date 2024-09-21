@@ -1,4 +1,4 @@
-from sleeper.api.user import get_user
+from sleeper.api import get_user
 
 if __name__ == "__main__":
     # get a user by username

@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 
-from sleeper.api.user import get_user
+from sleeper.api import get_user
 from test.unit.helper.helper_classes import MockResponse
 
 

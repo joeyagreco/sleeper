@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from sleeper.api.avatar import get_avatar
+from sleeper.api import get_avatar
 from test.integration.test_api.constants import USER_B_AVATAR_ID
 
 

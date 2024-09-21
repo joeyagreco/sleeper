@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 
-from sleeper.api.avatar import get_avatar
+from sleeper.api import get_avatar
 from test.unit.helper.helper_classes import MockResponse
 
 

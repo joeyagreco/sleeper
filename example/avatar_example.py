@@ -1,4 +1,4 @@
-from sleeper.api.avatar import get_avatar
+from sleeper.api import get_avatar
 
 if __name__ == "__main__":
     # get avatar by ID

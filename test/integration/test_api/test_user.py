@@ -1,6 +1,6 @@
 import unittest
 
-from sleeper.api.user import get_user
+from sleeper.api import get_user
 from test.integration.test_api.constants import (
     USER_B_USER,
     USER_B_USER_ID,

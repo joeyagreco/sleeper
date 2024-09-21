@@ -1,6 +1,6 @@
 import unittest
 
-from sleeper.api.player import get_all_players, get_trending_players
+from sleeper.api import get_all_players, get_trending_players
 
 
 class TestPlayer(unittest.TestCase):
