@@ -15,7 +15,7 @@ if __name__ == "__main__":
     # get a league by its ID
     league = get_league(league_id="my_league_id")
 
-    # get all leagues for a user by its ID in a  year
+    # get all leagues for a user by its ID in a year
     user_leagues = get_user_leagues_for_year(
         user_id="my_user_id", sport="nfl", year=2023
     )
