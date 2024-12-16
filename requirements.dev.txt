@@ -1,4 +1,4 @@
 pytest==8.3.3
 twine==5.1.1
 wheel==0.44.0
-ruff~=0.6.7
+ruff~=0.8.3
